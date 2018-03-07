@@ -1,10 +1,10 @@
 echo OtterOS Build Script Started
 
 echo Assembling boot.s
-nasm -f elf dev/src/boot.s -o boot.o
+nasm -felf32 dev/src/boot.asm -o boot.o
 
 echo Compiling C++ file kernel.cc
-g++ -c dev/src/kernel.cc -o kernel.o -ffreestandinng -fno-exceptions -fno-rtti
+g++ -c dev/src/kernel.cc -o kernel.o -ffreestanding -fno-exceptions -fno-rtti
 
 echo Linking
 gcc -T linker.ld -o otterOS.bin -ffreestanding -nostdlib -nodefaultlibs boot.o kernel.o -lgcc
