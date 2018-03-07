@@ -1,10 +1,12 @@
 echo OtterOS Build Script Started
 
 echo Assembling boot.s
-nasm -felf32 dev/src/boot.asm -o boot.o
+nasm -felf32 dev/src/boot.asm -o dev/bin/boot.o
 
 echo Compiling C++ file kernel.cc
-g++ -c dev/src/kernel.cc -o kernel.o -ffreestanding -fno-exceptions -fno-rtti
+g++ -c dev/src/kernel.cc -o dev/bin/kernel.o -ffreestanding -fno-exceptions -fno-rtti
+
+cd dev/bin/
 
 echo Linking
 gcc -T linker.ld -o otterOS.bin -ffreestanding -nostdlib -nodefaultlibs boot.o kernel.o -lgcc
@@ -16,9 +18,9 @@ else
 fi
 
 echo Generating ISO file
-mkdir -p bin/isodir/boot/grub
-mv otterOS.bin bin/isodir/boot/otterOS.bin
-mv grub.cfg bin/isodir/boot/grub/grub.cfg
-grub-mkrescue -o otterOS.iso bin/isodir
+mkdir -p isodir/boot/grub
+cp otterOS.bin isodir/boot/otterOS.bin
+cp grub.cfg isodir/boot/grub/grub.cfg
+grub-mkrescue -o otterOS.iso isodir
 
 echo Script Finished
