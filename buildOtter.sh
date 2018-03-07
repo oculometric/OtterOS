@@ -9,7 +9,7 @@ g++ -c dev/src/kernel.cc -o dev/bin/kernel.o -ffreestanding -fno-exceptions -fno
 cd dev/bin/
 
 echo Linking
-gcc -T linker.ld -o otterOS.bin -ffreestanding -nostdlib -nodefaultlibs boot.o kernel.o -lgcc
+gcc -T ../src/linker.ld -o otterOS.bin -ffreestanding -nostdlib -nodefaultlibs boot.o kernel.o -lgcc
 
 if grub-file --is-x86-multiboot otterOS.bin; then
   echo Confirmed otterOS.bin is multiboot
