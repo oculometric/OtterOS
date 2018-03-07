@@ -89,7 +89,7 @@ void tWriteString(const char* data) {
 	tPutChar(data[i]);
 }
 
-void kernel_main() {
+void kernelMain() {
 	tInitialize();
 	tWriteString("Well... this is OtterOS so far!");
 	for(;;);
