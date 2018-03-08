@@ -1,4 +1,4 @@
-														List of COSH Commands:
+						List of COSH Commands:
 cosh		: Shows version and source information about the shell
 list 		: Lists files in the working directory
 dirc		: Change the current working directory
