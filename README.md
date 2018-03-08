@@ -14,4 +14,4 @@ OtterOS is an operating system written in C++. It was intended to make the most 
   * Portability of content from other platforms
 
 ## Authors
-Copyright © 2018 SketchesJavax, tcassar, and ~~Jesus~~ DaBatchMan.
+Copyright © 2018 SketchesJavax, tcassar, and DaBatchMan.
