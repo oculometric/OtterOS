@@ -23,7 +23,7 @@ done
 cd dev/bin/
 
 echo Linking
-i686-elf-gcc -T ../src/linker.ld -o bin/otterOS.bin -ffreestanding -O2 -nostdlib -nodefaultlibs o/boot.o o/kernel.o -lgcc
+i686-elf-gcc -T ../src/linker.ld -o bin/otterOS.bin -ffreestanding -O2 -nostdlib -nodefaultlibs o/*.o -lgcc
 
 if grub-file --is-x86-multiboot bin/otterOS.bin; then
   echo Confirmed otterOS.bin is multiboot
