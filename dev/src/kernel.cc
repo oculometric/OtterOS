@@ -13,11 +13,9 @@ static void putpixel(unsigned char* screen, int x,int y, int color) {
 
 //extern void setPixel(void);
 
-void setPixel (int x, int y) {
-	int i = x;
-	i=y;
+void setPixel () {
 	asm ("mov %ah, 0x0C");
-	asm ("mov %al, 0x10");
+	asm ("mov %al, 0x13");
 	asm ("int $0x10");
 
 	asm ("mov %ah, 0x0C");
@@ -35,5 +33,5 @@ extern "C" void kernel_main(void) {
 	println("");
 	char block = '█';
 	tFillLineWithChar (block);
-	//setPixel(0,0);
+	//setPixel();
 }
