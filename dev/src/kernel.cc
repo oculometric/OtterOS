@@ -44,53 +44,6 @@ size_t strlen(const char* str) {
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 24;
 
-size_t terminal_row;
-size_t terminal_column;
-uint8_t terminal_color;
-uint16_t* terminal_buffer;
-
-void tInitialize() {
-	terminal_row = 0;
-	terminal_column = 0;
-	terminal_color = make_color(COLOR_LIGHT_GREY, COLOR_BLACK);
-	terminal_buffer = (uint16_t*) 0xB8000;
-	for ( size_t y = 0; y < VGA_HEIGHT; y++ )
-	{
-		for ( size_t x = 0; x < VGA_WIDTH; x++ )
-		{
-			const size_t index = y * VGA_WIDTH + x;
-			terminal_buffer[index] = make_vgaentry(' ', terminal_color);
-		}
-	}
-}
-
-void tSetCol(uint8_t color) {
-	terminal_color = color;
-}
-
-void tPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
-	const size_t index = y * VGA_WIDTH + x;
-	terminal_buffer[index] = make_vgaentry(c, color);
-}
-
-void tPutChar(char c) {
-	tPutEntryAt(c, terminal_color, terminal_column, terminal_row);
-	if ( ++terminal_column == VGA_WIDTH )
-	{
-		terminal_column = 0;
-		if ( ++terminal_row == VGA_HEIGHT )
-		{
-			terminal_row = 0;
-		}
-	}
-}
-
-void tWriteString(const char* data) {
-	size_t datalen = strlen(data);
-	for ( size_t i = 0; i < datalen; i++ )
-	tPutChar(data[i]);
-}
-
 /* only valid for 800x600x32bpp */
 static void putpixel(unsigned char* screen, int x,int y, int color) {
     unsigned where = x*4 + y*3200;
