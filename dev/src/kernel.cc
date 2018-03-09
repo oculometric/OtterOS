@@ -110,7 +110,7 @@ void setPixel (int x, int y) {
 		asm ("mov %bh, 0");
 		asm ("mov %dx, 5");
 		asm ("mov %cx, 5");
-		asm ("mov %al, 0100");
+		asm ("mov %al, 0x04");
 		asm ("int $0x10");
 }
 
