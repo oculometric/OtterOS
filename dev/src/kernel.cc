@@ -22,6 +22,8 @@ enum vga_color {
 	COLOR_WHITE = 15,
 };
 
+
+
 uint8_t make_color(enum vga_color fg, enum vga_color bg) {
 	return fg | bg << 4;
 }
@@ -89,7 +91,18 @@ void tWriteString(const char* data) {
 	tPutChar(data[i]);
 }
 
+/* only valid for 800x600x32bpp */
+static void putpixel(unsigned char* screen, int x,int y, int color) {
+    unsigned where = x*4 + y*3200;
+    screen[where] = color & 255;              // BLUE
+    screen[where + 1] = (color >> 8) & 255;   // GREEN
+    screen[where + 2] = (color >> 16) & 255;  // RED
+}
+
+extern void setPixel(void);
+
 extern "C" void kernel_main(void) {
 	tInitialize();
 	tWriteString("Well... this is OtterOS so far!");
+	setPixel();
 }

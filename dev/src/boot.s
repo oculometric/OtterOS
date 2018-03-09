@@ -84,6 +84,10 @@ _start:
 	stack since (pushed 0 bytes so far) and the alignment is thus
 	preserved and the call is well defined.
 	*/
+
+
+
+
 	call kernel_main
 
 	/*
@@ -106,4 +110,5 @@ _start:
 Set the size of the _start symbol to the current location '.' minus its start.
 This is useful when debugging or when you implement call tracing.
 */
+
 .size _start, . - _start
