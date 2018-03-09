@@ -117,5 +117,6 @@ void setPixel (int x, int y) {
 extern "C" void kernel_main(void) {
 	tInitialize();
 	tWriteString("Well... this is OtterOS so far!");
-	//setPixel(0,0);
+   tWriteString("Warning! This OS melts PHP programmers.");
+	setPixel(0,0);
 }
