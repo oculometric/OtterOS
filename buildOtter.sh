@@ -10,13 +10,14 @@ i686-elf-as dev/src/boot.s -o dev/bin/o/boot.o
 
 #echo Compiling C++ file kernel.cc
 #i686-elf-g++ -c dev/src/kernel.cc -o dev/bin/o/kernel.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
-
+oPaths=“”
 echo Searching for source files
 for file in dev/src/*.cc
 do
  echo Compiling C++ source file $file
  name=`echo "$file" | cut -d'.' -f1`
  i686-elf-g++ -c dev/src/$file -o dev/bin/o/$name.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+ oPaths=o/$file.o $oPaths
 done
 
 cd dev/bin/
