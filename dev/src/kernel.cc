@@ -33,11 +33,7 @@ extern "C" void kernel_main(void) {
 	println("Well... this is OtterOS so far!");
 	println("Warning! This OS melts PHP programmers.");
 	println("");
-	char block = '0x2588';
-	tPutChar (block);
-	tPutChar (block);
-	tPutChar (block);
-	tPutChar (block);
-	tPutChar (block);
+	char block = '█';
+	tFillLineWithChar (block);
 	//setPixel(0,0);
 }

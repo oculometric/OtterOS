@@ -85,6 +85,13 @@ void tPutChar(char c) {
 	}
 }
 
+void tFillLineWithChar (char c) {
+	terminal_column = 0;
+	for (int i=0;i<VGA_WIDTH;i++) {
+		tPutChar (c);
+	}
+}
+
 void tWriteString(const char* data) {
 	size_t datalen = strlen(data);
 	for ( size_t i = 0; i < datalen; i++ )
