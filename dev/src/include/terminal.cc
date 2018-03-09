@@ -90,3 +90,9 @@ void tWriteString(const char* data) {
 	for ( size_t i = 0; i < datalen; i++ )
 	tPutChar(data[i]);
 }
+
+void println (const char* data) {
+	tWriteString (data);
+	terminal_column = 0;
+	terminal_row++;
+}
