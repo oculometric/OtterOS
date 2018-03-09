@@ -16,7 +16,7 @@ for file in dev/src/*.cc
 do
  echo Compiling C++ source file $file
  name=`echo "$file" | cut -d'.' -f1`
- i686-elf-g++ -c dev/src/$file -o dev/bin/o/$name.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+ i686-elf-g++ -c $file -o ../bin/o/$name.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
  oPaths=o/$file.o $oPaths
 done
 
