@@ -99,10 +99,23 @@ static void putpixel(unsigned char* screen, int x,int y, int color) {
     screen[where + 2] = (color >> 16) & 255;  // RED
 }
 
-extern void setPixel(void);
+//extern void setPixel(void);
+
+void setPixel (int x, int y) {
+		asm ("mov %ah, 0x0C");
+		asm ("mov %al, 0x13");
+		asm ("int $0x10");
+
+		asm ("mov %ah, 0x0C");
+		asm ("mov %bh, 0");
+		asm ("mov %dx, 5");
+		asm ("mov %cx, 5");
+		asm ("mov %al, 0100");
+		asm ("int $0x10");
+}
 
 extern "C" void kernel_main(void) {
 	tInitialize();
 	tWriteString("Well... this is OtterOS so far!");
-	setPixel();
+	//setPixel(0,0);
 }
