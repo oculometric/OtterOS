@@ -71,17 +71,28 @@ void tSetCol(uint8_t color) {
 void tPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
 	const size_t index = y * VGA_WIDTH + x;
 	terminal_buffer[index] = make_vgaentry(c, color);
+
 }
 
-static inline void updateTextPointer () {
-	asm ("mov %%ah, 2       \n\t"
-			 "mov %%dh, %0      \n\t"
-			 "mov %%dl, %1      \n\t"
-			 "mov %%bh, 0       \n\t"
-			 "int $0x10"
-			:
-			: "a"( (char)terminal_row), "b"( (char)terminal_column));
-}
+// static inline void updateTextPointer () {
+// 	asm ("mov %%ah, 2       \n\t"
+// 			 "mov %%dh, 0      \n\t"
+// 			 "mov %%dl, %0      \n\t"
+// 			 "mov %%bh, %1       \n\t"
+// 			 "int $0x10"
+// 			:
+// 			: "a"( (char)terminal_row), "b"( (char)terminal_column));
+// }
+
+void updateCursorLocation() {
+        unsigned short cursorLoc = (terminal_row*VGA_WIDTH)+terminal_column;
+         // cursor LOW port to vga INDEX register
+        outb(0x3D4, 0x0F);
+        outb(0x3D5, (unsigned char)(cursorLoc));
+        // cursor HIGH port to vga INDEX register
+        outb(0x3D4, 0x0E);
+        outb(0x3D5, (unsigned char)((cursorLoc>>8)));
+    }
 
 void tPutChar(char c) {
 	tPutEntryAt(c, terminal_color, terminal_column, terminal_row);
@@ -93,7 +104,7 @@ void tPutChar(char c) {
 			terminal_row = 0;
 		}
 	}
-	//updateTextPointer();
+	updateCursorLocation();
 }
 
 void tDeleteChar () {
@@ -101,7 +112,7 @@ void tDeleteChar () {
 		terminal_column--;
 	}
 	tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
-	//updateTextPointer ();
+	updateCursorLocation();
 }
 
 void tFillLineWithChar (char c) {
@@ -121,4 +132,10 @@ void println (const char* data) {
 	tWriteString (data);
 	terminal_column = 0;
 	terminal_row++;
+	updateCursorLocation();
+}
+
+void print (const char* data) {
+	tWriteString (data);
+	updateCursorLocation();
 }

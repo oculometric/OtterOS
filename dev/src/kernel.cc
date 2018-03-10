@@ -1,6 +1,7 @@
 #include <stddef.h> //we can use it: it doesnt use any platform-related api functions
 #include <stdint.h> //include it to get int16_t and some integer types
 #include <stdbool.h>
+#include "include/utils.cc"
 #include "include/terminal.cc"
 #include "include/kbdus.h"
 
@@ -9,18 +10,6 @@
 
 #define ICW1 0x11
 #define ICW4 0x01
-
-static inline uint8_t inb (uint16_t port) {
-    uint8_t ret;
-    asm volatile ( "inb %1, %0"
-                   : "=a"(ret)
-                   : "Nd"(port) );
-    return ret;
-}
-
-void outb( unsigned short port, unsigned char val ) {
-   asm volatile("outb %0, %1" : : "a"(val), "Nd"(port) );
-}
 
 void init_pics(int pic1, int pic2)
 {
@@ -86,10 +75,10 @@ extern "C" void kernel_main(void) {
 					println("");
 				} else if (ch == '\b') {
 					tDeleteChar();
-				} else if (ch == 'u') {
-					updateTextPointer();
-				} else if (ch == 't') {
-					char i = (char)terminal_row;
+				} else if (ch == 0x6B) {
+					tDeleteChar();
+				} else if (ch == SHIFT) {
+					print("We are shifting today!");
 				} else {
 					tPutChar(ch);
 				}

@@ -3,7 +3,7 @@ echo OtterOS Build Script Started
 typeset -i buildNum=$(cat logs/buildcounter)
 echo $(($buildNum+1)) > logs/buildcounter
 DATE=`date +%d-%m-%Y`
-fileName="."$buildNum
+fileName=$buildNum
 
 echo Assembling boot.s
 i686-elf-as dev/src/boot.s -o dev/bin/o/boot.o
