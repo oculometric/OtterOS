@@ -26,7 +26,7 @@ fi
 # done
 
 echo Compiling C++ source file dev/src/kernel.cc
-i686-elf-g++ -c dev/src/kernel.cc -o dev/bin/o/kernel.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+i686-elf-g++ -c dev/src/kernel.cc -o dev/bin/o/kernel.o -ffreestanding -O2 -fno-exceptions -fno-rtti
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi

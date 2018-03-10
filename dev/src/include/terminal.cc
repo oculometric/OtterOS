@@ -74,11 +74,13 @@ void tPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
 }
 
 static inline void updateTextPointer () {
-	asm ("mov %ah, 2");
-	asm ("mov %dh, %0" :: "a"( terminal_row));
-	asm ("mov %dl, %0" :: "b"( terminal_column));
-	asm ("mov %bh, 0");
-	asm ("int $0x10");
+	asm ("mov %%ah, 2       \n\t"
+			 "mov %%dh, %0      \n\t"
+			 "mov %%dl, %1      \n\t"
+			 "mov %%bh, 0       \n\t"
+			 "int $0x10"
+			:
+			: "a"( (char)terminal_row), "b"( (char)terminal_column));
 }
 
 void tPutChar(char c) {
@@ -91,7 +93,7 @@ void tPutChar(char c) {
 			terminal_row = 0;
 		}
 	}
-	updateTextPointer();
+	//updateTextPointer();
 }
 
 void tDeleteChar () {
@@ -99,7 +101,7 @@ void tDeleteChar () {
 		terminal_column--;
 	}
 	tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
-	updateTextPointer ();
+	//updateTextPointer ();
 }
 
 void tFillLineWithChar (char c) {

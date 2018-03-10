@@ -86,6 +86,10 @@ extern "C" void kernel_main(void) {
 					println("");
 				} else if (ch == '\b') {
 					tDeleteChar();
+				} else if (ch == 'u') {
+					updateTextPointer();
+				} else if (ch == 't') {
+					char i = (char)terminal_row;
 				} else {
 					tPutChar(ch);
 				}
