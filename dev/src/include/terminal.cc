@@ -49,6 +49,10 @@ size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
 
+
+char currentInLine[VGA_WIDTH];
+//size_t lnLoc = 0;
+
 void tInitialize() {
 	terminal_row = 0;
 	terminal_column = 0;
@@ -60,6 +64,7 @@ void tInitialize() {
 		{
 			const size_t index = y * VGA_WIDTH + x;
 			terminal_buffer[index] = make_vgaentry(' ', terminal_color);
+			//currentInLine[x] = ' ';
 		}
 	}
 }
@@ -71,39 +76,28 @@ void tSetCol(uint8_t color) {
 void tPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
 	const size_t index = y * VGA_WIDTH + x;
 	terminal_buffer[index] = make_vgaentry(c, color);
-
 }
 
-// static inline void updateTextPointer () {
-// 	asm ("mov %%ah, 2       \n\t"
-// 			 "mov %%dh, 0      \n\t"
-// 			 "mov %%dl, %0      \n\t"
-// 			 "mov %%bh, %1       \n\t"
-// 			 "int $0x10"
-// 			:
-// 			: "a"( (char)terminal_row), "b"( (char)terminal_column));
-// }
-
 void updateCursorLocation() {
-        unsigned short cursorLoc = (terminal_row*VGA_WIDTH)+terminal_column;
-         // cursor LOW port to vga INDEX register
-        outb(0x3D4, 0x0F);
-        outb(0x3D5, (unsigned char)(cursorLoc));
-        // cursor HIGH port to vga INDEX register
-        outb(0x3D4, 0x0E);
-        outb(0x3D5, (unsigned char)((cursorLoc>>8)));
-    }
+	unsigned short cursorLoc = (terminal_row*VGA_WIDTH)+terminal_column;
+	// cursor LOW port to vga INDEX register
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (unsigned char)(cursorLoc));
+	// cursor HIGH port to vga INDEX register
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (unsigned char)((cursorLoc>>8)));
+}
 
 void tPutChar(char c) {
 	tPutEntryAt(c, terminal_color, terminal_column, terminal_row);
-	if ( ++terminal_column == VGA_WIDTH )
-	{
+	if ( ++terminal_column == VGA_WIDTH ) {
 		terminal_column = 0;
-		if ( ++terminal_row == VGA_HEIGHT )
-		{
+		if ( ++terminal_row == VGA_HEIGHT ) {
 			terminal_row = 0;
+			tInitialize();
 		}
 	}
+
 	updateCursorLocation();
 }
 
@@ -138,4 +132,13 @@ void println (const char* data) {
 void print (const char* data) {
 	tWriteString (data);
 	updateCursorLocation();
+}
+
+void executeLine () {
+	print ("I don't what this means: ");
+	println (currentInLine);
+
+	for (int ind=0; ind<strlen(currentInLine); ind++) {
+		currentInLine[ind] = ' ';
+	}
 }

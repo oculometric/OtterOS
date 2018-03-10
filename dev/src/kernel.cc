@@ -73,13 +73,27 @@ extern "C" void kernel_main(void) {
 				ch = normalmap[a];
 				if (ch == '\n') {
 					println("");
+					if ( ++terminal_row == VGA_HEIGHT ) {
+						terminal_row = 0;
+						tInitialize();
+					}
+					executeLine();
 				} else if (ch == '\b') {
 					tDeleteChar();
-				} else if (ch == 0x6B) {
-					tDeleteChar();
+				} else if (ch == 0x4D) {
+					if (terminal_column > 0) {
+						terminal_column--;
+					}
+					updateCursorLocation();
+				} else if (ch == 0x4B) {
+					if (terminal_column < VGA_WIDTH) {
+						terminal_column++;
+					}
+					updateCursorLocation();
 				} else if (ch == SHIFT) {
 					print("We are shifting today!");
 				} else {
+					currentInLine[terminal_column] = ch;
 					tPutChar(ch);
 				}
 			}

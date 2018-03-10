@@ -55,7 +55,7 @@ static int normalmap[256] =
   'b',  'n',  'm',  ',',  '.',  '/',  NO,   '*',  // 0x30
   NO,   ' ',  NO,   NO,   NO,   NO,   NO,   NO,
   NO,   NO,   NO,   NO,   NO,   NO,   NO,   '7',  // 0x40
-  '8',  '9',  '-',  '4',  '5',  '6',  '+',  '1',
+  '8',  '9',  '-',  0x4D,  '5',  0x4B,  '+',  '1',
   '2',  '3',  '0',  '.',  NO,   NO,   NO,   NO,   // 0x50
   '\n',      // KP_Enter
   '/',       // KP_Div
