@@ -2,6 +2,7 @@
 #include <stdint.h> //include it to get int16_t and some integer types
 #include <stdbool.h>
 #include "include/terminal.cc"
+#include "include/kbdus.h"
 
 #define PIC1 0x20
 #define PIC2 0xA0
@@ -30,11 +31,11 @@ void init_pics(int pic1, int pic2)
    outb(PIC2, ICW1);
 
    /* send ICW2 */
-   outb(PIC1 + 1, pic1);   
-   outb(PIC2 + 1, pic2);   
+   outb(PIC1 + 1, pic1);
+   outb(PIC2 + 1, pic2);
 
    /* send ICW3 */
-   outb(PIC1 + 1, 4);   
+   outb(PIC1 + 1, 4);
    outb(PIC2 + 1, 2);
 
    /* send ICW4 */
@@ -55,7 +56,7 @@ static void putpixel(unsigned char* screen, int x,int y, int color) {
 
 //extern void setPixel(void);
 
-void setPixel () {
+static inline void setPixel () {
 	asm ("mov %ah, 0x0C");
 	asm ("mov %al, 0x13");
 	asm ("int $0x10");
@@ -73,26 +74,29 @@ extern "C" void kernel_main(void) {
 	println("Well... this is OtterOS so far!");
 	println("Warning! This OS melts PHP programmers.");
 	println("");
-	char block = '█';
-	tFillLineWithChar (block);
-  char c = 0;
-init_pics(0x20, 0x28);
-do
-{
-
-if(inb(0x60)!=c) //PORT FROM WHICH WE READ
-{
-    c = inb(0x60);
-    if(c>0)
-        {
-
-            println(c); //print on screen
-
-        }
-    }
-
-
-}
-while(c!=1); // 1= ESCAPE
+	tFillLineWithChar ('█');
+	char c = 0;
+	init_pics(0x20, 0x28);
+	do {
+		if (inb(0x60) != c) {
+			c = inb(0x60);
+			if (c > 0) {
+				int a = c;
+				char ch = 'H';
+				ch = normalmap[a];
+				if (ch == '\n') {
+					println("");
+				} else if (ch == '\b') {
+					if (terminal_column > 0) {
+						terminal_column--;
+					}
+					tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
+				} else {
+					tPutChar(ch);
+				}
+			}
+		}
+	}
+	while(c!=1); // 1= ESCAPE
 	//setPixel();
 }

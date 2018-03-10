@@ -1,4 +1,4 @@
-ENTRY(start)
+ENTRY(_start)
 
 /* Tell where the various sections of the object files will be put in the final
    kernel image. */
@@ -9,7 +9,7 @@ SECTIONS
 	/* First put the multiboot header */
 	.text BLOCK(4K) : ALIGN(4K)
 	{
-		*(.mbHeader)
+		*(.multiboot)
 		*(.text)
 	}
 

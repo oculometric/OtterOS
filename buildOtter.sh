@@ -34,7 +34,7 @@ fi
 cd dev/bin/
 
 echo Linking
-i686-elf-gcc -T ../src/linker.ld -o bin/otterOS.bin -ffreestanding -O2 -nostdlib -nodefaultlibs o/boot.o o/kernel.o -lgcc
+i686-elf-gcc -T ../src/linker.ld -o bin/otterOS.bin -ffreestanding -O2 -nostdlib -nodefaultlibs o/boot.o o/kernel.o -lgcc -Wl,--build-id=none
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi
