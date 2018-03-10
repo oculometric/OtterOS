@@ -3,6 +3,15 @@
 #include <stdbool.h>
 #include "include/terminal.cc"
 
+static inline uint8_t inb(uint16_t port)
+{
+    uint8_t ret;
+    asm volatile ( "inb %1, %0"
+                   : "=a"(ret)
+                   : "Nd"(port) );
+    return ret;
+}
+
 /* only valid for 800x600x32bpp */
 static void putpixel(unsigned char* screen, int x,int y, int color) {
     unsigned where = x*4 + y*3200;
