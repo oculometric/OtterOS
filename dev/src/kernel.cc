@@ -10,8 +10,7 @@
 #define ICW1 0x11
 #define ICW4 0x01
 
-static inline uint8_t inb(uint16_t port)
-{
+static inline uint8_t inb (uint16_t port) {
     uint8_t ret;
     asm volatile ( "inb %1, %0"
                    : "=a"(ret)
@@ -19,8 +18,7 @@ static inline uint8_t inb(uint16_t port)
     return ret;
 }
 
-void outb( unsigned short port, unsigned char val )
-{
+void outb( unsigned short port, unsigned char val ) {
    asm volatile("outb %0, %1" : : "a"(val), "Nd"(port) );
 }
 
@@ -87,10 +85,7 @@ extern "C" void kernel_main(void) {
 				if (ch == '\n') {
 					println("");
 				} else if (ch == '\b') {
-					if (terminal_column > 0) {
-						terminal_column--;
-					}
-					tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
+					tDeleteChar();
 				} else {
 					tPutChar(ch);
 				}

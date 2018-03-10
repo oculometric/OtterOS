@@ -73,6 +73,14 @@ void tPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
 	terminal_buffer[index] = make_vgaentry(c, color);
 }
 
+static inline void updateTextPointer () {
+	asm ("mov %ah, 2");
+	asm ("mov %dh, %0" :: "a"( terminal_row));
+	asm ("mov %dl, %0" :: "b"( terminal_column));
+	asm ("mov %bh, 0");
+	asm ("int $0x10");
+}
+
 void tPutChar(char c) {
 	tPutEntryAt(c, terminal_color, terminal_column, terminal_row);
 	if ( ++terminal_column == VGA_WIDTH )
@@ -83,6 +91,15 @@ void tPutChar(char c) {
 			terminal_row = 0;
 		}
 	}
+	updateTextPointer();
+}
+
+void tDeleteChar () {
+	if (terminal_column > 0) {
+		terminal_column--;
+	}
+	tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
+	updateTextPointer ();
 }
 
 void tFillLineWithChar (char c) {
