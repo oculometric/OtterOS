@@ -3,6 +3,12 @@
 #include <stdbool.h>
 #include "include/terminal.cc"
 
+#define PIC1 0x20
+#define PIC2 0xA0
+
+#define ICW1 0x11
+#define ICW4 0x01
+
 static inline uint8_t inb(uint16_t port)
 {
     uint8_t ret;
@@ -10,6 +16,33 @@ static inline uint8_t inb(uint16_t port)
                    : "=a"(ret)
                    : "Nd"(port) );
     return ret;
+}
+
+void outb( unsigned short port, unsigned char val )
+{
+   asm volatile("outb %0, %1" : : "a"(val), "Nd"(port) );
+}
+
+void init_pics(int pic1, int pic2)
+{
+   /* send ICW1 */
+   outb(PIC1, ICW1);
+   outb(PIC2, ICW1);
+
+   /* send ICW2 */
+   outb(PIC1 + 1, pic1);   
+   outb(PIC2 + 1, pic2);   
+
+   /* send ICW3 */
+   outb(PIC1 + 1, 4);   
+   outb(PIC2 + 1, 2);
+
+   /* send ICW4 */
+   outb(PIC1 + 1, ICW4);
+   outb(PIC2 + 1, ICW4);
+
+   /* disable all IRQs */
+   outb(PIC1 + 1, 0xFF);
 }
 
 /* only valid for 800x600x32bpp */
@@ -42,5 +75,24 @@ extern "C" void kernel_main(void) {
 	println("");
 	char block = '█';
 	tFillLineWithChar (block);
+  char c = 0;
+init_pics(0x20, 0x28);
+do
+{
+
+if(inb(0x60)!=c) //PORT FROM WHICH WE READ
+{
+    c = inb(0x60);
+    if(c>0)
+        {
+
+            println(c); //print on screen
+
+        }
+    }
+
+
+}
+while(c!=1); // 1= ESCAPE
 	//setPixel();
 }
