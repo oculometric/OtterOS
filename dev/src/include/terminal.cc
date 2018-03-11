@@ -151,11 +151,15 @@ bool strEqual (const char* str1, const char* str2) {
 	return returner;
 }
 
-char** splitStr;
+static char** splitStr (const char* string, char delim) {
+	// Fix/write this
+	char* returner[255];
+	returner[0] = string;
+	return returner;
+}
 
 void executeLine () {
-	char* cmd = currentInLine;
-	//Change this to the first part of the splitup, then it will work properly.
+	char* cmd = splitStr(currentInLine, ' ');
 	if (strEqual(currentInLine, "echo")) {
 		println ("Echoooooo...");
 	} else if (strEqual(currentInLine, "bell")) {
