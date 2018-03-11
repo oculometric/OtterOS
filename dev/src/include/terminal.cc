@@ -134,9 +134,23 @@ void print (const char* data) {
 	updateCursorLocation();
 }
 
+bool strequal (const char* str1, const char* str2) {
+	bool returner = true;
+	for (int i=0; i<strlen(str1); i++) {
+		if (str1[i]!=str2[i]) {
+			returner = false;
+		}
+	}
+	return returner
+}
+
 void executeLine () {
-	print ("I don't what this means: ");
-	println (currentInLine);
+	if (strequal(currentInLine, "bell")) {
+
+	} else {
+		print ("I don't what this means: ");
+		println (currentInLine);
+	}
 
 	for (int ind=0; ind<strlen(currentInLine); ind++) {
 		currentInLine[ind] = ' ';
