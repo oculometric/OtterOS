@@ -74,7 +74,7 @@ extern "C" void kernel_main(void) {
 				ch = normalmap[a];
 				if (ch == '\n') {
 					println("");
-					if (terminal_row+1 == VGA_HEIGHT ) {
+					if (terminal_row+1 >= VGA_HEIGHT ) {
 						terminal_row = 0;
 						tInitialize();
 					}

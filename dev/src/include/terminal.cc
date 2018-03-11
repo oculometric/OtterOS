@@ -151,25 +151,70 @@ bool strEqual (const char* str1, const char* str2) {
 	return returner;
 }
 
-static char** splitStr (const char* string, char delim) {
+static char** splitStr (char* string, char delim) {
 	// Fix/write this
-	char* returner[255];
-	returner[0] = string;
+	char* returner[127];
+	int loc = 0;
+	int innerLoc = 0;
+	for (int i = 0; string[i] != 0x00; i++) {
+		char c = string[i];
+		if (c != ' ') {
+			returner[loc][innerLoc] = c;
+			innerLoc++;
+		} else {
+			print ("a string was ");
+			println (returner[loc]);
+			innerLoc = 0;
+			loc++;
+		}
+	}
+	print ("the first string was ");
+	println (returner[1]);
 	return returner;
 }
 
+static char* getFirstCmdPart (char* in) {
+	char* returner;
+}
+
+int contains (char** array, char* str) {
+	for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
+		if (strEqual (array[itemNo], str)) {
+			return itemNo;
+		}
+	}
+	return -1;
+}
+
+// ========== BEGIN COMMAND FUNCTIONS ========== //
+
+static void echo () {
+	println ("Echo......");
+}
+
+static void bell () {
+	println ("Ding!!!");
+}
+
+// ==========  END COMMAND FUNCTIONS  ========== //
+
+char* functionNames[2] = {"echo", "bell"};
+void (* functions [])() = {echo, bell};
+
 void executeLine () {
-	char* cmd = splitStr(currentInLine, ' ');
-	if (strEqual(currentInLine, "echo")) {
-		println ("Echoooooo...");
-	} else if (strEqual(currentInLine, "bell")) {
-		println ("Ding!!!");
+	// char* cmd = getFirstCmdPart(currentInLine);
+	char* cmd = currentInLine;
+	int contain = contains (functionNames, currentInLine);
+	if (contain != -1) {
+		functions[contain]();
 	} else {
 		print ("I don't what this means: ");
-		println (currentInLine);
+		println (cmd);
 	}
 	print("cosh -> ");
-	for (int ind=0; ind<strlen(currentInLine); ind++) {
-		currentInLine[ind] = ' ';
+	for (int ind=0; currentInLine[ind] != 0x00; ind++) {
+		currentInLine[ind] = 0x00;
 	}
+	//currentInLine[VGA_WIDTH];
+
 }
