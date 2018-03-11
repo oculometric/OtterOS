@@ -136,11 +136,17 @@ void print (const char* data) {
 
 bool strequal (const char* str1, const char* str2) {
 	bool returner = true;
-	for (int i=0; i<strlen(str1); i++) {
-		if (str1[i]!=str2[i]) {
-			returner = false;
-		}
-	}
+   int ptr = 0;
+	while (str1[ptr]!=0x00 && str2[ptr]!=0x00) {
+      if (str1[ptr]!=str2[ptr]) {
+         returner = false;
+      }
+      ptr++;
+   }
+   if (!(str1[ptr]==0x00 && str2[ptr]==0x00)) {
+      returner = false;
+   }
+
 	return returner
 }
 
