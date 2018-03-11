@@ -1,3 +1,5 @@
+
+
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -106,7 +108,7 @@ void tDeleteChar () {
 		terminal_column--;
 	}
 	tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
-	currentInLine[terminal_column - 8] = ' ';
+	currentInLine[terminal_column - 8] = 0x00;
 	updateCursorLocation();
 }
 
