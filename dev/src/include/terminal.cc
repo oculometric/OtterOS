@@ -102,10 +102,11 @@ void tPutChar(char c) {
 }
 
 void tDeleteChar () {
-	if (terminal_column > 0) {
+	if (terminal_column > 8) {
 		terminal_column--;
 	}
 	tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
+	currentInLine[terminal_column - 8] = ' ';
 	updateCursorLocation();
 }
 
@@ -134,7 +135,7 @@ void print (const char* data) {
 	updateCursorLocation();
 }
 
-bool strequal (const char* str1, const char* str2) {
+bool strEqual (const char* str1, const char* str2) {
 	bool returner = true;
    int ptr = 0;
 	while (str1[ptr]!=0x00 && str2[ptr]!=0x00) {
@@ -147,17 +148,23 @@ bool strequal (const char* str1, const char* str2) {
       returner = false;
    }
 
-	return returner
+	return returner;
 }
 
-void executeLine () {
-	if (strequal(currentInLine, "bell")) {
+char** splitStr;
 
+void executeLine () {
+	char* cmd = currentInLine;
+	//Change this to the first part of the splitup, then it will work properly.
+	if (strEqual(currentInLine, "echo")) {
+		println ("Echoooooo...");
+	} else if (strEqual(currentInLine, "bell")) {
+		println ("Ding!!!");
 	} else {
 		print ("I don't what this means: ");
 		println (currentInLine);
 	}
-
+	print("cosh -> ");
 	for (int ind=0; ind<strlen(currentInLine); ind++) {
 		currentInLine[ind] = ' ';
 	}

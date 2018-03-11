@@ -62,6 +62,7 @@ extern "C" void kernel_main(void) {
 	println("Warning! This OS melts PHP programmers.");
 	println("");
 	tFillLineWithChar ('█');
+	print("cosh -> ");
 	char c = 0;
 	init_pics(0x20, 0x28);
 	do {
@@ -69,11 +70,11 @@ extern "C" void kernel_main(void) {
 			c = inb(0x60);
 			if (c > 0) {
 				int a = c;
-				char ch = 'H';
+				char ch = ' ';
 				ch = normalmap[a];
 				if (ch == '\n') {
 					println("");
-					if ( ++terminal_row == VGA_HEIGHT ) {
+					if (terminal_row+1 == VGA_HEIGHT ) {
 						terminal_row = 0;
 						tInitialize();
 					}
@@ -93,7 +94,7 @@ extern "C" void kernel_main(void) {
 				} else if (ch == SHIFT) {
 					print("We are shifting today!");
 				} else {
-					currentInLine[terminal_column] = ch;
+					currentInLine[terminal_column - 8] = ch;
 					tPutChar(ch);
 				}
 			}
