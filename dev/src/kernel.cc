@@ -9,6 +9,7 @@
 #include "include/utils.cc"
 #include "include/terminal.cc"
 #include "include/kbdus.h"
+#include "include/globals.cc"
 
 #define PIC1 0x20
 #define PIC2 0xA0
