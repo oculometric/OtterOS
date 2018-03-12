@@ -188,6 +188,14 @@ int contains (char** array, char* str) {
 	return -1;
 }
 
+int arraylen (char** array) {
+	int ret = -1;
+	for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
+		ret++;
+	}
+	return ret+1;
+}
+
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
 static void echo () {
@@ -203,8 +211,19 @@ static void bell () {
 char* functionNames[2] = {"echo", "bell"};
 void (* functions [])() = {echo, bell};
 
+char* inputHist[255];
+int histLoc = 0;
+
+ void updateInLineToHistory () {
+// 	int t = terminal_column;
+// 	terminal_column = 8;
+//	currentInLine = inputHist[histLoc];
+// 	print(inputHist[histLoc]);
+ }
+
 void executeLine () {
 	// char* cmd = getFirstCmdPart(currentInLine);
+
 	char* cmd = currentInLine;
 	int contain = contains (functionNames, currentInLine);
 	if (contain != -1) {
@@ -213,6 +232,8 @@ void executeLine () {
 		print ("I don't what this means: ");
 		println (cmd);
 	}
+	inputHist[arraylen(inputHist)] = currentInLine;
+	histLoc = arraylen(inputHist)+1;
 	print("cosh -> ");
 	for (int ind=0; currentInLine[ind] != 0x00; ind++) {
 		currentInLine[ind] = 0x00;

@@ -67,7 +67,7 @@ extern "C" void kernel_main(void) {
 	init_pics(0x20, 0x28);
 	do {
 		if (inb(0x60) != c) {
-			c = inb(0x60);
+			c = inb (0x60);
 			if (c > 0) {
 				int a = c;
 				char ch = ' ';
@@ -81,18 +81,20 @@ extern "C" void kernel_main(void) {
 					executeLine();
 				} else if (ch == '\b') {
 					tDeleteChar();
-				} else if (ch == 0x4D) {
-					if (terminal_column > 0) {
+				} else if (ch == -1) {
+					if (terminal_column > 8) {
 						terminal_column--;
 					}
 					updateCursorLocation();
-				} else if (ch == 0x4B) {
+				} else if (ch == -2) {
 					if (terminal_column < VGA_WIDTH) {
 						terminal_column++;
 					}
 					updateCursorLocation();
-				} else if (ch == SHIFT) {
-					print("We are shifting today!");
+				} else if (ch == -3) {
+					if (histLoc > 0) {histLoc--;updateInLineToHistory();}
+				} else if (ch == -4) {
+					if (histLoc < arraylen(inputHist)) {histLoc++;updateInLineToHistory();}
 				} else {
 					currentInLine[terminal_column - 8] = ch;
 					tPutChar(ch);

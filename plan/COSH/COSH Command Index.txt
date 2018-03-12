@@ -13,3 +13,4 @@ edit		: Edit the contents of a file as text
 modv		: Modifiy the value of a global variable
 echo		: Print out a string
 bell		: Send the bell character
+l...		: Logic gate commands
