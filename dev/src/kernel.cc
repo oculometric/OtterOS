@@ -67,8 +67,8 @@ bool isWaitingForUp = false;
 bool leftShiftDown = false;
 bool rightShiftDown = false;
 
-extern "C" void kernel_main(void) {
-	tInitialize();
+void terminalKernel () {
+   tInitialize();
 	println("Well... this is OtterOS so far!");
 	println("Warning! This OS melts PHP programmers.");
 	println("");
@@ -131,5 +131,14 @@ extern "C" void kernel_main(void) {
 		}
 	}
 	while(c!=1); // 1= ESCAPE
+}
+
+void graphicsKernel () {
+   // Write graphical kernel base here
+}
+
+extern "C" void kernel_main(void) {
+	char* bootmode = getValueForKey (“bootmode”);
+   if (strEqual (bootmode, “graphics”)) {graphicalKernel();} else {terminalKernel();}
 	//setPixel();
 }
