@@ -77,6 +77,7 @@ extern "C" void kernel_main(void) {
 			if (c > 0) {
 				int a = c;
 				char ch = ' ';
+				if (a == 0x36) {}
 				ch = normalmap[a];
 				if (ch == '\n') {
 					println("");
