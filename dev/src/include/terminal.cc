@@ -1,4 +1,7 @@
-
+/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
 
 #include <stddef.h>
 #include <stdint.h>
