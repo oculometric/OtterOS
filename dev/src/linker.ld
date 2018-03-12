@@ -1,7 +1,10 @@
+/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
+
 ENTRY(_start)
 
-/* Tell where the various sections of the object files will be put in the final
-   kernel image. */
 SECTIONS
 {
 	. = 1M;
