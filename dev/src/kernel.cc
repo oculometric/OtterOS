@@ -62,6 +62,9 @@ static inline void setPixel () {
 	asm ("int $0x10");
 }
 
+bool leftShiftDown = false;
+bool rightShiftDown = false;
+
 extern "C" void kernel_main(void) {
 	tInitialize();
 	println("Well... this is OtterOS so far!");
@@ -77,8 +80,19 @@ extern "C" void kernel_main(void) {
 			if (c > 0) {
 				int a = c;
 				char ch = ' ';
-				if (a == 0x36) {}
+				if (a == 0x12) {
+					leftShifttDown = true;
+				} else if (a == 0x59) {
+					rightShiftDown = true;
+				} else if (a == 0xF0,0x12) {
+					leftShiftDown = false;
+				} else if (a == 0xF0,0x59) {
+					rightShiftDown = false;
+				} else {
 				ch = normalmap[a];
+				if (rightShiftDown || leftShiftDown) {
+					ch = shiftmap[a];
+				}
 				if (ch == '\n') {
 					println("");
 					if (terminal_row+1 >= VGA_HEIGHT ) {
@@ -105,6 +119,7 @@ extern "C" void kernel_main(void) {
 				} else {
 					currentInLine[terminal_column - 8] = ch;
 					tPutChar(ch);
+				}
 				}
 			}
 		}
