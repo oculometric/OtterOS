@@ -1,15 +1,15 @@
 /* Copyright (C) 2018 JavaxCosten - All Rights Reserved
- * You may use, distribute and modify this code under the
- * terms of the LICENSE, found in the top level directory.
- */
+* You may use, distribute and modify this code under the
+* terms of the LICENSE, found in the top level directory.
+*/
 
 #include <stddef.h> //we can use it: it doesnt use any platform-related api functions
 #include <stdint.h> //include it to get int16_t and some integer types
 #include <stdbool.h>
 #include "include/utils.cc"
+#include "include/globals.cc"
 #include "include/terminal.cc"
 #include "include/kbdus.h"
-#include "include/globals.cc"
 
 #define PIC1 0x20
 #define PIC2 0xA0
@@ -19,32 +19,32 @@
 
 void init_pics(int pic1, int pic2)
 {
-   /* send ICW1 */
-   outb(PIC1, ICW1);
-   outb(PIC2, ICW1);
+	/* send ICW1 */
+	outb(PIC1, ICW1);
+	outb(PIC2, ICW1);
 
-   /* send ICW2 */
-   outb(PIC1 + 1, pic1);
-   outb(PIC2 + 1, pic2);
+	/* send ICW2 */
+	outb(PIC1 + 1, pic1);
+	outb(PIC2 + 1, pic2);
 
-   /* send ICW3 */
-   outb(PIC1 + 1, 4);
-   outb(PIC2 + 1, 2);
+	/* send ICW3 */
+	outb(PIC1 + 1, 4);
+	outb(PIC2 + 1, 2);
 
-   /* send ICW4 */
-   outb(PIC1 + 1, ICW4);
-   outb(PIC2 + 1, ICW4);
+	/* send ICW4 */
+	outb(PIC1 + 1, ICW4);
+	outb(PIC2 + 1, ICW4);
 
-   /* disable all IRQs */
-   outb(PIC1 + 1, 0xFF);
+	/* disable all IRQs */
+	outb(PIC1 + 1, 0xFF);
 }
 
 /* only valid for 800x600x32bpp */
 static void putpixel(unsigned char* screen, int x,int y, int color) {
-    unsigned where = x*4 + y*3200;
-    screen[where] = color & 255;              // BLUE
-    screen[where + 1] = (color >> 8) & 255;   // GREEN
-    screen[where + 2] = (color >> 16) & 255;  // RED
+	unsigned where = x*4 + y*3200;
+	screen[where] = color & 255;              // BLUE
+	screen[where + 1] = (color >> 8) & 255;   // GREEN
+	screen[where + 2] = (color >> 16) & 255;  // RED
 }
 
 //extern void setPixel(void);
@@ -68,7 +68,7 @@ bool leftShiftDown = false;
 bool rightShiftDown = false;
 
 void terminalKernel () {
-   tInitialize();
+	tInitialize();
 	println("Well... this is OtterOS so far!");
 	println("Warning! This OS melts PHP programmers.");
 	println("");
@@ -82,50 +82,42 @@ void terminalKernel () {
 			if (c > 0) {
 				int a = c;
 				char ch = ' ';
-				if (a == 0x12) {
-					leftShifttDown = true;
-				} else if (a == 0x59) {
-					rightShiftDown = true;
-				} else if (a == 0x12 && isWaitingForUp) {
-					leftShiftDown = false;
-				} else if (a == 0x59 && isWaitingForUp) {
-					rightShiftDown = false;
-				} else if (a == 0xF0) {
-					isWaitingForUp = true;
-				} else if (a != 0xF0) {
-					isWaitingForUp = false;
+				if (a == 0x2A) {
+					leftShiftDown = !leftShiftDown;
+				} else if (a == 0x36) {
+					rightShiftDown = !rightShiftDown;
 				} else {
-				ch = normalmap[a];
-				if (rightShiftDown || leftShiftDown) {
-					ch = shiftmap[a];
-				}
-				if (ch == '\n') {
-					println("");
-					if (terminal_row+1 >= VGA_HEIGHT ) {
-						terminal_row = 0;
-						tInitialize();
+					ch = normalmap[a];
+					if (rightShiftDown || leftShiftDown) {
+						ch = shiftmap[a];
 					}
-					executeLine();
-				} else if (ch == '\b') {
-					tDeleteChar();
-				} else if (ch == -1) {
-					if (terminal_column > 8) {
-						terminal_column--;
+					if (ch == '\n') {
+						println("");
+						if (terminal_row+1 >= VGA_HEIGHT ) {
+							terminal_row = 0;
+							tInitialize();
+						}
+						executeLine();
+					} else if (ch == '\b') {
+						tDeleteChar();
+					} else if (ch == -1) {
+						if (terminal_column > 8) {
+							terminal_column--;
+						}
+						updateCursorLocation();
+					} else if (ch == -2) {
+						if (terminal_column < VGA_WIDTH) {
+							terminal_column++;
+						}
+						updateCursorLocation();
+					} else if (ch == -3) {
+						if (histLoc > 0) {histLoc--;updateInLineToHistory();}
+					} else if (ch == -4) {
+						if (histLoc < arraylen(inputHist)) {histLoc++;updateInLineToHistory();}
+					} else {
+						currentInLine[terminal_column - 8] = ch;
+						tPutChar(ch);
 					}
-					updateCursorLocation();
-				} else if (ch == -2) {
-					if (terminal_column < VGA_WIDTH) {
-						terminal_column++;
-					}
-					updateCursorLocation();
-				} else if (ch == -3) {
-					if (histLoc > 0) {histLoc--;updateInLineToHistory();}
-				} else if (ch == -4) {
-					if (histLoc < arraylen(inputHist)) {histLoc++;updateInLineToHistory();}
-				} else {
-					currentInLine[terminal_column - 8] = ch;
-					tPutChar(ch);
-				}
 				}
 			}
 		}
@@ -133,12 +125,12 @@ void terminalKernel () {
 	while(c!=1); // 1= ESCAPE
 }
 
-void graphicsKernel () {
-   // Write graphical kernel base here
+void graphicalKernel () {
+	// Write graphical kernel base here
 }
 
 extern "C" void kernel_main(void) {
-	char* bootmode = getValueForKey (“bootmode”);
-   if (strEqual (bootmode, “graphics”)) {graphicalKernel();} else {terminalKernel();}
+	char* bootmode = getValueForKey ("bootmode");
+	if (strEqual (bootmode, "graphics")) {graphicalKernel();} else {terminalKernel();}
 	//setPixel();
 }
