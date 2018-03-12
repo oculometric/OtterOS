@@ -7,8 +7,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-char* names[255] = {"coshv"};
-char* values[255] = {"0.1"};
+char* names[255] = {"coshv", "bootmode"};
+char* values[255] = {"0.1", "console"};
 
 char* getValueForKey (char* key) {
   int contain = contains (names, key);
