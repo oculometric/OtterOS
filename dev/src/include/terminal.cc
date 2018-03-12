@@ -209,10 +209,21 @@ static void bell () {
 	println ("Ding!!!");
 }
 
+static void cosh () {
+	char* versionName = getValueForKey ("coshv");
+	println ("COSH - Combined OtterOS SHell");
+	print ("Version: ");
+	println (versionName);
+	println ("Created: 11/03/2018");
+	println ("Written: JavaxCosten");
+	println ("Designed: DaBatchMan and JavaxCosten");
+	println ("Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar");
+}
+
 // ==========  END COMMAND FUNCTIONS  ========== //
 
-char* functionNames[2] = {"echo", "bell"};
-void (* functions [])() = {echo, bell};
+char* functionNames[2] = {"echo", "bell", "cosh"};
+void (* functions [])() = {echo, bell, cosh};
 
 char* inputHist[255];
 int histLoc = 0;
