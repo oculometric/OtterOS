@@ -1,3 +1,8 @@
+/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
+
 #include <stddef.h> //we can use it: it doesnt use any platform-related api functions
 #include <stdint.h> //include it to get int16_t and some integer types
 #include <stdbool.h>
