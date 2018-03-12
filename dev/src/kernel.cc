@@ -62,6 +62,8 @@ static inline void setPixel () {
 	asm ("int $0x10");
 }
 
+bool isWaitingForUp = false;
+
 bool leftShiftDown = false;
 bool rightShiftDown = false;
 
@@ -84,10 +86,14 @@ extern "C" void kernel_main(void) {
 					leftShifttDown = true;
 				} else if (a == 0x59) {
 					rightShiftDown = true;
-				} else if (a == 0xF0,0x12) {
+				} else if (a == 0x12 && isWaitingForUp) {
 					leftShiftDown = false;
-				} else if (a == 0xF0,0x59) {
+				} else if (a == 0x59 && isWaitingForUp) {
 					rightShiftDown = false;
+				} else if (a == 0xF0) {
+					isWaitingForUp = true;
+				} else if (a != 0xF0) {
+					isWaitingForUp = false;
 				} else {
 				ch = normalmap[a];
 				if (rightShiftDown || leftShiftDown) {
