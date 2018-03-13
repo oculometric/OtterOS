@@ -31,8 +31,50 @@ int setPixel(int x, int y, int color) {
 
 };
 
+/* only valid for 800x600x32bpp */
+static void putPixel(unsigned char* screen, int x,int y, int color) {
+	unsigned where = x*4 + y*3200;
+	screen[where] = color & 255;              // BLUE
+	screen[where + 1] = (color >> 8) & 255;   // GREEN
+	screen[where + 2] = (color >> 16) & 255;  // RED
+}
+
+static inline void inlineSetPixel (int x, int y) {
+	asm ("mov %%ah, $0x0C;
+	     mov %%al, $0x13;
+	     int $0x10;
+	     mov %%ah, $0x0C;
+	     mov %%bh, $0x00;
+	     mov %%dx, $0x05;
+	     mov %%cx, $0x05;
+	     mov %%al, $0x04;
+	     int $0x10"
+	     :
+	     :
+	     : 
+	);
+}
+
+static void fillRect(unsigned char *vram, int x, int y, unsigned char w, unsigned char h, int color) {
+    unsigned char *where = vram;
+    int i, j;
+ 
+    for (i = x; i < w + x; i++) {
+        for (j = y; j < h + y; j++) {
+            //putpixel(vram, 64 + j, 64 + i, (r << 16) + (g << 8) + b);
+            where[j*4] = (color >> 16) & 255;
+            where[j*4 + 1] = (color >> 8) & 255;
+            where[j*4 + 2] = color & 255;
+        }
+        where+=3200;
+    }
+}
+
 void graphicalKernel () {
 	// Write graphical kernel base here
 	initScreen();
 	setPixel (10,10, COLOR_GREEN);
+	putPixel (VGA, 50, 50, COLOR_RED);
+	inlineSetPixel (70, 70, COLOR_YELLOW);
+	fillRect (VGA, 100, 100, 150, 150, COLOR_WHITE);
 }
