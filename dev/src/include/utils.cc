@@ -89,7 +89,7 @@ static inline void outb( unsigned short port, unsigned char val ) {
 }
 
 static inline void changeToRealMode () {
-	__asm__ (".intel_syntax"
+	asm (
 			 "idt_real:\n\t"
 			 "	dw 0x3ff\n\t"
 			 "	dd 0\n\t"
