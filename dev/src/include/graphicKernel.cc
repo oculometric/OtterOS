@@ -40,25 +40,22 @@ static void putPixel(unsigned char* screen, int x,int y, int color) {
 }
 
 static inline void inlineSetPixel (int x, int y) {
-	asm ("mov %%ah, $0x0C;
-	     mov %%al, $0x13;
-	     int $0x10;
-	     mov %%ah, $0x0C;
-	     mov %%bh, $0x00;
-	     mov %%dx, $0x05;
-	     mov %%cx, $0x05;
-	     mov %%al, $0x04;
-	     int $0x10"
-	     :
-	     :
-	     : 
+	asm ("mov %ah, 0x0C \n\t"
+	   		"mov %al, 0x13 \n\t"
+	     "int $0x10 \n\t"
+	     "mov %ah, 0x0C \n\t"
+	     "mov %bh, 0x00 \n\t"
+	     "mov %dx, 0x05 \n\t"
+	     "mov %cx, 0x05 \n\t"
+	     "mov %al, 0x04 \n\t"
+	     "int $0x10"
 	);
 }
 
 static void fillRect(unsigned char *vram, int x, int y, unsigned char w, unsigned char h, int color) {
     unsigned char *where = vram;
     int i, j;
- 
+
     for (i = x; i < w + x; i++) {
         for (j = y; j < h + y; j++) {
             //putpixel(vram, 64 + j, 64 + i, (r << 16) + (g << 8) + b);
@@ -72,9 +69,10 @@ static void fillRect(unsigned char *vram, int x, int y, unsigned char w, unsigne
 
 void graphicalKernel () {
 	// Write graphical kernel base here
+	// INTERRUPTS ARE NOT WORKING.
 	initScreen();
-	setPixel (10,10, COLOR_GREEN);
-	putPixel (VGA, 50, 50, COLOR_RED);
-	inlineSetPixel (70, 70, COLOR_YELLOW);
-	fillRect (VGA, 100, 100, 150, 150, COLOR_WHITE);
+	//setPixel (10,10, COLOR_GREEN);
+	//putPixel (VGA, 50, 50, COLOR_RED);
+	//inlineSetPixel (70, 70);
+	//fillRect (VGA, 100, 100, 150, 150, COLOR_WHITE);
 }

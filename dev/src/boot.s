@@ -3,11 +3,11 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
-.set ALIGN,    1<<0             
-.set MEMINFO,  1<<1        
-.set FLAGS,    ALIGN | MEMINFO  
-.set MAGIC,    0x1BADB002       
-.set CHECKSUM, -(MAGIC + FLAGS) 
+.set ALIGN,    1<<0
+.set MEMINFO,  1<<1
+.set FLAGS,    ALIGN | MEMINFO
+.set MAGIC,    0x1BADB002
+.set CHECKSUM, -(MAGIC + FLAGS)
 
 .section .multiboot
 .align 4
@@ -26,9 +26,19 @@ stack_top:
 .type _start, @function
 _start:
 	mov $stack_top, %esp
-	sti
+	;sti
+
+	;mov %ah, 0x00
+	;mov %al, 0x03
+	;int $0x10
+
+	;mov %ah, 0x0C
+	;mov %al, 15
+	;mov %cx, 100
+	;mov %dx, 100
+	;int $0x10
 	call kernel_main
-	
+
 ; 	cli
 ; 1:	hlt
 ; 	jmp 1b
