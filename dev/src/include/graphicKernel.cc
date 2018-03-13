@@ -27,7 +27,7 @@ void initScreen () {
 
 int setPixel(int x, int y, int color) {
 
- VGA+(320*y+x)=color; //This plots a pixel at x,y
+ VGA[(320*y+x)]=color; //This plots a pixel at x,y
 
 };
 
