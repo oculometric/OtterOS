@@ -40,29 +40,6 @@ void init_pics(int pic1, int pic2)
 	outb(PIC1 + 1, 0xFF);
 }
 
-/* only valid for 800x600x32bpp */
-static void putpixel(unsigned char* screen, int x,int y, int color) {
-	unsigned where = x*4 + y*3200;
-	screen[where] = color & 255;              // BLUE
-	screen[where + 1] = (color >> 8) & 255;   // GREEN
-	screen[where + 2] = (color >> 16) & 255;  // RED
-}
-
-//extern void setPixel(void);
-
-static inline void setPixel () {
-	asm ("mov %ah, 0x0C");
-	asm ("mov %al, 0x13");
-	asm ("int $0x10");
-
-	asm ("mov %ah, 0x0C");
-	asm ("mov %bh, 0");
-	asm ("mov %dx, 5");
-	asm ("mov %cx, 5");
-	asm ("mov %al, 0x04");
-	asm ("int $0x10");
-}
-
 bool isWaitingForUp = false;
 
 bool leftShiftDown = false;
