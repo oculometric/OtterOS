@@ -8,7 +8,7 @@
 #include <stddef.h>
 
 char* names[255] = {"coshv", "bootmode"};
-char* values[255] = {"0.1", "console"};
+char* values[255] = {"0.1", "graphics"};
 
 char* getValueForKey (char* key) {
   int contain = contains (names, key);

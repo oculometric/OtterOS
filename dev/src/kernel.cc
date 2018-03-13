@@ -3,13 +3,14 @@
 * terms of the LICENSE, found in the top level directory.
 */
 
-#include <stddef.h> //we can use it: it doesnt use any platform-related api functions
-#include <stdint.h> //include it to get int16_t and some integer types
+#include <stddef.h>
+#include <stdint.h>
 #include <stdbool.h>
 #include "include/utils.cc"
 #include "include/globals.cc"
 #include "include/terminal.cc"
 #include "include/kbdus.h"
+#include "include/graphicKernel.cc"
 
 #define PIC1 0x20
 #define PIC2 0xA0
@@ -125,9 +126,7 @@ void terminalKernel () {
 	while(c!=1); // 1= ESCAPE
 }
 
-void graphicalKernel () {
-	// Write graphical kernel base here
-}
+
 
 extern "C" void kernel_main(void) {
 	char* bootmode = getValueForKey ("bootmode");
