@@ -28,15 +28,6 @@ _start:
 	mov $stack_top, %esp
 	;sti
 
-	;mov %ah, 0x00
-	;mov %al, 0x03
-	;int $0x10
-
-	;mov %ah, 0x0C
-	;mov %al, 15
-	;mov %cx, 100
-	;mov %dx, 100
-	;int $0x10
 	call kernel_main
 
 ; 	cli

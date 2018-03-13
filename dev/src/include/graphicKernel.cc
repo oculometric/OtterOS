@@ -40,16 +40,18 @@ static void putPixel(unsigned char* screen, int x,int y, int color) {
 }
 
 static inline void inlineSetPixel (int x, int y) {
+	changeToRealMode();
 	asm ("mov %ah, 0x0C \n\t"
-	   		"mov %al, 0x13 \n\t"
+			 "mov %al, 0x13 \n\t"
 	     "int $0x10 \n\t"
 	     "mov %ah, 0x0C \n\t"
 	     "mov %bh, 0x00 \n\t"
 	     "mov %dx, 0x05 \n\t"
 	     "mov %cx, 0x05 \n\t"
-	     "mov %al, 0x04 \n\t"
+	     "mov %al, 15 \n\t"
 	     "int $0x10"
 	);
+	changeToProtectedMode();
 }
 
 static void fillRect(unsigned char *vram, int x, int y, unsigned char w, unsigned char h, int color) {
@@ -73,6 +75,6 @@ void graphicalKernel () {
 	initScreen();
 	//setPixel (10,10, COLOR_GREEN);
 	//putPixel (VGA, 50, 50, COLOR_RED);
-	//inlineSetPixel (70, 70);
+	inlineSetPixel (70, 70);
 	//fillRect (VGA, 100, 100, 150, 150, COLOR_WHITE);
 }
