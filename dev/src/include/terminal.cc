@@ -168,7 +168,11 @@ int histLoc = 0;
  }
 
 void setupBorders () {
-
+   tFillLineWithChar ('█');
+   terminal_row = VGA_HEIGHT;
+   tFillLineWithChar ('█');
+   terminal_row = 1;
+   terminal_column = 1;
 }
 
 void executeLine () {
