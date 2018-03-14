@@ -22,6 +22,8 @@ uint16_t* terminal_buffer;
 char currentInLine[VGA_WIDTH];
 //size_t lnLoc = 0;
 
+void setupBorders();
+
 void tInitialize() {
 	terminal_row = 0;
 	terminal_column = 0;
