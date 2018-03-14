@@ -36,6 +36,7 @@ void tInitialize() {
 			//currentInLine[x] = ' ';
 		}
 	}
+   setupBorders();
 }
 
 void tSetCol(uint8_t color) {
@@ -60,7 +61,7 @@ void updateCursorLocation() {
 void tPutChar(char c) {
 	tPutEntryAt(c, terminal_color, terminal_column, terminal_row);
 	if ( ++terminal_column == VGA_WIDTH ) {
-		terminal_column = 0;
+		terminal_column = 1;
 		if ( ++terminal_row == VGA_HEIGHT ) {
 			terminal_row = 0;
 			tInitialize();
@@ -71,11 +72,11 @@ void tPutChar(char c) {
 }
 
 void tDeleteChar () {
-	if (terminal_column > 8) {
+	if (terminal_column > 9) {
 		terminal_column--;
 	}
 	tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
-	currentInLine[terminal_column - 8] = 0x00;
+	currentInLine[terminal_column - 9] = 0x00;
 	updateCursorLocation();
 }
 
@@ -94,7 +95,7 @@ void tWriteString(const char* data) {
 
 void println (const char* data) {
 	tWriteString (data);
-	terminal_column = 0;
+	terminal_column = 1;
 	terminal_row++;
 	updateCursorLocation();
 }
@@ -165,6 +166,10 @@ int histLoc = 0;
 //	currentInLine = inputHist[histLoc];
 // 	print(inputHist[histLoc]);
  }
+
+void setupBorders () {
+
+}
 
 void executeLine () {
 	// char* cmd = getFirstCmdPart(currentInLine);
