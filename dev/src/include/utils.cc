@@ -91,45 +91,45 @@ static inline void outb( unsigned short port, unsigned char val ) {
 static inline void changeToRealMode () {
 	asm (
 			 "idt_real:\n\t"
-			 "	dw 0x3ff\n\t"
-			 "	dd 0\n\t"
+			 "	dw $0x3ff\n\t"
+			 "	dd $0\n\t"
 
 			 "savcr0:\n\t"
-			 "	dd 0\n\t"
+			 "	dd $0\n\t"
 
 			 "Entry16:\n\t"
 
 			 "	cli\n\t"
-			 "	mov eax, DATASEL16\n\t"
-			 "	mov ds, eax\n\t"
-			 "	mov es, eax\n\t"
-			 "	mov fs, eax\n\t"
-			 "	mov gs, eax\n\t"
-			 "	mov ss, eax\n\t"
+			 "	mov %eax, DATASEL16\n\t"
+			 "	mov %ds, %eax\n\t"
+			 "	mov %es, %eax\n\t"
+			 "	mov %fs, %eax\n\t"
+			 "	mov %gs, %eax\n\t"
+			 "	mov %ss, %eax\n\t"
 
-			 "	mov eax, cr0\n\t"
-			 "	mov [savcr0], eax\n\t"
-			 "	and eax, 0x7FFFFFFe\n\t"
-			 "	mov cr0, eax\n\t"
+			 "	mov %eax, %cr0\n\t"
+			 "	mov [savcr0], %eax\n\t"
+			 "	and %eax, $0x7FFFFFFe\n\t"
+			 "	mov %cr0, %eax\n\t"
 
-			 "	jmp 0:GoRMode\n\t"
+			 //"	jmp 0 :GoRMode\n\t"
 
-			 "GoRMode:\n\t"
-			 "	mov sp, 0x8000\n\t"
-			 "	mov ax, 0\n\t"
-			 "	mov ds, ax\n\t"
-			 "	mov es, ax\n\t"
-			 "	mov fs, ax\n\t"
-			 "	mov gs, ax\n\t"
-			 "	mov ss, ax\n\t"
-			 "	lidt [idt_real]\n\t"
+			 //"GoRMode:\n\t"
+			 "	mov %sp, $0x8000\n\t"
+			 "	mov %ax, $0\n\t"
+			 "	mov %ds, %ax\n\t"
+			 "	mov %es, %ax\n\t"
+			 "	mov %fs, %ax\n\t"
+			 "	mov %gs, %ax\n\t"
+			 "	mov %ss, %ax\n\t"
+			 "	lidt idt_real\n\t"
 			 "	sti");
 }
 
 static inline void changeToProtectedMode () {
 	asm ("cli          \n\t"
-			 "lgdt [gdtr]  \n\t"
-			 "mov eax, cr0 \n\t"
-			 "or al, 1     \n\t"
-			 "mov cr0, eax");
+			 "lgdt gdtr  \n\t"
+			 "mov %eax, %cr0 \n\t"
+			 "or %al, $1     \n\t"
+			 "mov %cr0, %eax");
 }

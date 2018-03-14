@@ -18,16 +18,16 @@
 
 typedef unsigned char byte;
 
-byte *VGA;
-
+//byte *VGA = (byte *)0xA0000;
+auto *VGA = (unsigned char *)0xA0000;
 
 void initScreen () {
-	byte *VGA = (byte *)0xA0000;
+
 }
 
 int setPixel(int x, int y, int color) {
 
- VGA[(320*y+x)]=color; //This plots a pixel at x,y
+ VGA[320*y+x]=color; //This plots a pixel at x,y
 
 };
 
@@ -75,6 +75,6 @@ void graphicalKernel () {
 	initScreen();
 	//setPixel (10,10, COLOR_GREEN);
 	//putPixel (VGA, 50, 50, COLOR_RED);
-	inlineSetPixel (70, 70);
+	//inlineSetPixel (70, 70);
 	//fillRect (VGA, 100, 100, 150, 150, COLOR_WHITE);
 }
