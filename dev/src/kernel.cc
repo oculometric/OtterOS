@@ -47,10 +47,10 @@ bool rightShiftDown = false;
 
 void terminalKernel () {
 	tInitialize();
-	println("Well... this is OtterOS so far!");
-	println("Warning! This OS melts PHP programmers.");
-	println("");
-	tFillLineWithChar ('█');
+	//println("Well... this is OtterOS so far!");
+	//println("Warning! This OS melts PHP programmers.");
+	//println("");
+	
 	print("cosh -> ");
 	char c = 0;
 	init_pics(0x20, 0x28);
