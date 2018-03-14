@@ -108,6 +108,6 @@ void terminalKernel () {
 extern "C" void kernel_main(void) {
 	char* bootmode = getValueForKey ("bootmode");
 	//if (strEqual (bootmode, "graphics")) {graphicalKernel();} else {terminalKernel();}
-	graphicalKernel();
+	terminalKernel();
 	//setPixel();
 }
