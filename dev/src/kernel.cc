@@ -50,7 +50,7 @@ void terminalKernel () {
 	//println("Well... this is OtterOS so far!");
 	//println("Warning! This OS melts PHP programmers.");
 	//println("");
-	
+
 	print("cosh -> ");
 	char c = 0;
 	init_pics(0x20, 0x28);
@@ -108,6 +108,7 @@ void terminalKernel () {
 extern "C" void kernel_main(void) {
 	char* bootmode = getValueForKey ("bootmode");
 	//if (strEqual (bootmode, "graphics")) {graphicalKernel();} else {terminalKernel();}
-	terminalKernel();
+	//terminalKernel();
+	graphicalKernel();
 	//setPixel();
 }
