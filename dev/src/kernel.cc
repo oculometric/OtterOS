@@ -51,7 +51,9 @@ void terminalKernel () {
 	//println("Warning! This OS melts PHP programmers.");
 	//println("");
 
+	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
 	print("cosh -> ");
+	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
 	char c = 0;
 	init_pics(0x20, 0x28);
 	do {
@@ -108,7 +110,7 @@ void terminalKernel () {
 extern "C" void kernel_main(void) {
 	char* bootmode = getValueForKey ("bootmode");
 	//if (strEqual (bootmode, "graphics")) {graphicalKernel();} else {terminalKernel();}
-	//terminalKernel();
-	graphicalKernel();
+	terminalKernel();
+	//graphicalKernel();
 	//setPixel();
 }

@@ -22,14 +22,13 @@ uint16_t* terminal_buffer;
 char currentInLine[VGA_WIDTH];
 //size_t lnLoc = 0;
 
-void setupBorders();
-
 void tInitialize() {
 	terminal_row = 0;
 	terminal_column = 0;
-	terminal_color = make_color(COLOR_LIGHT_GREY, COLOR_BLACK);
+	//terminal_color = make_color(COLOR_LIGHT_GREY, COLOR_BLACK);
+	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
 	terminal_buffer = (uint16_t*) 0xB8000;
-	for ( size_t y = 0; y < VGA_HEIGHT-1; y++ )
+	for ( size_t y = 0; y < VGA_HEIGHT; y++ )
 	{
 		for ( size_t x = 0; x < VGA_WIDTH; x++ )
 		{
@@ -38,7 +37,6 @@ void tInitialize() {
 			//currentInLine[x] = ' ';
 		}
 	}
-   setupBorders();
 }
 
 void tSetCol(uint8_t color) {
@@ -63,9 +61,9 @@ void updateCursorLocation() {
 void tPutChar(char c) {
 	tPutEntryAt(c, terminal_color, terminal_column, terminal_row);
 	if ( ++terminal_column == VGA_WIDTH ) {
-		terminal_column = 1;
-		if ( ++terminal_row == VGA_HEIGHT-1 ) {
-			terminal_row = 1;
+		terminal_column = 0;
+		if ( ++terminal_row == VGA_HEIGHT ) {
+			terminal_row = 0;
 			tInitialize();
 		}
 	}
@@ -74,11 +72,11 @@ void tPutChar(char c) {
 }
 
 void tDeleteChar () {
-	if (terminal_column > 9) {
+	if (terminal_column > 8) {
 		terminal_column--;
 	}
 	tPutEntryAt(' ', terminal_color, terminal_column, terminal_row);
-	currentInLine[terminal_column - 9] = 0x00;
+	currentInLine[terminal_column - 8] = 0x00;
 	updateCursorLocation();
 }
 
@@ -97,7 +95,7 @@ void tWriteString(const char* data) {
 
 void println (const char* data) {
 	tWriteString (data);
-	terminal_column = 1;
+	terminal_column = 0;
 	terminal_row++;
 	updateCursorLocation();
 }
@@ -109,14 +107,15 @@ void print (const char* data) {
 
 static char** splitStr (char* string, char delim) {
 	// Fix/write this
-	char* returner[127];
+	char returner[VGA_WIDTH][255];
 	int loc = 0;
 	int innerLoc = 0;
 	for (int i = 0; string[i] != 0x00; i++) {
 		char c = string[i];
-		if (c != ' ') {
+		if (c != delim) {
 			returner[loc][innerLoc] = c;
 			innerLoc++;
+			//tPutChar(c);
 		} else {
 			print ("a string was ");
 			println (returner[loc]);
@@ -125,8 +124,8 @@ static char** splitStr (char* string, char delim) {
 		}
 	}
 	print ("the first string was ");
-	println (returner[1]);
-	return returner;
+	println (returner[0]);
+	return (char**)returner;
 }
 
 static char* getFirstCmdPart (char* in) {
@@ -135,11 +134,15 @@ static char* getFirstCmdPart (char* in) {
 
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
-static void echo () {
-	println ("Echo......");
+static void split () {
+	splitStr (currentInLine, ' ');
 }
 
 static void bell () {
+	println ("Ding!!!");
+}
+
+static void echo () {
 	println ("Ding!!!");
 }
 
@@ -156,8 +159,8 @@ static void cosh () {
 
 // ==========  END COMMAND FUNCTIONS  ========== //
 
-char* functionNames[3] = {"echo", "bell", "cosh"};
-void (* functions [])() = {echo, bell, cosh};
+char* functionNames[4] = {"echo", "bell", "cosh", "split"};
+void (* functions [])() = {echo, bell, cosh, split};
 
 char* inputHist[255];
 int histLoc = 0;
@@ -169,35 +172,25 @@ int histLoc = 0;
 // 	print(inputHist[histLoc]);
  }
 
-void setupBorders () {
-   tFillLineWithChar ('█');
-	 for (int line = 1; line < VGA_HEIGHT-2; line++) {
-		 terminal_row = line;
-		 terminal_column = 0;
-		 tPutChar ('█');
-		 terminal_column = VGA_WIDTH-1;
-		 tPutChar ('█');
-	 }
-   terminal_row = VGA_HEIGHT;
-   tFillLineWithChar ('█');
-   terminal_row = 1;
-   terminal_column = 1;
-}
 
 void executeLine () {
-	// char* cmd = getFirstCmdPart(currentInLine);
+	char* line = currentInLine;
+	char** splitLine = splitStr(currentInLine, ' ');
 
-	char* cmd = currentInLine;
-	int contain = contains (functionNames, currentInLine);
+	char* cmd = splitLine[0];
+	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
 		functions[contain]();
 	} else {
 		print ("I don't what this means: ");
 		println (cmd);
 	}
+
 	inputHist[arraylen(inputHist)] = currentInLine;
 	histLoc = arraylen(inputHist)+1;
+	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
 	print("cosh -> ");
+	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
 	for (int ind=0; currentInLine[ind] != 0x00; ind++) {
 		currentInLine[ind] = 0x00;
 	}
