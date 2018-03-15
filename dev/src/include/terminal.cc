@@ -105,27 +105,51 @@ void print (const char* data) {
 	updateCursorLocation();
 }
 
-static char** splitStr (char* string, char delim) {
-	// Fix/write this
-	char returner[VGA_WIDTH][255];
-	int loc = 0;
-	int innerLoc = 0;
-	for (int i = 0; string[i] != 0x00; i++) {
-		char c = string[i];
-		if (c != delim) {
-			returner[loc][innerLoc] = c;
-			innerLoc++;
-			//tPutChar(c);
-		} else {
-			print ("a string was ");
-			println (returner[loc]);
-			innerLoc = 0;
-			loc++;
-		}
-	}
-	print ("the first string was ");
-	println (returner[0]);
-	return (char**)returner;
+// static char** splitStr (char* string, char delim) {
+// 	// Fix/write this
+// 	char returner[VGA_WIDTH][255];
+// 	int loc = 0;
+// 	int innerLoc = 0;
+// 	for (int i = 0; string[i] != 0x00; i++) {
+// 		char c = string[i];
+// 		if (c != delim) {
+// 			returner[loc][innerLoc] = c;
+// 			innerLoc++;
+// 			//tPutChar(c);
+// 		} else {
+// 			print ("a string was ");
+// 			println (returner[loc]);
+// 			innerLoc = 0;
+// 			loc++;
+// 		}
+// 	}
+// 	print ("the first string was ");
+// 	println (returner[0]);
+// 	return (char**)returner;
+// }
+
+void splitStr(const char* str, const char d, char** into) {
+    if(str != NULL && into != NULL)
+    {
+        int n = 0;
+        int c = 0;
+        for(int i = 0; str[c] != '\0'; i++,c++) {
+            into[n][i] = str[c];
+            if(str[c] == d) {
+                into[n][i] = '\0';
+                i = -1;
+                ++n;
+            }
+        }
+    }
+}
+
+void allocarr(char** pointers, int bytes, int slots) {
+    int i = 0;
+    while(i <= slots) {
+        pointers[i] = (char*)calloc(1, bytes);
+        ++i;
+    }
 }
 
 static char* getFirstCmdPart (char* in) {
@@ -175,8 +199,11 @@ int histLoc = 0;
 
 void executeLine () {
 	char* line = currentInLine;
-	char** splitLine = splitStr(currentInLine, ' ');
-
+	char** splitLine = (char**)malloc(50*sizeof(line));
+	allocarr(splitLine, 512, 50);
+	split(line, ' ', splitLine);
+	
+	
 	char* cmd = splitLine[0];
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
