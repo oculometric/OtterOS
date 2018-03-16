@@ -105,7 +105,7 @@ void print (const char* data) {
 	updateCursorLocation();
 }
 
-// static char** splitStr (char* string, char delim) {
+// static splitStr (char* string, char delim, char** into) {
 // 	// Fix/write this
 // 	char returner[VGA_WIDTH][255];
 // 	int loc = 0;
@@ -125,11 +125,11 @@ void print (const char* data) {
 // 	}
 // 	print ("the first string was ");
 // 	println (returner[0]);
-// 	return (char**)returner;
+// 	//return (char**)returner;
 // }
 
 void splitStr(const char* str, const char d, char** into) {
-    if(str != NULL && into != NULL)
+    if(str != NULL)
     {
         int n = 0;
         int c = 0;
@@ -144,12 +144,13 @@ void splitStr(const char* str, const char d, char** into) {
     }
 }
 
+
 void allocarr(char** pointers, int bytes, int slots) {
-    int i = 0;
-    while(i <= slots) {
-        pointers[i] = (char*)calloc(1, bytes);
-        ++i;
-    }
+    // int i = 0;
+    // while(i <= slots) {
+    //     pointers[i] = (char*)calloc(1, bytes);
+    //     ++i;
+    // }
 }
 
 static char* getFirstCmdPart (char* in) {
@@ -199,9 +200,9 @@ int histLoc = 0;
 
 void executeLine () {
 	char* line = currentInLine;
-	
-	char** splitLine = (char**)malloc(50*sizeof(char*));
-	allocarr(splitLine, 512, 50);
+
+	char** splitLine /* = (char**)malloc(50*sizeof(char*))*/;
+	// allocarr(splitLine, 512, 50);
 	splitStr(line, ' ', splitLine);
 
 
