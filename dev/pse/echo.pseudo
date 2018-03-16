@@ -1,0 +1,7 @@
+void echo () {
+  int end of first part = count to the end of the command;
+  for character in currentInLine, starting at end of first part {
+    append character to temporary string;
+  }
+  print generated string;
+}
