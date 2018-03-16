@@ -159,7 +159,7 @@ static char* getFirstCmdPart (char* in) {
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
 static void split () {
-	splitStr (currentInLine, ' ');
+	//splitStr (currentInLine, ' ');
 }
 
 static void bell () {
@@ -199,11 +199,12 @@ int histLoc = 0;
 
 void executeLine () {
 	char* line = currentInLine;
-	char** splitLine = (char**)malloc(50*sizeof(line));
+	
+	char** splitLine = (char**)malloc(50*sizeof(char*));
 	allocarr(splitLine, 512, 50);
-	split(line, ' ', splitLine);
-	
-	
+	splitStr(line, ' ', splitLine);
+
+
 	char* cmd = splitLine[0];
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
