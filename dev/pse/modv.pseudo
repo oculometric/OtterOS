@@ -1,0 +1,4 @@
+void modv () {
+  2d character array items = split of currentInLine at ' ';
+  set the value of key item 1 to the item 2;
+}
