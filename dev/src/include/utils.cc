@@ -7,6 +7,8 @@
 #include <stdint.h> //include it to get int16_t and some integer types
 #include <stdbool.h>
 
+typedef char* string;
+
 enum vga_color {
 	COLOR_BLACK = 0,
 	COLOR_BLUE = 1,

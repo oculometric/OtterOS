@@ -9,7 +9,6 @@
 
 /* Hardware text mode color constants. */
 
-
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 24;
 
@@ -128,25 +127,25 @@ void print (const char* data) {
 // 	//return (char**)returner;
 // }
 
-void splitStr (const char* input, const char delim, char** output) {
+void splitStr (const char* input, const char delim, char* output, int part) {
 	int outerplace = 0;
 	int innerplace = 0;
 
 	char c = input[0];
 	int loc = 0;
-	char currentBit[255];
+	char currentBit[VGA_WIDTH];
 
-	while (c != 0x00) {
+	while (c != 0x00 && loc <= part) {
 		c = input[loc];
 		if (c != delim) {
 			currentBit[innerplace] = c;
 			//tPutChar(c);
 			innerplace++;
 		} else {
-			output[outerplace] = currentBit;
+			output = currentBit;
 			innerplace = 0;
-			print ("A string is ");
-			println (output[outerplace]);
+			// print ("A string is ");
+			// println (output[outerplace]);
 			for (int ind=0; currentBit[ind] != 0x00; ind++) {
 				currentBit[ind] = 0x00;
 			}
@@ -155,17 +154,17 @@ void splitStr (const char* input, const char delim, char** output) {
 		loc++;
 	}
 
-	for (int strloc = 0; input[strloc] != 0; strloc++) {
-		if (input[strloc] != delim) {
-			output[outerplace][innerplace] = input[strloc];
-			innerplace++;
-		} else {
-			innerplace = 0;
-			print ("A string is ");
-			println (output[outerplace]);
-			outerplace++;
-		}
-	}
+	// for (int strloc = 0; input[strloc] != 0; strloc++) {
+	// 	if (input[strloc] != delim) {
+	// 		output[outerplace][innerplace] = input[strloc];
+	// 		innerplace++;
+	// 	} else {
+	// 		innerplace = 0;
+	// 		print ("A string is ");
+	// 		println (output[outerplace]);
+	// 		outerplace++;
+	// 	}
+	// }
 }
 
 // void splitStr(const char* str, const char d, char** into) {
@@ -241,12 +240,9 @@ int histLoc = 0;
 void executeLine () {
 	char* line = currentInLine;
 
-	char** splitLine /* = (char**)malloc(50*sizeof(char*))*/;
-	// allocarr(splitLine, 512, 50);
-	splitStr(line, ' ', splitLine);
 
-
-	char* cmd = splitLine[0];
+	char* cmd = new char[VGA_WIDTH];
+	splitStr(line, ' ', cmd, 0);
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
 		functions[contain]();
@@ -263,6 +259,7 @@ void executeLine () {
 	for (int ind=0; currentInLine[ind] != 0x00; ind++) {
 		currentInLine[ind] = 0x00;
 	}
+	delete cmd;
 	//currentInLine[VGA_WIDTH];
 
 }
