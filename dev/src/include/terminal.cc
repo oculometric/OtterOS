@@ -128,21 +128,61 @@ void print (const char* data) {
 // 	//return (char**)returner;
 // }
 
-void splitStr(const char* str, const char d, char** into) {
-    if(str != NULL)
-    {
-        int n = 0;
-        int c = 0;
-        for(int i = 0; str[c] != '\0'; i++,c++) {
-            into[n][i] = str[c];
-            if(str[c] == d) {
-                into[n][i] = '\0';
-                i = -1;
-                ++n;
-            }
-        }
-    }
+void splitStr (const char* input, const char delim, char** output) {
+	int outerplace = 0;
+	int innerplace = 0;
+
+	char c = input[0];
+	int loc = 0;
+	char currentBit[255];
+
+	while (c != 0x00) {
+		c = input[loc];
+		if (c != delim) {
+			currentBit[innerplace] = c;
+			//tPutChar(c);
+			innerplace++;
+		} else {
+			output[outerplace] = currentBit;
+			innerplace = 0;
+			print ("A string is ");
+			println (output[outerplace]);
+			for (int ind=0; currentBit[ind] != 0x00; ind++) {
+				currentBit[ind] = 0x00;
+			}
+			outerplace++;
+		}
+		loc++;
+	}
+
+	for (int strloc = 0; input[strloc] != 0; strloc++) {
+		if (input[strloc] != delim) {
+			output[outerplace][innerplace] = input[strloc];
+			innerplace++;
+		} else {
+			innerplace = 0;
+			print ("A string is ");
+			println (output[outerplace]);
+			outerplace++;
+		}
+	}
 }
+
+// void splitStr(const char* str, const char d, char** into) {
+//     if(str != NULL)
+//     {
+//         int n = 0;
+//         int c = 0;
+//         for(int i = 0; str[c] != '\0'; i++,c++) {
+//             into[n][i] = str[c];
+//             if(str[c] == d) {
+//                 into[n][i] = '\0';
+//                 i = -1;
+//                 ++n;
+//             }
+//         }
+//     }
+// }
 
 
 void allocarr(char** pointers, int bytes, int slots) {
