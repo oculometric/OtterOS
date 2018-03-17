@@ -1,3 +1,19 @@
+/* # Modv.pseudo #
+ *
+ * ## Description ##
+ * Pseudocode for the modv command.
+ *
+ * ## Info ##
+ * Created 16/03/18
+ * Format pseudocode
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
+
 void modv () {
   2d character array items = split of currentInLine at ' ';
   set the value of key item 1 to the item 2;

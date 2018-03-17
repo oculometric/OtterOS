@@ -1,3 +1,19 @@
+/* # Echo.pseudo #
+ *
+ * ## Description ##
+ * Pseudocode for the echo command.
+ *
+ * ## Info ##
+ * Created 16/03/18
+ * Format pseudocode
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
+
 void echo () {
   int end of first part = count to the end of the command;
   for character in currentInLine, starting at end of first part {
