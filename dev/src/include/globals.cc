@@ -1,4 +1,16 @@
-/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
+/* # Globals.cc #
+ *
+ * ## Description ##
+ * Contains declarations for the global variable system (much
+ * like the variable system in bash).
+ *
+ * ## Info ##
+ * Created 12/03/18
+ * Format C++ source
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */

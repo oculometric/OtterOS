@@ -1,4 +1,15 @@
-/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
+/* # Boot.s #
+ *
+ * ## Description ##
+ * Does the dirty setup for kernel.cc, then calls kernel_main.
+ *
+ * ## Info ##
+ * Created 12/03/18
+ * Format assembly source
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */

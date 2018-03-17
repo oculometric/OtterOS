@@ -1,4 +1,16 @@
-/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
+/* # Utils.cc #
+ *
+ * ## Description ##
+ * Contains various utility functions and declarations for
+ * other part of the project to use.
+ *
+ * ## Info ##
+ * Created 12/03/18
+ * Format C++ source
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */

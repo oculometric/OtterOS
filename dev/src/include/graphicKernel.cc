@@ -1,7 +1,20 @@
-/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
-* You may use, distribute and modify this code under the
-* terms of the LICENSE, found in the top level directory.
-*/
+/* # GraphicKernel.cc #
+ *
+ * ## Description ##
+ * Functions for controlling the graphical mode operating
+ * system. Entirely WIP, this mode doesn't actually do
+ * anything at the moment.
+ *
+ * ## Info ##
+ * Created 13/03/18
+ * Format C++ source
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
 
 #include <stddef.h>
 #include <stdint.h>

@@ -1,4 +1,17 @@
-/* Copyright (C) 2018 JavaxCosten - All Rights Reserved
+/* # Terminal.cc #
+ *
+ * ## Description ##
+ * Functions for controlling the terminal mode operating
+ * system. Also contains command interpreter, and
+ * command functions. Includes string split function.
+ *
+ * ## Info ##
+ * Created 15/03/18
+ * Format C++ source
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
