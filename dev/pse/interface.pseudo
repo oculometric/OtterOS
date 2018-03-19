@@ -1,0 +1,36 @@
+/* # Interface.pseudo #
+ *
+ * ## Description ##
+ * Pseudocode for interface management.
+ *
+ * ## Info ##
+ * Created 19/03/18
+ * Format pseudocode
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
+
+class Window {
+	public:
+	
+	Window (int x; int y; int xx; int yy;) {
+	
+	}
+	
+	int x1;
+	int y1;
+	int x2;
+	int y2;
+	
+	void draw () {
+		
+	}
+	
+	void fitAndTidy () {
+	
+	}
+}
