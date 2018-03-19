@@ -14,11 +14,19 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
-int findfreeblock (int size) {
+void* malloc (int size) {
+	unsigned char free block = findfreeblock (size);
+	if (free block != NULL) {
+		allocate memory;
+	}
+	return free block;
+}
+
+unsigned char findfreeblock (int size) {
 	int start pointer = 0x0000;
 	bool has found free memory = false;
 	int end of size = start pointer + size;
-	while (haven't found free memory) {
+	while (haven't found free memory && not at the end of memory) {
 		while (object referenced by start pointer != NULL) {
 			increment start pointer;
 		}
@@ -29,6 +37,9 @@ int findfreeblock (int size) {
 				break;
 			}
 		}
+	}
+	if (at the end of memory) {
+		start pointer = NULL;
 	}
 
 	return start pointer;
