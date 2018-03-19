@@ -14,7 +14,7 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
-int malloc (int size) {
+int findfreeblock (int size) {
 	int start pointer = 0x0000;
 	bool has found free memory = false;
 	int end of size = start pointer + size;
