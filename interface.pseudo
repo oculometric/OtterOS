@@ -1,4 +1,4 @@
-/* # Malloc.pseudo #
+/* # Interface.pseudo #
  *
  * ## Description ##
  * Pseudocode for functions for allocating memory.
