@@ -1,0 +1,35 @@
+/* # Malloc.pseudo #
+ *
+ * ## Description ##
+ * Pseudocode for functions for allocating memory.
+ *
+ * ## Info ##
+ * Created 19/03/18
+ * Format pseudocode
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
+
+int findfreeblock (int size) {
+	int start pointer = 0x0000;
+	bool has found free memory = false;
+	int end of size = start pointer + size;
+	while (haven't found free memory) {
+		while (object referenced by start pointer != NULL) {
+			increment start pointer;
+		}
+		has found free memory = true;
+		for (int i = start pointer; i <= end of size; i++) {
+			if (object referenced by start pointer != NULL) {
+				has found free memory = false;
+				break;
+			}
+		}
+	}
+
+	return start pointer;
+}
