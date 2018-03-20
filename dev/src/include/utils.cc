@@ -192,3 +192,21 @@ void operator delete(void *p) {
 void operator delete[](void *p) {
     free(p);
 }
+
+string getNthItemOf (string str, char delim, int item) {
+	int itemNo = 0;
+	string returner;
+	int secondLoc = 0;
+	int characterPtr = 0;
+	while (itemNo != item) {
+		if (str[characterPtr] == delim) {
+			itemNo++;
+		}
+		characterPtr++;
+	}
+	while (str[characterPtr] != delim) {
+		returner[secondLoc] = str[characterPtr];
+		characterPtr++;
+		secondLoc++;
+	}
+}
