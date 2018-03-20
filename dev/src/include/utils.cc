@@ -148,22 +148,45 @@ static inline void changeToProtectedMode () {
 			 "mov %cr0, %eax");
 }
 
-void *operator new(size_t size)
-{
+void* findFreeBlock (int size) {
+	int startPointer = 0x0000;
+	bool hasFoundFreeMemory = false;
+	while (!hasFoundFreeMemory && true) {
+		while (*startPointer != NULL) {
+			startPointer++;
+		}
+		hasFoundFreeMemory = true;
+		for (int i = startPointer; i <= i + size; i++) {
+			if (*startPointer != NULL) {
+				hasFoundFreeMemory = false;
+				break;
+			}
+		}
+	}
+
+	return startPointer;
+}
+
+void* malloc (int size) {
+	unsigned char freeBlock = findFreeBlock (size);
+	// if (freeBlock != NULL) {
+	//
+	// }
+	return freeBlock;
+}
+
+void *operator new(size_t size) {
     return malloc(size);
 }
 
-void *operator new[](size_t size)
-{
+void *operator new[](size_t size) {
     return malloc(size);
 }
 
-void operator delete(void *p)
-{
+void operator delete(void *p) {
     free(p);
 }
 
-void operator delete[](void *p)
-{
+void operator delete[](void *p) {
     free(p);
 }
