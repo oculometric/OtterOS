@@ -2,7 +2,7 @@
  *
  * ## Description ##
  * Contains various utility functions and declarations for
- * other part of the project to use.
+ * other parts of the project to use.
  *
  * ## Info ##
  * Created 12/03/18
@@ -174,6 +174,8 @@ void* malloc (int size) {
 	// }
 	return freeBlock;
 }
+
+void free (unsigned char ptr);
 
 void *operator new(size_t size) {
     return malloc(size);
