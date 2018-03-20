@@ -254,7 +254,7 @@ void executeLine () {
 	char* line = currentInLine;
 
 	char** splitLine = (char**)malloc(50*sizeof(char*));
-	allocarr(splitLine, 512, 50);
+	//allocarr(splitLine, 512, 50);
 	splitStr(line, ' ', splitLine);
 	println (splitLine[0]);
 	char* cmd = currentInLine;
