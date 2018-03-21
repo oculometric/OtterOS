@@ -251,13 +251,13 @@ int histLoc = 0;
 
 
 void executeLine () {
-	char* line = currentInLine;
+	//char* line = currentInLine;
 
-	char** splitLine = (char**)malloc(50*sizeof(char*));
+	//char** splitLine = (char**)malloc(50*sizeof(char*));
 	//allocarr(splitLine, 512, 50);
-	splitStr(line, ' ', splitLine);
-	println (splitLine[0]);
-	char* cmd = currentInLine;
+	//splitStr(line, ' ', splitLine);
+	//println (splitLine[0]);
+	char* cmd = getNthItemOf(currentInLine, ‘ ‘, 0);
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
 		functions[contain]();
@@ -274,7 +274,7 @@ void executeLine () {
 	for (int ind=0; currentInLine[ind] != 0x00; ind++) {
 		currentInLine[ind] = 0x00;
 	}
-	delete cmd;
+	//delete cmd;
 	//currentInLine[VGA_WIDTH];
 
 }
