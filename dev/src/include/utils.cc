@@ -210,3 +210,28 @@ string getNthItemOf (string str, char delim, int item) {
 		secondLoc++;
 	}
 }
+
+void splitStr(const char* str, const char d, char** into) {
+    if(str != NULL && into != NULL)
+    {
+        int n = 0;
+        int c = 0;
+        for(int i = 0; str[c] != '\0'; i++,c++) {
+            into[n][i] = str[c];
+            if(str[c] == d) {
+                into[n][i] = '\0';
+                i = -1;
+                ++n;
+            }
+        }
+    }
+}
+
+
+void allocarr(char** pointers, int bytes, int slots) {
+    int i = 0;
+    while(i <= slots) {
+        pointers[i] = (char*)malloc(bytes);
+        ++i;
+    }
+}
