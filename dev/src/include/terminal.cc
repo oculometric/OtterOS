@@ -120,7 +120,7 @@ void print (const char* data) {
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
 static void clib () {
-	
+
 }
 
 static void modv () {
@@ -136,7 +136,7 @@ static void echo () {
 }
 
 static void cosh () {
-	char* versionName = getValueForKey ("coshv");
+	char* versionName = getGlobal ("coshv");
 	println ("COSH - Combined OtterOS SHell");
 	print ("Version: ");
 	println (versionName);
@@ -148,8 +148,8 @@ static void cosh () {
 
 // ==========  END COMMAND FUNCTIONS  ========== //
 
-char* functionNames[4] = {"echo", "bell", "cosh", "clib", "modv"};
-void (* functions [])() = {echo, bell, cosh, clib, modv};
+char* functionNames[5] = { "echo", "bell", "cosh", "clib", "modv"};
+void (* functions [])() = { echo,   bell,   cosh,   clib,   modv};
 
 char* inputHist[255];
 int histLoc = 0;
@@ -163,13 +163,14 @@ int histLoc = 0;
 
 
 void executeLine () {
-	//char* line = currentInLine;
+	char* cmd = currentInLine;
 
-	//char** splitLine = (char**)malloc(50*sizeof(char*));
-	//allocarr(splitLine, 512, 50);
-	//splitStr(line, ' ', splitLine);
-	//println (splitLine[0]);
-	char* cmd = getNthItemOf(currentInLine, ' ', 0);
+	char** splitLine = (char**)malloc(50*sizeof(char*));
+	allocarr(splitLine, 512, 50);
+	splitStr(currentInLine, ' ', splitLine);
+	println (splitLine[0]);
+	cmd = splitLine[0];
+
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
 		functions[contain]();

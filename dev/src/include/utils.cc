@@ -148,31 +148,50 @@ static inline void changeToProtectedMode () {
 			 "mov %cr0, %eax");
 }
 
+void println(const char* data);
+void print(const char* data);
+void tPutChar(const char data);
+
 void* findFreeBlock (int size) {
-	void* startPointer = 0x0000;
+
+	void* startPointer = (void*) 0x100000;
 	bool hasFoundFreeMemory = false;
-	while (!hasFoundFreeMemory && true) {
-		while (startPointer != NULL) {
-			startPointer++;
+	while (!hasFoundFreeMemory) {
+		println ("Started");
+		while (&startPointer != NULL) {
+			startPointer += 0x01;
+			print ((char*) &startPointer);
 		}
+		println ("Found a null");
 		hasFoundFreeMemory = true;
-		for (void* i = startPointer; i <= i + size; i++) {
-			if (startPointer != NULL) {
+		for (void* i = startPointer; i < (void*) 0x51200000; i++) {
+			if (i != NULL) {
 				hasFoundFreeMemory = false;
 				break;
 			}
 		}
-	}
+		println ("We just got kicked out");
 
+		if (hasFoundFreeMemory) {println ("Found free memory!");} else {println ("Not large enough");}
+		println("");
+	}
+	print ("We just came out of the loop");
 	return startPointer;
 }
 
 void* malloc (int size) {
+	println ("Looking for free block");
 	void* freeBlock = findFreeBlock (size);
 	// if (freeBlock != NULL) {
 	//
 	// }
 	return freeBlock;
+}
+
+void freeSomeMemory () {
+	for (void* i = (void*) 0x100000; i < (void*) 0x51200000; i++) {
+		*i = NULL;
+	}
 }
 
 void free (void *ptr) {}
@@ -198,7 +217,7 @@ string getNthItemOf (string str, char delim, int item) {
 	string returner;
 	int secondLoc = 0;
 	int characterPtr = 0;
-	while (itemNo != item) {
+	while (itemNo <= item) {
 		if (str[characterPtr] == delim) {
 			itemNo++;
 		}

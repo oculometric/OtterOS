@@ -59,6 +59,7 @@ bool leftShiftDown = false;
 bool rightShiftDown = false;
 
 void terminalKernel () {
+	freeSomeMemory();
 	tInitialize();
 	//println("Well... this is OtterOS so far!");
 	//println("Warning! This OS melts PHP programmers.");
@@ -104,9 +105,9 @@ void terminalKernel () {
 						}
 						updateCursorLocation();
 					} else if (ch == -3) {
-						if (histLoc > 0) {histLoc--;updateInLineToHistory();}
+						//if (histLoc > 0) {histLoc--;updateInLineToHistory();}
 					} else if (ch == -4) {
-						if (histLoc < arraylen(inputHist)) {histLoc++;updateInLineToHistory();}
+						//if (histLoc < arraylen(inputHist)) {histLoc++;updateInLineToHistory();}
 					} else {
 						currentInLine[terminal_column - 8] = ch;
 						tPutChar(ch);
@@ -121,7 +122,7 @@ void terminalKernel () {
 
 
 extern "C" void kernel_main(void) {
-	char* bootmode = getValueForKey ("bootmode");
+	//char* bootmode = getValueForKey ("bootmode");
 	//if (strEqual (bootmode, "graphics")) {graphicalKernel();} else {terminalKernel();}
 	terminalKernel();
 	//graphicalKernel();
