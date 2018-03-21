@@ -117,98 +117,6 @@ void print (const char* data) {
 	updateCursorLocation();
 }
 
-// static splitStr (char* string, char delim, char** into) {
-// 	// Fix/write this
-// 	char returner[VGA_WIDTH][255];
-// 	int loc = 0;
-// 	int innerLoc = 0;
-// 	for (int i = 0; string[i] != 0x00; i++) {
-// 		char c = string[i];
-// 		if (c != delim) {
-// 			returner[loc][innerLoc] = c;
-// 			innerLoc++;
-// 			//tPutChar(c);
-// 		} else {
-// 			print ("a string was ");
-// 			println (returner[loc]);
-// 			innerLoc = 0;
-// 			loc++;
-// 		}
-// 	}
-// 	print ("the first string was ");
-// 	println (returner[0]);
-// 	//return (char**)returner;
-// }
-
-// void splitStr (const char* input, const char delim, char* output, int part) {
-// 	int outerplace = 0;
-// 	int innerplace = 0;
-//
-// 	char c = input[0];
-// 	int loc = 0;
-// 	char currentBit[VGA_WIDTH];
-//
-// 	while (c != 0x00 && loc <= part) {
-// 		c = input[loc];
-// 		if (c != delim) {
-// 			currentBit[innerplace] = c;
-// 			//tPutChar(c);
-// 			innerplace++;
-// 		} else {
-// 			output = currentBit;
-// 			innerplace = 0;
-// 			// print ("A string is ");
-// 			// println (output[outerplace]);
-// 			for (int ind=0; currentBit[ind] != 0x00; ind++) {
-// 				currentBit[ind] = 0x00;
-// 			}
-// 			outerplace++;
-// 		}
-// 		loc++;
-// 	}
-//
-// 	// for (int strloc = 0; input[strloc] != 0; strloc++) {
-// 	// 	if (input[strloc] != delim) {
-// 	// 		output[outerplace][innerplace] = input[strloc];
-// 	// 		innerplace++;
-// 	// 	} else {
-// 	// 		innerplace = 0;
-// 	// 		print ("A string is ");
-// 	// 		println (output[outerplace]);
-// 	// 		outerplace++;
-// 	// 	}
-// 	// }
-// }
-
-void splitStr(const char* str, const char d, char** into) {
-    if(str != NULL && into != NULL)
-    {
-        int n = 0;
-        int c = 0;
-        for(int i = 0; str[c] != '\0'; i++,c++) {
-            into[n][i] = str[c];
-            if(str[c] == d) {
-                into[n][i] = '\0';
-                i = -1;
-                ++n;
-            }
-        }
-    }
-}
-
-
-void allocarr(char** pointers, int bytes, int slots) {
-    int i = 0;
-    while(i <= slots) {
-        pointers[i] = (char*)malloc(bytes);
-        ++i;
-    }
-}
-
-static char* getFirstCmdPart (char* in) {
-	char* returner;
-}
-
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
 static void clib () {
@@ -246,12 +154,12 @@ void (* functions [])() = {echo, bell, cosh, clib, modv};
 char* inputHist[255];
 int histLoc = 0;
 
- void updateInLineToHistory () {
+// void updateInLineToHistory () {
 // 	int t = terminal_column;
 // 	terminal_column = 8;
-//	currentInLine = inputHist[histLoc];
+// 	currentInLine = inputHist[histLoc];
 // 	print(inputHist[histLoc]);
- }
+// }
 
 
 void executeLine () {
@@ -270,8 +178,8 @@ void executeLine () {
 		println (cmd);
 	}
 
-	inputHist[arraylen(inputHist)] = currentInLine;
-	histLoc = arraylen(inputHist)+1;
+	//inputHist[arraylen(inputHist)] = currentInLine;
+	//histLoc = arraylen(inputHist)+1;
 	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
 	print("cosh -> ");
 	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
@@ -279,6 +187,4 @@ void executeLine () {
 		currentInLine[ind] = 0x00;
 	}
 	//delete cmd;
-	//currentInLine[VGA_WIDTH];
-
 }
