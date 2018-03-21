@@ -211,8 +211,12 @@ static char* getFirstCmdPart (char* in) {
 
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
-static void split () {
-	//splitStr (currentInLine, ' ');
+static void clib () {
+	
+}
+
+static void modv () {
+	setGlobal (getNthItemOf(currentInLine, ' ', 1), getNthItemOf(currentInLine, ' ', 2));
 }
 
 static void bell () {
@@ -220,7 +224,7 @@ static void bell () {
 }
 
 static void echo () {
-	println ("Ding!!!");
+	println (getNthItemOf(currentInLine, ' ', 1));
 }
 
 static void cosh () {
@@ -236,8 +240,8 @@ static void cosh () {
 
 // ==========  END COMMAND FUNCTIONS  ========== //
 
-char* functionNames[4] = {"echo", "bell", "cosh", "split"};
-void (* functions [])() = {echo, bell, cosh, split};
+char* functionNames[4] = {"echo", "bell", "cosh", "clib", "modv"};
+void (* functions [])() = {echo, bell, cosh, clib, modv};
 
 char* inputHist[255];
 int histLoc = 0;
@@ -257,7 +261,7 @@ void executeLine () {
 	//allocarr(splitLine, 512, 50);
 	//splitStr(line, ' ', splitLine);
 	//println (splitLine[0]);
-	char* cmd = getNthItemOf(currentInLine, ‘ ‘, 0);
+	char* cmd = getNthItemOf(currentInLine, ' ', 0);
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
 		functions[contain]();
