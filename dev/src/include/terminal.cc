@@ -165,7 +165,9 @@ int histLoc = 0;
 void executeLine () {
 	char* cmd = currentInLine;
 
-	char** splitLine = (char**)malloc(50*sizeof(char*));
+	char** splitLine;
+   for (int n;
+ = (char**) new (50*sizeof(char*));
 	allocarr(splitLine, 512, 50);
 	splitStr(currentInLine, ' ', splitLine);
 	// for (int n = 0; n < 50; n++) {
