@@ -18,12 +18,14 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "include/cosh.h"
 #include "include/memory.cc"
 #include "include/utils.cc"
 #include "include/globals.cc"
 #include "include/terminal.cc"
 #include "include/kbdus.h"
 #include "include/graphicKernel.cc"
+#include "include/cosh.cc"
 
 #define PIC1 0x20
 #define PIC2 0xA0
