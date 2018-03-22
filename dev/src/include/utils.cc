@@ -152,46 +152,54 @@ void println(const char* data);
 void print(const char* data);
 void tPutChar(const char data);
 
+void* latestFree = (void*) 0xCDCDCDCD;
+
 void* findFreeBlock (int size) {
 
-	void* startPointer = (void*) 0x100000;
-	bool hasFoundFreeMemory = false;
+	void* startPointer = latestFree;
+	bool hasFoundFreeMemory = true;
+
 	while (!hasFoundFreeMemory) {
-		println ("Started");
 		while (&startPointer != NULL) {
 			startPointer += 0x01;
 			print ((char*) &startPointer);
 		}
-		println ("Found a null");
 		hasFoundFreeMemory = true;
-		for (void* i = startPointer; i < (void*) 0x51200000; i++) {
+		for (void* i = startPointer; i < (void*) 0xFDFDFDFD; i++) {
 			if (i != NULL) {
 				hasFoundFreeMemory = false;
 				break;
 			}
 		}
-		println ("We just got kicked out");
-
-		if (hasFoundFreeMemory) {println ("Found free memory!");} else {println ("Not large enough");}
-		println("");
+		//if (hasFoundFreeMemory) {println ("Found free memory!");} else {println ("Not large enough");}
 	}
-	print ("We just came out of the loop");
+	latestFree += size;
 	return startPointer;
 }
 
+void* memset(void* b, int c, size_t len) {
+    char* p = (char*)b;
+    for (size_t i = 0; i != len; ++i) {
+        p[i] = c;
+    }
+    return b;
+}
+
 void* malloc (int size) {
-	println ("Looking for free block");
 	void* freeBlock = findFreeBlock (size);
-	// if (freeBlock != NULL) {
-	//
-	// }
 	return freeBlock;
 }
 
+void* calloc (int size) {
+	void* b = malloc (size);
+	memset (b, 0x00, size);
+	return b;
+}
+
 void freeSomeMemory () {
-	for (void* i = (void*) 0x100000; i < (void*) 0x51200000; i++) {
-		*i = NULL;
-	}
+	// for (void* i = (void*) 0xCDCDCD; i < (void*) 0x51200000; i++) {
+	// 	(int *) i = NULL;
+	// }
 }
 
 void free (void *ptr) {}
@@ -231,8 +239,7 @@ string getNthItemOf (string str, char delim, int item) {
 }
 
 void splitStr(const char* str, const char d, char** into) {
-    if(str != NULL && into != NULL)
-    {
+    if(str != NULL && into != NULL) {
         int n = 0;
         int c = 0;
         for(int i = 0; str[c] != '\0'; i++,c++) {
@@ -250,7 +257,7 @@ void splitStr(const char* str, const char d, char** into) {
 void allocarr(char** pointers, int bytes, int slots) {
     int i = 0;
     while(i <= slots) {
-        pointers[i] = (char*)malloc(bytes);
-        ++i;
+        pointers[i] = (char*)calloc(bytes);
+        i++;
     }
 }

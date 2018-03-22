@@ -168,7 +168,9 @@ void executeLine () {
 	char** splitLine = (char**)malloc(50*sizeof(char*));
 	allocarr(splitLine, 512, 50);
 	splitStr(currentInLine, ' ', splitLine);
-	println (splitLine[0]);
+	// for (int n = 0; n < 50; n++) {
+	// 	println (splitLine[n]);
+	// }
 	cmd = splitLine[0];
 
 	int contain = contains (functionNames, cmd);
