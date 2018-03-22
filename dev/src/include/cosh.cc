@@ -59,16 +59,18 @@ void executeLine () {
 
 
 	for (int n = 0; n < 10; n++) {
-		splitLine[n] = (char*) malloc (512*sizeof(char*));
+		for (int i = 0; i < 512; i++) {
+			splitLine[n][i] = '\0';
+		}
 	}
-	splitLine[0] = "cosh";
+	//splitLine[0] = "cosh";
 	//allocarr(splitLine, 512, 10);
 	splitStr(currentInLine, ' ', splitLine);
-	for (int n = 0; n < 10; n++) {
-		println (splitLine[n]);
-	}
+	// for (int n = 0; n < 10; n++) {
+	// 	println (splitLine[n]);
+	// }
 
-	cmd = splitLine[0];
+	//cmd = splitLine[0];
 
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
