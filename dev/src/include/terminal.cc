@@ -117,14 +117,22 @@ void print (const char* data) {
 	updateCursorLocation();
 }
 
+char clipboard[512];
+
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
 static void clib () {
-
+	int it;
+	for (it = 0; splitLine[1][it] != NULL; it++) {
+		clipboard[it] = splitLine[1][it];
+	}
+	for (it=it;clipboard[it] != NULL; it++) {
+		clipboard[it] = NULL;
+	}
 }
 
 static void modv () {
-	setGlobal (getNthItemOf(currentInLine, ' ', 1), getNthItemOf(currentInLine, ' ', 2));
+	setGlobal (splitLine[1], splitLine[2]);
 }
 
 static void bell () {
@@ -160,12 +168,12 @@ int histLoc = 0;
 // 	currentInLine = inputHist[histLoc];
 // 	print(inputHist[histLoc]);
 // }
-
+char** splitLine;
 
 void executeLine () {
 	char* cmd = currentInLine;
 
-	char** splitLine;
+	
 	for (int n = 0; n < 50; n++) {
 		splitLine[n] = (char*) malloc (sizeof(char*));
 	}
