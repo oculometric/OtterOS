@@ -57,22 +57,24 @@ void (* functions [])() = { echo,   bell,   cosh,   clib,   modv};
 void executeLine () {
 	char* cmd = currentInLine;
 
-	
-	for (int n = 0; n < 50; n++) {
-		splitLine[n] = (char*) malloc (sizeof(char*));
+
+	for (int n = 0; n < 10; n++) {
+		splitLine[n] = (char*) malloc (512*sizeof(char*));
 	}
-	allocarr(splitLine, 512, 50);
+	splitLine[0] = "cosh";
+	//allocarr(splitLine, 512, 10);
 	splitStr(currentInLine, ' ', splitLine);
-	// for (int n = 0; n < 50; n++) {
-	// 	println (splitLine[n]);
-	// }
+	for (int n = 0; n < 10; n++) {
+		println (splitLine[n]);
+	}
+
 	cmd = splitLine[0];
 
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
 		functions[contain]();
 	} else {
-		print ("I don't what this means: ");
+		print ("I don't know what this means: ");
 		println (cmd);
 	}
 

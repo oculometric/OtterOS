@@ -247,7 +247,7 @@ void splitStr(const char* str, const char d, char** into) {
             if(str[c] == d) {
                 into[n][i] = '\0';
                 i = -1;
-                ++n;
+                n++;
             }
         }
     }
