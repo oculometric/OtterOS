@@ -15,6 +15,7 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
+// Include libraries and other files
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -26,12 +27,14 @@
 #include "include/graphicKernel.cc"
 #include "include/cosh.cc"
 
+// Define keyboard inputs
 #define PIC1 0x20
 #define PIC2 0xA0
 
 #define ICW1 0x11
 #define ICW4 0x01
 
+// Set up the keyboard
 void init_pics(int pic1, int pic2)
 {
 	/* send ICW1 */
@@ -59,16 +62,17 @@ bool isWaitingForUp = false;
 bool leftShiftDown = false;
 bool rightShiftDown = false;
 
-void terminalKernel () {
-	freeSomeMemory();
-	tInitialize();
-	//println("Well... this is OtterOS so far!");
-	//println("Warning! This OS melts PHP programmers.");
-	//println("");
 
+// Terminal based kernel
+void terminalKernel () {
+	// Set up the terminal environment
+	tInitialize();
+
+   // Prompt the user for input
 	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
 	print("cosh -> ");
 	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
+   // Start listening for keyboard input
 	char c = 0;
 	init_pics(0x20, 0x28);
 	do {
@@ -121,11 +125,9 @@ void terminalKernel () {
 }
 
 
-
+// The starting point of the high level kernel
 extern "C" void kernel_main(void) {
-	//char* bootmode = getValueForKey ("bootmode");
-	//if (strEqual (bootmode, "graphics")) {graphicalKernel();} else {terminalKernel();}
+   // Designed to init into terminal for now.
 	terminalKernel();
 	//graphicalKernel();
-	//setPixel();
 }
