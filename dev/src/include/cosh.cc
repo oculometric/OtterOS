@@ -81,8 +81,8 @@ void executeLine () {
 	// Temporary storage for the command part
 	char* cmd = currentInLine;
 	// Allocate an array to contain the input
-	string tmp[2] = {new char[512], new char[512]};
-
+	//string tmp[2] = {new char[512], new char[512]};
+  const char tmp[2][512] = {{0x00}};
 	// Split the input into its constituent parts
 	splitCommandAndArgs (tmp);
 
