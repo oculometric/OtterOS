@@ -14,19 +14,22 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
+// Temporary storage, so we don't have to recompute things
 string argumentString;
+string* splitLine;
 
+// Split command from arguments
 void splitCommandAndArgs (char** returner) {
 	int n;
 	println (currentInLine);
+	// Set the return list's first item to the command, character by character
 	for (n = 0; n < 4; n++) {
-		char c;
-		returner[0][n] = c = currentInLine[n];
+		returner[0][n] = currentInLine[n];
 		tPutChar (currentInLine[n]);
-		tPutChar (c);
 		tPutChar (returner[0][n]);
 	}
 	println (returner[0]);
+	// Set the return list's second item to the remainder, character by character
 	for (n = 4; currentInLine[n] != NULL; n++) {
 		returner[1][n-4] = currentInLine[n];
 	}
@@ -69,54 +72,50 @@ static void cosh () {
 
 // ==========  END COMMAND FUNCTIONS  ========== //
 
+// Index between commands and string equivalents
 char* functionNames[5] = { "echo", "bell", "cosh", "clib", "modv"};
 void (* functions [])() = { echo,   bell,   cosh,   clib,   modv};
 
+// Interpret a line of input
 void executeLine () {
+	// Temporary storage for the command part
 	char* cmd = currentInLine;
-	//if (strlen(currentInLine) > 4) {
-		string* tmp;
-		char a[512];
-		char b[512];
-		char *foo[2] = { a, b};
-		allocarr (foo, 512, 2);
+	// Allocate an array to contain the input
+	string tmp[2] = {new char[512], new char[512]};
 
-		splitCommandAndArgs (tmp);
-		cmd = tmp[0];
-		argumentString = tmp[1];
-	//}
+	// Split the input into its constituent parts
+	splitCommandAndArgs (tmp);
 
-	// for (int n = 0; n < 10; n++) {
-	// 	for (int i = 0; i < 512; i++) {
-	// 		splitLine[n][i] = '\0';
-	// 	}
-	// }
-	//splitLine[0] = "cosh";
-	//allocarr(splitLine, 512, 10);
-	//splitStr(currentInLine, ' ', splitLine);
-	// for (int n = 0; n < 10; n++) {
-	// 	println (splitLine[n]);
-	// }
+	// Set the command part of the input to the value got by the splitter, etc
+	cmd = tmp[0];
+	argumentString = tmp[1];
 
-	//cmd = splitLine[0];
+	// TODO: Fix the string splitting algorithm
 
-
-
+	// Interpret the command
 	int contain = contains (functionNames, cmd);
 	if (contain != -1) {
+		// The command is in the index, we can run it
 		functions[contain]();
 	} else {
+		// The command wasn't in the index, we don't understand it
+		// TODO: Add ability to search /bin/ directory for executables matching the name given
 		print ("I don't know what this means: ");
 		println (cmd);
 	}
 
-	//inputHist[arraylen(inputHist)] = currentInLine;
-	//histLoc = arraylen(inputHist)+1;
+	// Update command log
+	// inputHist[arraylen(inputHist)] = currentInLine;
+	// histLoc = arraylen(inputHist)+1;
+	// TODO: Set up command history/log
+
+	// Reset and reprompt the user for input
 	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
 	print("cosh -> ");
 	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
+
+	// Clear the input line
 	for (int ind=0; currentInLine[ind] != 0x00; ind++) {
 		currentInLine[ind] = 0x00;
 	}
-	//delete cmd;
 }

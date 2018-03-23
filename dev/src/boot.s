@@ -14,7 +14,7 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
-; Mulitboot header and Magic number
+/* Mulitboot header and Magic number */
 .set ALIGN,    1<<0
 .set MEMINFO,  1<<1
 .set FLAGS,    ALIGN | MEMINFO
@@ -33,19 +33,13 @@ stack_bottom:
 .skip 16384 # 16 KiB
 stack_top:
 
-; Declare start function
+/* Declare start function */
 .section .text
 .global _start
 .type _start, @function
 _start:
-   ; Set up stack
+   /* Set up stack */
 	mov $stack_top, %esp
-	;sti
-   ; Call the main kernel
+ 	/* Call the main kernel */
 	call kernel_main
-
-; 	cli
-; 1:	hlt
-; 	jmp 1b
-
 .size _start, . - _start

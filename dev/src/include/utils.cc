@@ -15,12 +15,14 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
-#include <stddef.h> //we can use it: it doesnt use any platform-related api functions
-#include <stdint.h> //include it to get int16_t and some integer types
+#include <stddef.h>
+#include <stdint.h>
 #include <stdbool.h>
 
+// Define string type
 typedef char* string;
 
+// Define a bunch of colour constants
 enum vga_color {
 	COLOR_BLACK = 0,
 	COLOR_BLUE = 1,
@@ -40,16 +42,19 @@ enum vga_color {
 	COLOR_WHITE = 15,
 };
 
+// Generate foreground/background pair
 uint8_t make_color(enum vga_color fg, enum vga_color bg) {
 	return fg | bg << 4;
 }
 
+// Generate a VGA entry from a colour and a character
 uint16_t make_vgaentry(char c, uint8_t color) {
 	uint16_t c16 = c;
 	uint16_t color16 = color;
 	return c16 | color16 << 8;
 }
 
+// Get the length of a string
 size_t strlen(const char* str) {
 	size_t ret = 0;
 	while ( str[ret] != 0 )
@@ -57,6 +62,7 @@ size_t strlen(const char* str) {
 	return ret;
 }
 
+// Get the length of an array of strings
 int arraylen (char** array) {
 	int ret = -1;
 	for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
@@ -65,6 +71,7 @@ int arraylen (char** array) {
 	return ret+1;
 }
 
+// Determine whether one string is equal to another
 bool strEqual (const char* str1, const char* str2) {
 	bool returner = true;
    int ptr = 0;
@@ -81,6 +88,7 @@ bool strEqual (const char* str1, const char* str2) {
 	return returner;
 }
 
+// Determine the index (if any) of an item within an array
 int contains (char** array, char* str) {
 	for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
 		if (strEqual (array[itemNo], str)) {
@@ -90,6 +98,7 @@ int contains (char** array, char* str) {
 	return -1;
 }
 
+// Get a byte of input
 static inline uint8_t inb (uint16_t port) {
     uint8_t ret;
     asm volatile ( "inb %1, %0"
@@ -98,10 +107,12 @@ static inline uint8_t inb (uint16_t port) {
     return ret;
 }
 
+// Set a byte of output
 static inline void outb( unsigned short port, unsigned char val ) {
 	asm volatile("outb %0, %1" : : "a"(val), "Nd"(port) );
 }
 
+// Switch into real mode (not working)
 static inline void changeToRealMode () {
 	asm (
 			 "idt_real:\n\t"
@@ -140,6 +151,7 @@ static inline void changeToRealMode () {
 			 "	sti");
 }
 
+// Switch into protected mode (not working)
 static inline void changeToProtectedMode () {
 	asm ("cli          \n\t"
 			 "lgdt gdtr  \n\t"
@@ -148,10 +160,12 @@ static inline void changeToProtectedMode () {
 			 "mov %cr0, %eax");
 }
 
+// Header declarations for various print functions
 void println(const char* data);
 void print(const char* data);
 void tPutChar(const char data);
 
+// ========== Memory Functions ========== //
 void* latestFree = (void*) 0xCDCDCDCD;
 
 void* findFreeBlock (int size) {
@@ -220,6 +234,9 @@ void operator delete[](void *p) {
     free(p);
 }
 
+// ==========     ========== //
+
+// Get the nth item of a string, splitting at a delimiter (now deprecated, because it's wildly inefficient)
 string getNthItemOf (string str, char delim, int item) {
 	int itemNo = 0;
 	string returner;
@@ -238,6 +255,8 @@ string getNthItemOf (string str, char delim, int item) {
 	}
 }
 
+// Split a string into an array of strings at a delimiter
+// TODO: Fix this
 void splitStr(const char* str, const char d, char** into) {
     if(str != NULL && into != NULL) {
         int n = 0;
@@ -253,7 +272,7 @@ void splitStr(const char* str, const char d, char** into) {
     }
 }
 
-
+// Allocate items in an array (seems like bullshit)
 void allocarr(char** pointers, int bytes, int slots) {
     int i = 0;
     while(i <= slots) {

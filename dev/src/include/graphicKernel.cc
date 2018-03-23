@@ -29,6 +29,8 @@
 // 		CreateThread(ScreenRefreshProc, NULL);
 // }
 
+// TODO: Write graphical kernel
+
 typedef unsigned char byte;
 
 //byte *VGA = (byte *)0xA0000;
