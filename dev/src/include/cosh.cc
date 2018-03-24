@@ -16,19 +16,15 @@
 
 // Temporary storage, so we don't have to recompute things
 string argumentString;
-string* splitLine;
+string splitLine[50];
 
 // Split command from arguments
 void splitCommandAndArgs (char** returner) {
 	int n;
-	println (currentInLine);
 	// Set the return list's first item to the command, character by character
 	for (n = 0; n < 4; n++) {
 		returner[0][n] = currentInLine[n];
-		tPutChar (currentInLine[n]);
-		tPutChar (returner[0][n]);
 	}
-	println (returner[0]);
 	// Set the return list's second item to the remainder, character by character
 	for (n = 4; currentInLine[n] != NULL; n++) {
 		returner[1][n-4] = currentInLine[n];
@@ -80,15 +76,50 @@ void (* functions [])() = { echo,   bell,   cosh,   clib,   modv};
 void executeLine () {
 	// Temporary storage for the command part
 	char* cmd = currentInLine;
+	
 	// Allocate an array to contain the input
-	//string tmp[2] = {new char[512], new char[512]};
-  const char tmp[2][512] = {{0x00}};
+
+	// Clear the memory we want
+	// #define usable (void *)0xCDCDCDCD
+	//
+	// size_t len = 50 * 512;
+	// memset (usable, 0x00, len);
+
+	// char tmp[512];
+	// for (int i = 0; i < 50; i++) {
+	// 	//char t[512*i];
+	// 	//char tmp[512];
+	// 	//print ((char*)&tmp);
+	// 	//char* a = ((char*) calloc (512*sizeof(char)));
+	// 	// Set the value of splitline to
+	// 	splitLine[i] = (string)((unsigned char*)usable + (i*512));
+	//
+	// }
+	char a[512];
+	char b[512];
+	char c[512];
+	char d[512];
+	char e[512];
+	char f[512];
+	char g[512];
+	char h[512];
+
+	splitLine[0] = a;
+	splitLine[1] = b;
+	splitLine[2] = c;
+	splitLine[3] = d;
+	splitLine[4] = e;
+	splitLine[5] = f;
+	splitLine[6] = g;
+	splitLine[7] = h;
+
 	// Split the input into its constituent parts
-	splitCommandAndArgs (tmp);
+	splitStr (currentInLine, ' ', splitLine);
+
 
 	// Set the command part of the input to the value got by the splitter, etc
-	cmd = tmp[0];
-	argumentString = tmp[1];
+	cmd = splitLine[0];
+	argumentString = splitLine[1];
 
 	// TODO: Fix the string splitting algorithm
 

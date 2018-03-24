@@ -160,6 +160,35 @@ static inline void changeToProtectedMode () {
 			 "mov %cr0, %eax");
 }
 
+#define PORT 0x3f8   /* COM1 */
+
+void init_serial() {
+   outb(PORT + 1, 0x00);    // Disable all interrupts
+   outb(PORT + 3, 0x80);    // Enable DLAB (set baud rate divisor)
+   outb(PORT + 0, 0x03);    // Set divisor to 3 (lo byte) 38400 baud
+   outb(PORT + 1, 0x00);    //                  (hi byte)
+   outb(PORT + 3, 0x03);    // 8 bits, no parity, one stop bit
+   outb(PORT + 2, 0xC7);    // Enable FIFO, clear them, with 14-byte threshold
+   outb(PORT + 4, 0x0B);    // IRQs enabled, RTS/DSR set
+}
+
+int is_transmit_empty() {
+   return inb(PORT + 5) & 0x20;
+}
+
+void write_serial(char a) {
+   while (is_transmit_empty() == 0);
+
+   outb(PORT,a);
+}
+
+void log (string s) {
+	for (int i = 0; s[i] != NULL; i++) {
+		write_serial (s[i]);
+	}
+	write_serial (0x0A);
+}
+
 // Header declarations for various print functions
 void println(const char* data);
 void print(const char* data);
@@ -169,25 +198,27 @@ void tPutChar(const char data);
 void* latestFree = (void*) 0xCDCDCDCD;
 
 void* findFreeBlock (int size) {
-
+	//log ("Looking for block");
 	void* startPointer = latestFree;
-	bool hasFoundFreeMemory = true;
-
-	while (!hasFoundFreeMemory) {
-		while (&startPointer != NULL) {
-			startPointer += 0x01;
-			print ((char*) &startPointer);
-		}
-		hasFoundFreeMemory = true;
-		for (void* i = startPointer; i < (void*) 0xFDFDFDFD; i++) {
-			if (i != NULL) {
-				hasFoundFreeMemory = false;
-				break;
-			}
-		}
-		//if (hasFoundFreeMemory) {println ("Found free memory!");} else {println ("Not large enough");}
-	}
+	// bool hasFoundFreeMemory = true;
+	//
+	// while (!hasFoundFreeMemory) {
+	// 	while (&startPointer != NULL) {
+	// 		startPointer += 0x01;
+	// 		print ((char*) &startPointer);
+	// 	}
+	// 	hasFoundFreeMemory = true;
+	// 	for (void* i = startPointer; i < (void*) 0xFDFDFDFD; i++) {
+	// 		if (i != NULL) {
+	// 			hasFoundFreeMemory = false;
+	// 			break;
+	// 		}
+	// 	}
+	// 	//if (hasFoundFreeMemory) {println ("Found free memory!");} else {println ("Not large enough");}
+	// }
+	//log (((char*)latestFree));
 	latestFree += size;
+	//log (((char*)latestFree));
 	return startPointer;
 }
 
@@ -272,7 +303,7 @@ void splitStr(const char* str, const char d, char** into) {
     }
 }
 
-// Allocate items in an array (seems like bullshit)
+// Allocate items in an array (is bullshit)
 void allocarr(char** pointers, int bytes, int slots) {
     int i = 0;
     while(i <= slots) {
