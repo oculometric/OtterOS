@@ -18,19 +18,6 @@
 string argumentString;
 string splitLine[50];
 
-// Split command from arguments
-void splitCommandAndArgs (char** returner) {
-	int n;
-	// Set the return list's first item to the command, character by character
-	for (n = 0; n < 4; n++) {
-		returner[0][n] = currentInLine[n];
-	}
-	// Set the return list's second item to the remainder, character by character
-	for (n = 4; currentInLine[n] != NULL; n++) {
-		returner[1][n-4] = currentInLine[n];
-	}
-}
-
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
 static void clib () {
@@ -44,7 +31,7 @@ static void clib () {
 }
 
 static void modv () {
-	//setGlobal (splitLine[1], splitLine[2]);
+	setGlobal (splitLine[1], splitLine[2]);
 }
 
 static void bell () {
@@ -76,7 +63,7 @@ void (* functions [])() = { echo,   bell,   cosh,   clib,   modv};
 void executeLine () {
 	// Temporary storage for the command part
 	char* cmd = currentInLine;
-	
+
 	// Allocate an array to contain the input
 
 	// Clear the memory we want
@@ -119,9 +106,18 @@ void executeLine () {
 
 	// Set the command part of the input to the value got by the splitter, etc
 	cmd = splitLine[0];
-	argumentString = splitLine[1];
+	int argLoc = 0;
+	for (int o = 1; o < 8; o++) {
+		for (int i = 0; i < 512; i++) {
+			argumentString[argLoc] = splitLine[o][i];
+			argLoc++;
+		}
+		argumentString[argLoc] = ' ';
+		argLoc++;
+	}
 
-	// TODO: Fix the string splitting algorithm
+
+	argumentString = splitLine[1];
 
 	// Interpret the command
 	int contain = contains (functionNames, cmd);
