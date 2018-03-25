@@ -111,7 +111,7 @@ void tWriteString(const char* data) {
 void println (const char* data) {
 	tWriteString (data);
 	terminal_column = 0;
-	terminal_row++;
+	if (terminal_row < VGA_HEIGHT) {terminal_row++;} else {tInitialize();}
 	updateCursorLocation();
 }
 

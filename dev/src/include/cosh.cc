@@ -100,12 +100,29 @@ void executeLine () {
 	splitLine[6] = g;
 	splitLine[7] = h;
 
+	for (int o = 0; o < 8; o++) {
+		for (int i = 0; i < 512; i++) {
+			splitLine[o][i] = NULL;
+		}
+	}
+
 	// Split the input into its constituent parts
 	splitStr (currentInLine, ' ', splitLine);
+
+	// Zero the values of cmd and argumentString
+	for (int i = 0; cmd[i] != NULL; i++) {
+		cmd[i] = NULL;
+	}
+
+	for (int i = 0; argumentString[i] != NULL; i++) {
+		argumentString[i] = NULL;
+	}
 
 
 	// Set the command part of the input to the value got by the splitter, etc
 	cmd = splitLine[0];
+
+	// Set the argument part of the input
 	int argLoc = 0;
 	for (int o = 1; o < 8; o++) {
 		for (int i = 0; i < 512; i++) {
@@ -115,9 +132,6 @@ void executeLine () {
 		argumentString[argLoc] = ' ';
 		argLoc++;
 	}
-
-
-	argumentString = splitLine[1];
 
 	// Interpret the command
 	int contain = contains (functionNames, cmd);
@@ -142,7 +156,7 @@ void executeLine () {
 	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
 
 	// Clear the input line
-	for (int ind=0; currentInLine[ind] != 0x00; ind++) {
+	for (int ind=0; ind < VGA_WIDTH; ind++) {
 		currentInLine[ind] = 0x00;
 	}
 }
