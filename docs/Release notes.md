@@ -12,3 +12,4 @@
   * End of terminal line repeating
   * Prompter (now with colour)
 * Slightly added memory management
+* Setup debugger attachment on COM1
