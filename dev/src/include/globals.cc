@@ -20,7 +20,7 @@
 #include <stddef.h>
 
 char* names[255] = {"coshv", "bootmode"};
-char* values[255] = {"0.1", "graphics"};
+char* values[255] = {"0.2", "graphics"};
 
 char* getGlobal (char* key) {
   int contain = contains (names, key);
