@@ -33,7 +33,9 @@ char* getGlobal (char* key) {
 void setGlobal (char* key, char* value) {
   int contain = contains (names, key);
   if (contain != -1) {
-    values[contain] = value;
+		for (int a = 0; value[a] != NULL; a++) {
+			values[contain][a] = value[a];
+		}
   } else {
     int len = arraylen (names);
     names [len] = key;

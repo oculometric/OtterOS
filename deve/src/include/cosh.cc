@@ -30,7 +30,7 @@ static void clib () {
 	}
 }
 
-static void modv () {
+static void setv () {
 	setGlobal (splitLine[1], splitLine[2]);
 }
 
@@ -50,6 +50,7 @@ static void cosh () {
 	char* versionName = getGlobal ("coshv");
 	println ("COSH - Combined OtterOS SHell");
 	print ("Version: ");
+	log (versionName);
 	println (versionName);
 	println ("Created: 11/03/2018");
 	println ("Written: JavaxCosten");
@@ -60,8 +61,8 @@ static void cosh () {
 // ==========  END COMMAND FUNCTIONS  ========== //
 
 // Index between commands and string equivalents
-char* functionNames[6] = { "echo", "bell", "cosh", "clib", "modv", “getv”};
-void (* functions [])() = { echo,   bell,   cosh,   clib,   modv,    getv};
+char* functionNames[6] = { "echo", "bell", "cosh", "clib", "setv", "getv"};
+void (* functions [])() = { echo,   bell,   cosh,   clib,   setv,    getv};
 
 // Interpret a line of input
 void executeLine () {
@@ -113,6 +114,10 @@ void executeLine () {
 	// Split the input into its constituent parts
 	splitStr (currentInLine, ' ', splitLine);
 
+	//println (splitLine[0]);
+	//println (splitLine[1]);
+	//println (splitLine[2]);
+
 	// Zero the values of cmd and argumentString
 	for (int i = 0; cmd[i] != NULL; i++) {
 		cmd[i] = NULL;
@@ -129,8 +134,9 @@ void executeLine () {
 	// Set the argument part of the input
 	int argLoc = 0;
 	for (int o = 1; o < 8; o++) {
+		char* item = splitLine[o];
 		for (int i = 0; i < 512; i++) {
-			argumentString[argLoc] = splitLine[o][i];
+			argumentString[argLoc] = item[i];
 			argLoc++;
 		}
 		argumentString[argLoc] = ' ';
@@ -145,7 +151,7 @@ void executeLine () {
 	} else {
 		// The command wasn't in the index, we don't understand it
 		// TODO: Add ability to search /bin/ directory for executables matching the name given
-		print ("I don't know what this means: ");
+		print ("Unknown command: ");
 		println (cmd);
 	}
 

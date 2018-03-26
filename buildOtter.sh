@@ -6,7 +6,7 @@ DATE=`date +%d-%m-%Y`
 fileName=$buildNum
 
 echo Assembling boot.s
-i686-elf-as dev/src/boot.s -o dev/bin/o/boot.o
+i686-elf-as deve/src/boot.s -o deve/bin/o/boot.o
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi
@@ -25,13 +25,13 @@ fi
 #  #oPaths=o/$file.o $oPaths
 # done
 
-echo Compiling C++ source file dev/src/kernel.cc
-i686-elf-g++ -c dev/src/kernel.cc -o dev/bin/o/kernel.o -ffreestanding -O2 -fno-exceptions -fno-rtti # -masm=intel
+echo Compiling C++ source file deve/src/kernel.cc
+i686-elf-g++ -c deve/src/kernel.cc -o deve/bin/o/kernel.o -ffreestanding -O2 -fno-exceptions -fno-rtti # -masm=intel
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi
 
-cd dev/bin/
+cd deve/bin/
 
 echo Linking
 i686-elf-gcc -T ../src/linker.ld -o bin/otterOS.bin -ffreestanding -O2 -nostdlib -nodefaultlibs o/boot.o o/kernel.o -lgcc -Wl,--build-id=none
