@@ -1,0 +1,14 @@
+# Release Notes For OtterOS #
+
+## Release 0.1 : The First ##
+* Initial release
+* Basic terminal, including uppercase, and lowercase character inputs
+* Only has two commands: echo (which prints "Echooo...") and bell (which prints "Ding!")
+
+## Release 0.2 : Slightly More Useful ##
+* Properly impemented echo, clib, getv, modv, and some other commands
+* Contains a working string splitting algorithm
+* Fixed various I/O bugs:
+  * End of terminal line repeating
+  * Prompter (now with colour)
+* Slightly added memory management
