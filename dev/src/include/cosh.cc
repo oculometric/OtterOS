@@ -34,6 +34,10 @@ static void modv () {
 	setGlobal (splitLine[1], splitLine[2]);
 }
 
+static void getv () {
+  println(getGlobal (splitLine[1]));
+}
+
 static void bell () {
 	println ("Ding!!!");
 }
@@ -56,8 +60,8 @@ static void cosh () {
 // ==========  END COMMAND FUNCTIONS  ========== //
 
 // Index between commands and string equivalents
-char* functionNames[5] = { "echo", "bell", "cosh", "clib", "modv"};
-void (* functions [])() = { echo,   bell,   cosh,   clib,   modv};
+char* functionNames[6] = { "echo", "bell", "cosh", "clib", "modv", “getv”};
+void (* functions [])() = { echo,   bell,   cosh,   clib,   modv,    getv};
 
 // Interpret a line of input
 void executeLine () {
