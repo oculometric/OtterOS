@@ -69,9 +69,7 @@ void terminalKernel () {
 	tInitialize();
 
    // Prompt the user for input
-	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
-	print("cosh -> ");
-	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
+	displayPrompt();
    // Start listening for keyboard input
 	char c = 0;
 	init_pics(0x20, 0x28);
@@ -92,11 +90,13 @@ void terminalKernel () {
 					}
 					if (ch == '\n') {
 						println("");
-						if (terminal_row+1 >= VGA_HEIGHT ) {
+						if (terminal_row+1 >= VGA_HEIGHT) {
 							terminal_row = 0;
 							tInitialize();
 						}
-						executeLine();
+						log (currentInLine);
+						log (strlen (currentInLine));
+						if (strlen (currentInLine) > 0) {executeLine();} else {displayPrompt();}
 					} else if (ch == '\b') {
 						tDeleteChar();
 					} else if (ch == -1) {

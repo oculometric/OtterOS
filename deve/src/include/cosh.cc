@@ -15,8 +15,27 @@
  */
 
 // Temporary storage, so we don't have to recompute things
-string argumentString;
+char argumentString[512*7];
 string splitLine[50];
+
+const int length = 7;
+
+char* functionNames[length] = { "echo", "bell", "cosh", "clib", "setv", "getv", "help"};
+char* functionDescriptions[length] = {
+	"Prints whatever comes after the command.",
+	"Sends the bell character. Still WIP.",
+	"Displays information about the shell.",
+	"Places data in the clipboard.",
+	"Sets the value of an environment variable.",
+	"Prints the value of an environment variable. Will soon be replaced with regex detectors.",
+	"Displays command help."
+};
+
+void displayPrompt () {
+	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
+	print("cosh -> ");
+	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
+}
 
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
@@ -58,11 +77,19 @@ static void cosh () {
 	println ("Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar");
 }
 
+static void help () {
+	for (int i = 0; i < length; i++) {
+		print (functionNames[i]);
+		print (" - ");
+		println (functionDescriptions[i]);
+	}
+}
+
 // ==========  END COMMAND FUNCTIONS  ========== //
 
 // Index between commands and string equivalents
-char* functionNames[6] = { "echo", "bell", "cosh", "clib", "setv", "getv"};
-void (* functions [])() = { echo,   bell,   cosh,   clib,   setv,    getv};
+void (* functions [])() = { echo,   bell,   cosh,   clib,   setv,   getv,   help};
+
 
 // Interpret a line of input
 void executeLine () {
@@ -70,23 +97,6 @@ void executeLine () {
 	char* cmd = currentInLine;
 
 	// Allocate an array to contain the input
-
-	// Clear the memory we want
-	// #define usable (void *)0xCDCDCDCD
-	//
-	// size_t len = 50 * 512;
-	// memset (usable, 0x00, len);
-
-	// char tmp[512];
-	// for (int i = 0; i < 50; i++) {
-	// 	//char t[512*i];
-	// 	//char tmp[512];
-	// 	//print ((char*)&tmp);
-	// 	//char* a = ((char*) calloc (512*sizeof(char)));
-	// 	// Set the value of splitline to
-	// 	splitLine[i] = (string)((unsigned char*)usable + (i*512));
-	//
-	// }
 	char a[512];
 	char b[512];
 	char c[512];
@@ -135,7 +145,7 @@ void executeLine () {
 	int argLoc = 0;
 	for (int o = 1; o < 8; o++) {
 		char* item = splitLine[o];
-		for (int i = 0; i < 512; i++) {
+		for (int i = 0; item[i] != NULL; i++) {
 			argumentString[argLoc] = item[i];
 			argLoc++;
 		}
@@ -161,10 +171,7 @@ void executeLine () {
 	// TODO: Set up command history/log
 
 	// Reset and reprompt the user for input
-	terminal_color = make_color(COLOR_RED, COLOR_BLACK);
-	print("cosh -> ");
-	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
-
+	displayPrompt();
 	// Clear the input line
 	for (int ind=0; ind < VGA_WIDTH; ind++) {
 		currentInLine[ind] = 0x00;

@@ -22,6 +22,12 @@
 // Define string type
 typedef char* string;
 
+string intstrings[33] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"};
+
+string intToString (int i) {
+	return intstrings[i];
+}
+
 // Define a bunch of colour constants
 enum vga_color {
 	COLOR_BLACK = 0,
@@ -187,6 +193,11 @@ void log (string s) {
 		write_serial (s[i]);
 	}
 	write_serial (0x0A);
+}
+
+void log (int i) {
+	string s = intToString (i);
+	log (s);
 }
 
 // Header declarations for various print functions
