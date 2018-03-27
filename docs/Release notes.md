@@ -6,7 +6,7 @@
 * Only has two commands: echo (which prints "Echooo...") and bell (which prints "Ding!")
 
 ## Release 0.2 : Slightly More Useful ##
-* Properly impemented echo, clib, getv, setv, and some other commands
+* Properly implemented echo, clib, getv, setv, and some other commands. Type help to view all the commands
 * Contains a working string splitting algorithm
 * Fixed various I/O bugs:
   * End of terminal line repeating
