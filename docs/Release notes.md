@@ -2,7 +2,7 @@
 
 ## Release 0.1 : The First ##
 * Initial release
-* Basic terminal, including uppercase, and lowercase character inputs
+* Basic terminal, including only lowercase character inputs
 * Only has two commands: echo (which prints "Echooo...") and bell (which prints "Ding!")
 
 ## Release 0.2 : Slightly More Useful ##
