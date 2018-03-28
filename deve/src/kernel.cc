@@ -27,6 +27,8 @@
 #include "include/graphicKernel.cc"
 #include "include/cosh.cc"
 
+bool shouldContinue = true;
+
 // Define keyboard inputs
 #define PIC1 0x20
 #define PIC2 0xA0
@@ -121,7 +123,7 @@ void terminalKernel () {
 			}
 		}
 	}
-	while(c!=1); // 1= ESCAPE
+	while(c != 1 && shouldContinue == true); // 1= ESCAPE
 }
 
 
