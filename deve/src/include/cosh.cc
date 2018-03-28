@@ -18,9 +18,9 @@
 char argumentString[512*7];
 string splitLine[50];
 
-const int length = 7;
+const int length = 8;
 
-char* functionNames[length] = { "echo", "bell", "cosh", "clib", "setv", "getv", "help"};
+char* functionNames[length] = { "echo", "bell", "cosh", "clib", "setv", "getv", "help", "exit"};
 char* functionDescriptions[length] = {
 	"Prints whatever comes after the command.",
 	"Sends the bell character. Still WIP.",
@@ -28,7 +28,8 @@ char* functionDescriptions[length] = {
 	"Places data in the clipboard.",
 	"Sets the value of an environment variable.",
 	"Prints the value of an environment variable. Will soon be replaced with regex detectors.",
-	"Displays command help."
+	"Displays command help.",
+  "Terminates the kernel, causing immediate shutdown."
 };
 
 void displayPrompt () {
@@ -49,21 +50,13 @@ static void clib () {
 	}
 }
 
-static void setv () {
-	setGlobal (splitLine[1], splitLine[2]);
-}
+static void setv () {setGlobal (splitLine[1], splitLine[2]);}
 
-static void getv () {
-  println(getGlobal (splitLine[1]));
-}
+static void getv () {println(getGlobal (splitLine[1]));}
 
-static void bell () {
-	println ("Ding!!!");
-}
+static void bell () {println ("Ding!!!");}
 
-static void echo () {
-	println (argumentString);
-}
+static void echo () {println (argumentString);}
 
 static void cosh () {
 	char* versionName = getGlobal ("coshv");
@@ -85,10 +78,12 @@ static void help () {
 	}
 }
 
+static void exit () {shouldContinue=false;}
+
 // ==========  END COMMAND FUNCTIONS  ========== //
 
 // Index between commands and string equivalents
-void (* functions [])() = { echo,   bell,   cosh,   clib,   setv,   getv,   help};
+void (* functions [])() = { echo,   bell,   cosh,   clib,   setv,   getv,   help, exit};
 
 
 // Interpret a line of input
