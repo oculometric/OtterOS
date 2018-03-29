@@ -19,6 +19,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "include/declarations.h"
 #include "include/memory.cc"
 #include "include/utils.cc"
 #include "include/globals.cc"

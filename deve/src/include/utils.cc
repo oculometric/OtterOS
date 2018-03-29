@@ -22,10 +22,32 @@
 // Define string type
 typedef char* string;
 
-string intstrings[33] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"};
+char intstrings[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+void appendChar (char c, string s) {
+	char tmp[512];
+	int i;
+	for (i = 0; s[i] != NULL; i++) {
+		tmp[i] = s[i];
+	}
+	tmp[i] = c;
+	for (int b = 0; tmp[b] != NULL; i++) {
+		s[b] = tmp[b];
+	}
+}
+
+void putDigitTo (int x, string out) {
+	if(x >= 10) {putDigitTo(x / 10);}
+	int digit = x % 10;
+	char dig = intstrings[digit];
+	appendChar (dig, out);
+}
 
 string intToString (int i) {
-	return intstrings[i];
+	int digits = 0; do { number /= 10; digits++; } while (number != 0);
+	char out[digits];
+	putDigitTo (i, out);
+	return out;
 }
 
 // Define a bunch of colour constants
@@ -200,105 +222,7 @@ void log (int i) {
 	log (s);
 }
 
-// Header declarations for various print functions
-void println(const char* data);
-void print(const char* data);
-void tPutChar(const char data);
-
-// ========== Memory Functions ========== //
-void* latestFree = (void*) 0xCDCDCDCD;
-
-void* findFreeBlock (int size) {
-	//log ("Looking for block");
-	void* startPointer = latestFree;
-	// bool hasFoundFreeMemory = true;
-	//
-	// while (!hasFoundFreeMemory) {
-	// 	while (&startPointer != NULL) {
-	// 		startPointer += 0x01;
-	// 		print ((char*) &startPointer);
-	// 	}
-	// 	hasFoundFreeMemory = true;
-	// 	for (void* i = startPointer; i < (void*) 0xFDFDFDFD; i++) {
-	// 		if (i != NULL) {
-	// 			hasFoundFreeMemory = false;
-	// 			break;
-	// 		}
-	// 	}
-	// 	//if (hasFoundFreeMemory) {println ("Found free memory!");} else {println ("Not large enough");}
-	// }
-	//log (((char*)latestFree));
-	latestFree += size;
-	//log (((char*)latestFree));
-	return startPointer;
-}
-
-void* memset(void* b, int c, size_t len) {
-    char* p = (char*)b;
-    for (size_t i = 0; i != len; ++i) {
-        p[i] = c;
-    }
-    return b;
-}
-
-void* malloc (int size) {
-	void* freeBlock = findFreeBlock (size);
-	return freeBlock;
-}
-
-void* calloc (int size) {
-	void* b = malloc (size);
-	memset (b, 0x00, size);
-	return b;
-}
-
-void freeSomeMemory () {
-	// for (void* i = (void*) 0xCDCDCD; i < (void*) 0x51200000; i++) {
-	// 	(int *) i = NULL;
-	// }
-}
-
-void free (void *ptr) {}
-
-void *operator new(size_t size) {
-    return malloc(size);
-}
-
-void *operator new[](size_t size) {
-    return malloc(size);
-}
-
-void operator delete(void *p) {
-    free(p);
-}
-
-void operator delete[](void *p) {
-    free(p);
-}
-
-// ==========     ========== //
-
-// Get the nth item of a string, splitting at a delimiter (now deprecated, because it's wildly inefficient)
-string getNthItemOf (string str, char delim, int item) {
-	int itemNo = 0;
-	string returner;
-	int secondLoc = 0;
-	int characterPtr = 0;
-	while (itemNo <= item) {
-		if (str[characterPtr] == delim) {
-			itemNo++;
-		}
-		characterPtr++;
-	}
-	while (str[characterPtr] != delim) {
-		returner[secondLoc] = str[characterPtr];
-		characterPtr++;
-		secondLoc++;
-	}
-}
-
 // Split a string into an array of strings at a delimiter
-// TODO: Fix this
 void splitStr(const char* str, const char d, char** into) {
     if(str != NULL && into != NULL) {
         int n = 0;
