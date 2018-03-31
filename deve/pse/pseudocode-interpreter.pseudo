@@ -17,13 +17,28 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
+list of library scripts
+list of library script start points
+
+void interpretFile of url {
+   read contents of file into string
+   split string into array of strings at ‘\n’
+   get length of this array
+   while code pointer is less than length of array, interpret line [code pointer] of string array; increment code pointer
+}
+
+int code pointer
+
 void interpretLine with string line {
    initialise array of strings
    split line at ‘ ‘ into string array
    verb = first item of string array
    if verb is “interrupt” {
-      Execute a low level instruction, depending on the code (item two of the string array) given
+      execute a low level instruction, depending on the code (item two of the string array) given
    } else {
-      Search the prewritten scripts for more verbs
+      search the prewritten scripts index for more verbs
+      make a note of the current code pointer
+      execute each instruction from the location of the function within the library file, until we reach the terminator character
+      jump back and continue executing from where we left off
    }
 }
