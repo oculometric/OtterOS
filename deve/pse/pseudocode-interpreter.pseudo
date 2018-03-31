@@ -1,0 +1,18 @@
+/* # pseudocode-interpreter.pseudo #
+ *
+ * ## Description ##
+ * Pseudocode for interpreter of pseudocode. Very 
+ * useful potentially for human-computer interraction, 
+ * and a first step towards AI: usable for writing 
+ * self-modifiable scripted code as well.
+ *
+ * ## Info ##
+ * Created 31/03/18
+ * Format pseudocode
+ * Written by JavaxCosten
+ *
+ * ## Copyright ##
+ * Copyright (C) 2018 OtterOS Project - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LICENSE, found in the top level directory.
+ */
