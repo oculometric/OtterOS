@@ -16,3 +16,14 @@
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
+
+void interpretLine with string line {
+   initialise array of strings
+   split line at ‘ ‘ into string array
+   verb = first item of string array
+   if verb is “interrupt” {
+      Execute a low level instruction, depending on the code (item two of the string array) given
+   } else {
+      Search the prewritten scripts for more verbs
+   }
+}
