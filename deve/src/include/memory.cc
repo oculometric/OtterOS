@@ -30,6 +30,14 @@
  	p[0] = c;
  	return b;
  }
+ 
+ void memcpy (void* a, void* b) {
+
+ }
+
+ void strcpy (string a, string b) {
+
+ }
 
  void malloc (int size) {
   
