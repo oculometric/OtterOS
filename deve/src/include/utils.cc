@@ -19,9 +19,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// Define string type
-typedef char* string;
-
 char intstrings[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 void appendChar (char c, string s) {
@@ -37,14 +34,14 @@ void appendChar (char c, string s) {
 }
 
 void putDigitTo (int x, string out) {
-	if(x >= 10) {putDigitTo(x / 10);}
+	if(x >= 10) {putDigitTo(x / 10, out);}
 	int digit = x % 10;
 	char dig = intstrings[digit];
 	appendChar (dig, out);
 }
 
 string intToString (int i) {
-	int digits = 0; do { number /= 10; digits++; } while (number != 0);
+	int digits = 0; do { i /= 10; digits++; } while (i != 0);
 	char out[digits];
 	putDigitTo (i, out);
 	return out;

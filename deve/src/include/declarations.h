@@ -14,6 +14,10 @@
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
+
+ // Define string type
+ typedef char* string;
+
 // Header declarations for various print functions
 void println(const char* data);
 void print(const char* data);

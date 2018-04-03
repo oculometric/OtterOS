@@ -41,13 +41,7 @@ void displayPrompt () {
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
 static void clib () {
-	int it;
-	for (it = 0; argumentString[it] != NULL; it++) {
-		clipboard[it] = argumentString[it];
-	}
-	for (it=it;clipboard[it] != NULL; it++) {
-		clipboard[it] = NULL;
-	}
+	strcpy (argumentString, clipboard);
 }
 
 static void setv () {setGlobal (splitLine[1], splitLine[2]);}
