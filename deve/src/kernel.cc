@@ -64,6 +64,65 @@ bool isWaitingForUp = false;
 bool leftShiftDown = false;
 bool rightShiftDown = false;
 
+char waitForScanCode() {
+  while (!(inb(0x64) & 1)) {}
+  return inb(0x60);
+}
+
+void oldCode () {
+  if (inb(0x60) != c) {
+    c = inb(0x60);
+    if (c > 0) {
+      int a = c;
+      char ch = ' ';
+      if (a == 0x2A) {
+        leftShiftDown = !leftShiftDown;
+      } else if (a == 0x36) {
+        rightShiftDown = !rightShiftDown;
+      } else {
+        ch = normalmap[a];
+        if (rightShiftDown || leftShiftDown) {
+          ch = shiftmap[a];
+        }
+        if (ch == '\n') {
+          println("");
+          if (terminal_row + 1 >= VGA_HEIGHT) {
+            terminal_row = 0;
+            tInitialize();
+          }
+          log(currentInLine);
+          log(strlen(currentInLine));
+          if (strlen(currentInLine) > 0) {
+            executeLine();
+          } else {
+            displayPrompt();
+          }
+        } else if (ch == '\b') {
+          tDeleteChar();
+        } else if (ch == -1) {
+          if (terminal_column > 8) {
+            terminal_column--;
+          }
+          updateCursorLocation();
+        } else if (ch == -2) {
+          if (terminal_column < VGA_WIDTH) {
+            terminal_column++;
+          }
+          updateCursorLocation();
+        } else if (ch == -3) {
+          // if (histLoc > 0) {histLoc--;updateInLineToHistory();}
+        } else if (ch == -4) {
+          // if (histLoc < arraylen(inputHist))
+          // {histLoc++;updateInLineToHistory();}
+        } else {
+          currentInLine[terminal_column - 8] = ch;
+          tPutChar(ch);
+        }
+      }
+    }
+  }
+}
+
 // Terminal based kernel
 void terminalKernel() {
   // Set up the terminal environment
@@ -75,57 +134,8 @@ void terminalKernel() {
   char c = 0;
   init_pics(0x20, 0x28);
   do {
-    if (inb(0x60) != c) {
-      c = inb(0x60);
-      if (c > 0) {
-        int a = c;
-        char ch = ' ';
-        if (a == 0x2A) {
-          leftShiftDown = !leftShiftDown;
-        } else if (a == 0x36) {
-          rightShiftDown = !rightShiftDown;
-        } else {
-          ch = normalmap[a];
-          if (rightShiftDown || leftShiftDown) {
-            ch = shiftmap[a];
-          }
-          if (ch == '\n') {
-            println("");
-            if (terminal_row + 1 >= VGA_HEIGHT) {
-              terminal_row = 0;
-              tInitialize();
-            }
-            log(currentInLine);
-            log(strlen(currentInLine));
-            if (strlen(currentInLine) > 0) {
-              executeLine();
-            } else {
-              displayPrompt();
-            }
-          } else if (ch == '\b') {
-            tDeleteChar();
-          } else if (ch == -1) {
-            if (terminal_column > 8) {
-              terminal_column--;
-            }
-            updateCursorLocation();
-          } else if (ch == -2) {
-            if (terminal_column < VGA_WIDTH) {
-              terminal_column++;
-            }
-            updateCursorLocation();
-          } else if (ch == -3) {
-            // if (histLoc > 0) {histLoc--;updateInLineToHistory();}
-          } else if (ch == -4) {
-            // if (histLoc < arraylen(inputHist))
-            // {histLoc++;updateInLineToHistory();}
-          } else {
-            currentInLine[terminal_column - 8] = ch;
-            tPutChar(ch);
-          }
-        }
-      }
-    }
+    char t = waitForScanCode ();
+    // Do something with t (convert to text character)
   } while (c != 1 && shouldContinue == true); // 1= ESCAPE
 }
 
