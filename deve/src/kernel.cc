@@ -142,6 +142,7 @@ void terminalKernel() {
 // The starting point of the high level kernel
 extern "C" void kernel_main(void) {
   // Designed to init into terminal for now.
+  prepMemory();
   terminalKernel();
   // graphicalKernel();
 }

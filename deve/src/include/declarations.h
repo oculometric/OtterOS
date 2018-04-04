@@ -25,3 +25,6 @@ void tPutChar(const char data);
 
 void log(int i);
 void log(string s);
+
+void fatal (string msg);
+void warn (string msg);

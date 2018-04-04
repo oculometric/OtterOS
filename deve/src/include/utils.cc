@@ -53,6 +53,18 @@ string intToString(int i) {
   return out;
 }
 
+void fatal (string msg) {
+  log ("==========FATAL==========");
+  log (msg);
+  log ("=========================");
+}
+
+void warn (string msg) {
+  log ("==========WARNING==========");
+  log (msg);
+  log ("===========================");
+}
+
 // Define a bunch of colour constants
 enum vga_color {
   COLOR_BLACK = 0,
