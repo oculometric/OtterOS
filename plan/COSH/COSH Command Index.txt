@@ -4,8 +4,6 @@ list 		: Lists files in the working directory
 dirc		: Change the current working directory
 cref		: Create a file
 remf		: Remove a file
-cred		: Create a directory
-remd		: Remove a directory
 copy		: Copy a file from one location to another
 move		: Move a file from one location to another
 clib		: Clipboard command (copy/paste data)
