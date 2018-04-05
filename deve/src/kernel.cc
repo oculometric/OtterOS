@@ -21,6 +21,7 @@
 #include "include/globals.cc"
 #include "include/graphicKernel.cc"
 #include "include/kbdus.h"
+#include "include/usqwerty.h"
 #include "include/memory.cc"
 #include "include/terminal.cc"
 #include "include/utils.cc"
@@ -78,9 +79,9 @@ void doChars () {
     }
   } else if (downChar == '\b') {
     tDeleteChar();
-  } else if (downChar == 1) {
+  } else if (downChar == -1) {
     shouldContinue = false;
-  } else {
+  } else if (downChar == 0x00) {} else {
     currentInLine[terminal_column - 8] = downChar;
     tPutChar(downChar);
   }
@@ -98,7 +99,11 @@ char waitForScanCode() {
 
 char characterOf (char c) {
   // TODO: Look for character
-  return '';
+  if (!shift) {
+    return lowercase2[c];
+  } else {
+    return NULL;
+  }
 }
 
 void oldCode () {
@@ -149,8 +154,6 @@ void oldCode () {
     }
   }
 }
-
-
 
 // Terminal based kernel
 void terminalKernel() {
