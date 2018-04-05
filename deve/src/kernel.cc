@@ -61,8 +61,7 @@ void init_pics(int pic1, int pic2) {
 
 bool isWaitingForUp = false;
 
-bool leftShiftDown = false;
-bool rightShiftDown = false;
+bool shift = false;
 
 char downChar = '';
 bool latestCharWasCharUp = false;
@@ -89,14 +88,16 @@ void doChars () {
 }
 
 char waitForScanCode() {
-  latestCharWasCharUp = false;
   while (!(inb(0x64) & 1)) {doChars();}
-  // TODO: SET IS CHAR UP IF IT IS!
-  return inb(0x60);
+  char in = inb (0x60);
+  if (in & 0x2A) {
+    shift = true;
+  }
+  return in;
 }
 
 char characterOf (char c) {
-  // TODO: CHECK THROUGH DIFFERENT CHAR UP/DOWN ARRAYS
+  // TODO: Look for character
   return '';
 }
 
@@ -165,12 +166,13 @@ void terminalKernel() {
   do {
     c = waitForScanCode ();
     char chara = characterOf (c);
-    if (latestCharWasCharUp && chara == downChar) {
-        downChar = '';
-      }
-    } else if (!latestCharWasCharUp) {
-      downChar = chara;
-    }
+    // if (latestCharWasCharUp && chara == downChar) {
+    //     downChar = '';
+    //   }
+    // } else if (!latestCharWasCharUp) {
+    //   downChar = chara;
+    // }
+    downChar = chara;
   } while (shouldContinue == true); // 1= ESCAPE
 }
 
