@@ -64,9 +64,33 @@ bool isWaitingForUp = false;
 bool leftShiftDown = false;
 bool rightShiftDown = false;
 
+char downChar = '';
+bool latestCharWasCharUp = false;
+
+void doChars () {
+  while (shouldContinue) {
+  if (downChar == '\n') {
+    println("");
+    log(currentInLine);
+    if (strlen(currentInLine) > 0) {
+      executeLine();
+    } else {
+      displayPrompt();
+    }
+  } else if (downChar == '\b') {
+    tDeleteChar();
+  } else if (downChar == 1) {
+    shouldContinue = false;
+  } else {
+    currentInLine[terminal_column - 8] = downChar;
+    tPutChar(downChar);
+  }
+}
+}
+
 char waitForScanCode() {
   latestCharWasCharUp = false;
-  while (!(inb(0x64) & 1)) {}
+  while (!(inb(0x64) & 1)) {doChars();}
   // TODO: SET IS CHAR UP IF IT IS!
   return inb(0x60);
 }
@@ -125,29 +149,7 @@ void oldCode () {
   }
 }
 
-char downChar = '';
-bool latestCharWasCharUp = false;
 
-void doChars () {
-  while (shouldContinue) {
-  if (downChar == '\n') {
-    println("");
-    log(currentInLine);
-    if (strlen(currentInLine) > 0) {
-      executeLine();
-    } else {
-      displayPrompt();
-    }
-  } else if (downChar == '\b') {
-    tDeleteChar();
-  } else if (downChar == 1) {
-    shouldContinue = false;
-  } else {
-    currentInLine[terminal_column - 8] = downChar;
-    tPutChar(downChar);
-  }
-}
-}
 
 // Terminal based kernel
 void terminalKernel() {
@@ -156,9 +158,6 @@ void terminalKernel() {
 
   // Prompt the user for input
   displayPrompt();
-
-  // TODO: Start keyboard responder loop
-  pthread (doChars);
 
   // Start listening for keyboard input
   char c = 0;
