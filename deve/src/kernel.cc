@@ -65,8 +65,15 @@ bool leftShiftDown = false;
 bool rightShiftDown = false;
 
 char waitForScanCode() {
+  latestCharWasCharUp = false;
   while (!(inb(0x64) & 1)) {}
+  // TODO: SET IS CHAR UP IF IT IS!
   return inb(0x60);
+}
+
+char characterOf (char c) {
+  // TODO: CHECK THROUGH DIFFERENT CHAR UP/DOWN ARRAYS
+  return '';
 }
 
 void oldCode () {
@@ -86,12 +93,7 @@ void oldCode () {
         }
         if (ch == '\n') {
           println("");
-          if (terminal_row + 1 >= VGA_HEIGHT) {
-            terminal_row = 0;
-            tInitialize();
-          }
           log(currentInLine);
-          log(strlen(currentInLine));
           if (strlen(currentInLine) > 0) {
             executeLine();
           } else {
@@ -123,6 +125,30 @@ void oldCode () {
   }
 }
 
+char downChar = '';
+bool latestCharWasCharUp = false;
+
+void doChars () {
+  while (shouldContinue) {
+  if (downChar == '\n') {
+    println("");
+    log(currentInLine);
+    if (strlen(currentInLine) > 0) {
+      executeLine();
+    } else {
+      displayPrompt();
+    }
+  } else if (downChar == '\b') {
+    tDeleteChar();
+  } else if (downChar == 1) {
+    shouldContinue = false;
+  } else {
+    currentInLine[terminal_column - 8] = downChar;
+    tPutChar(downChar);
+  }
+}
+}
+
 // Terminal based kernel
 void terminalKernel() {
   // Set up the terminal environment
@@ -130,13 +156,23 @@ void terminalKernel() {
 
   // Prompt the user for input
   displayPrompt();
+
+  // TODO: Start keyboard responder loop
+  pthread (doChars);
+
   // Start listening for keyboard input
   char c = 0;
   init_pics(0x20, 0x28);
   do {
-    char t = waitForScanCode ();
-    // Do something with t (convert to text character)
-  } while (c != 1 && shouldContinue == true); // 1= ESCAPE
+    c = waitForScanCode ();
+    char chara = characterOf (c);
+    if (latestCharWasCharUp && chara == downChar) {
+        downChar = '';
+      }
+    } else if (!latestCharWasCharUp) {
+      downChar = chara;
+    }
+  } while (shouldContinue == true); // 1= ESCAPE
 }
 
 // The starting point of the high level kernel
