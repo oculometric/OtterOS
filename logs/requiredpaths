@@ -1,0 +1,3 @@
+"/usr/local/bin/" - xorriso
+"/src/build-grub/" - grub toolchain
+"/opt/cross/bin/" - i686-elf- toolchain
