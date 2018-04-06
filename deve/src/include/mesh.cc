@@ -1,7 +1,7 @@
-/* # Cosh.cc #
+/* # Mesh.cc #
  *
  * ## Description ##
- * The COSH interpreter code.
+ * The MESH interpreter code.
  *
  * ## Info ##
  * Created 22/03/18
@@ -20,7 +20,7 @@ string splitLine[50];
 
 const int length = 8;
 
-char *functionNames[length] = {"echo", "bell", "cosh", "clib",
+char *functionNames[length] = {"echo", "bell", "mesh", "clib",
                                "setv", "getv", "help", "exit"};
 char *functionDescriptions[length] = {
     "Prints whatever comes after the command.",
@@ -51,9 +51,9 @@ static void bell() { println("Ding!!!"); }
 
 static void echo() { println(argumentString); }
 
-static void cosh() {
-  char *versionName = getGlobal("coshv");
-  println("COSH - Combined OtterOS SHell");
+static void mesh() {
+  char *versionName = getGlobal("meshv");
+  println("MESH - MEta SHell");
   print("Version: ");
   log(versionName);
   println(versionName);
@@ -76,7 +76,7 @@ static void exit() { shouldContinue = false; }
 // ==========  END COMMAND FUNCTIONS  ========== //
 
 // Index between commands and string equivalents
-void (*functions[])() = {echo, bell, cosh, clib, setv, getv, help, exit};
+void (*functions[])() = {echo, bell, mesh, clib, setv, getv, help, exit};
 
 // Interpret a line of input
 void executeLine() {

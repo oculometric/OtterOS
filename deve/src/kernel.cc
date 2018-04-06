@@ -16,7 +16,7 @@
  */
 
 // Include libraries and other files
-#include "include/cosh.cc"
+#include "include/mesh.cc"
 #include "include/declarations.h"
 #include "include/globals.cc"
 #include "include/graphicKernel.cc"

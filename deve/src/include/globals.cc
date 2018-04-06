@@ -42,5 +42,5 @@ void setGlobal (char* key, char* value) {
 }
 
 void setupGlobals () {
-  setGlobal ("coshv", "0.2")
+  setGlobal ("meshv", "0.2")
 }
