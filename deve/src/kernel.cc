@@ -16,20 +16,18 @@
  */
 
 // Include libraries and other files
-#include "include/mesh.cc"
 #include "include/declarations.h"
+#include "include/memory.cc"
+#include "include/utils.cc"
 #include "include/globals.cc"
+#include "include/terminal.cc"
+#include "include/mesh.cc"
 #include "include/graphicKernel.cc"
 #include "include/kbdus.h"
 #include "include/usqwerty.h"
-#include "include/memory.cc"
-#include "include/terminal.cc"
-#include "include/utils.cc"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-
-bool shouldContinue = true;
 
 // Define keyboard inputs
 #define PIC1 0x20
@@ -64,7 +62,7 @@ bool isWaitingForUp = false;
 
 bool shift = false;
 
-char downChar = '';
+char downChar = '\0';
 bool latestCharWasCharUp = false;
 
 void doChars () {
@@ -106,54 +104,54 @@ char characterOf (char c) {
   }
 }
 
-void oldCode () {
-  if (inb(0x60) != c) {
-    c = inb(0x60);
-    if (c > 0) {
-      int a = c;
-      char ch = ' ';
-      if (a == 0x2A) {
-        leftShiftDown = !leftShiftDown;
-      } else if (a == 0x36) {
-        rightShiftDown = !rightShiftDown;
-      } else {
-        ch = normalmap[a];
-        if (rightShiftDown || leftShiftDown) {
-          ch = shiftmap[a];
-        }
-        if (ch == '\n') {
-          println("");
-          log(currentInLine);
-          if (strlen(currentInLine) > 0) {
-            executeLine();
-          } else {
-            displayPrompt();
-          }
-        } else if (ch == '\b') {
-          tDeleteChar();
-        } else if (ch == -1) {
-          if (terminal_column > 8) {
-            terminal_column--;
-          }
-          updateCursorLocation();
-        } else if (ch == -2) {
-          if (terminal_column < VGA_WIDTH) {
-            terminal_column++;
-          }
-          updateCursorLocation();
-        } else if (ch == -3) {
-          // if (histLoc > 0) {histLoc--;updateInLineToHistory();}
-        } else if (ch == -4) {
-          // if (histLoc < arraylen(inputHist))
-          // {histLoc++;updateInLineToHistory();}
-        } else {
-          currentInLine[terminal_column - 8] = ch;
-          tPutChar(ch);
-        }
-      }
-    }
-  }
-}
+// void oldCode () {
+//   if (inb(0x60) != c) {
+//     c = inb(0x60);
+//     if (c > 0) {
+//       int a = c;
+//       char ch = ' ';
+//       if (a == 0x2A) {
+//         leftShiftDown = !leftShiftDown;
+//       } else if (a == 0x36) {
+//         rightShiftDown = !rightShiftDown;
+//       } else {
+//         ch = normalmap[a];
+//         if (rightShiftDown || leftShiftDown) {
+//           ch = shiftmap[a];
+//         }
+//         if (ch == '\n') {
+//           println("");
+//           log(currentInLine);
+//           if (strlen(currentInLine) > 0) {
+//             executeLine();
+//           } else {
+//             displayPrompt();
+//           }
+//         } else if (ch == '\b') {
+//           tDeleteChar();
+//         } else if (ch == -1) {
+//           if (terminal_column > 8) {
+//             terminal_column--;
+//           }
+//           updateCursorLocation();
+//         } else if (ch == -2) {
+//           if (terminal_column < VGA_WIDTH) {
+//             terminal_column++;
+//           }
+//           updateCursorLocation();
+//         } else if (ch == -3) {
+//           // if (histLoc > 0) {histLoc--;updateInLineToHistory();}
+//         } else if (ch == -4) {
+//           // if (histLoc < arraylen(inputHist))
+//           // {histLoc++;updateInLineToHistory();}
+//         } else {
+//           currentInLine[terminal_column - 8] = ch;
+//           tPutChar(ch);
+//         }
+//       }
+//     }
+//   }
+// }
 
 // Terminal based kernel
 void terminalKernel() {

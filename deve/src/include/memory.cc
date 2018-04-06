@@ -14,10 +14,14 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
+ #include <stdbool.h>
+ #include <stddef.h>
+ #include <stdint.h>
+
 int usableStart = 0xCDCDCDCD + (8192 * 4);
 int startEndPairs[8192];
 void prepMemory () {
-  startEndPairs = (void*) 0xCDCDCDCD
+  //startEndPairs = (void*) 0xCDCDCDCD;
   startEndPairs[0] = (int) 0xCDCDCDCD;
   startEndPairs[1] = usableStart;
 }
@@ -28,7 +32,7 @@ void *memset(void *s, int c, size_t len) {
   for (size_t i = 0; i != len; ++i) {
     p[i] = c;
   }
-  return b;
+  return s;
 }
 
 void *memset(void *b, int c) {
@@ -61,8 +65,8 @@ void strcpy(string a, string b) {
   }
 }
 
-void malloc(int size) {
-  void ptr = 0x00000000;
+void* malloc(int size) {
+  void* ptr = 0x00000000;
   int ind = 1;
   int dif = 1;
   while (true) {
@@ -77,7 +81,7 @@ void malloc(int size) {
       break;
     }
     if ((comp2 - comp1) > size) {
-      ptr = comp1+1;
+      ptr = (void*)comp1+1;
       int plannedPos = ind+1;
       if (startEndPairs[plannedPos] != 0x0) {
         int tmpa = startEndPairs[plannedPos];
@@ -90,8 +94,8 @@ void malloc(int size) {
           startEndPairs[i] = tmpc;
         }
       } else {
-        startEndPairs[plannedPos] = ptr;
-        startEndPairs[plannedPos+1] = ptr + size;
+        startEndPairs[plannedPos] = (int) ptr;
+        startEndPairs[plannedPos+1] = (int) ptr + size;
       }
 
       break;
@@ -104,10 +108,13 @@ void malloc(int size) {
   return ptr;
 }
 
-void calloc(int size) {
-  void ptr = malloc(size);
+void* calloc(int size) {
+  void* ptr = malloc(size);
   memset(ptr, 0x00000000, size);
+	return ptr;
 }
+
+void free (void* p) {}
 
 void *operator new(size_t size) { return malloc(size); }
 

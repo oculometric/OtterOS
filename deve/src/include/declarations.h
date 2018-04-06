@@ -28,3 +28,5 @@ void log(string s);
 
 void fatal (string msg);
 void warn (string msg);
+
+bool shouldContinue = true;
