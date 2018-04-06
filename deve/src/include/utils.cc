@@ -131,8 +131,17 @@ bool strEqual(const char *str1, const char *str2) {
   return returner;
 }
 
-// Determine the index (if any) of an item within an array
 int contains(char **array, char *str) {
+  for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
+    if (strEqual(array[itemNo], str)) {
+      return itemNo;
+    }
+  }
+  return -1;
+}
+
+// Determine the index (if any) of an item within an array
+int contains(const char **array, char *str) {
   for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
     if (strEqual(array[itemNo], str)) {
       return itemNo;

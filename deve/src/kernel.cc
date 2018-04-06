@@ -96,7 +96,6 @@ char waitForScanCode() {
 }
 
 char characterOf (char c) {
-  // TODO: Look for character
   if (!shift) {
     return lowercase2[c];
   } else {
@@ -181,6 +180,7 @@ void terminalKernel() {
 extern "C" void kernel_main(void) {
   // Designed to init into terminal for now.
   prepMemory();
+	setupGlobals();
   terminalKernel();
   // graphicalKernel();
 }

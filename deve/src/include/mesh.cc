@@ -20,9 +20,9 @@ string splitLine[50];
 
 const int length = 8;
 
-char *functionNames[length] = {"echo", "bell", "mesh", "clib",
+const char* functionNames[length] = {"echo", "bell", "mesh", "clib",
                                "setv", "getv", "help", "exit"};
-char *functionDescriptions[length] = {
+const char* functionDescriptions[length] = {
     "Prints whatever comes after the command.",
     "Sends the bell character. Still WIP.",
     "Displays information about the shell.",
@@ -52,7 +52,7 @@ static void bell() { println("Ding!!!"); }
 static void echo() { println(argumentString); }
 
 static void mesh() {
-  char *versionName = getGlobal("meshv");
+  char* versionName = getGlobal("meshv");
   println("MESH - MEta SHell");
   print("Version: ");
   log(versionName);

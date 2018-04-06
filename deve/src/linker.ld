@@ -6,7 +6,7 @@
 ENTRY(_start)
 
 SECTIONS {
-  .= 1M;
+  . = 1M;
 
   /* First put the multiboot header */
   .text BLOCK(4K)
