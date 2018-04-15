@@ -34,24 +34,27 @@ const char* functionDescriptions[length] = {
     "Terminates the kernel, causing immediate shutdown."};
 
 void displayPrompt() {
+	log ("Prompting the user for input...");
   terminal_color = make_color(COLOR_RED, COLOR_BLACK);
   print("cosh -> ");
   terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
+	log ("Done");
 }
 
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
-static void clib() { strcpy(argumentString, clipboard); }
+static void clib() { log ("Copying specified value to the clipboard..."); strcpy(argumentString, clipboard); log ("Done");}
 
-static void setv() { setGlobal(splitLine[1], splitLine[2]); }
+static void setv() { log ("Calling setGlobal for specified name:value pair..."); setGlobal(splitLine[1], splitLine[2]); log ("Done");}
 
-static void getv() { println(getGlobal(splitLine[1])); }
+static void getv() { log ("Calling getGlobal for specified name..."); println(getGlobal(splitLine[1])); log ("Done");}
 
-static void bell() { println("Ding!!!"); }
+static void bell() { log ("Printing bell character..."); println("Ding!!!"); log ("Done");}
 
-static void echo() { println(argumentString); }
+static void echo() { log ("Printing input..."); println(argumentString); log ("Done");}
 
 static void mesh() {
+	log ("Printing terminal data...");
   char* versionName = getGlobal("meshv");
   println("MESH - MEta SHell");
   print("Version: ");
@@ -61,17 +64,20 @@ static void mesh() {
   println("Written: JavaxCosten");
   println("Designed: DaBatchMan and JavaxCosten");
   println("Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar");
+	log ("Done");
 }
 
 static void help() {
+	log ("Looping through commands to print funciton descriptions...");
   for (int i = 0; i < length; i++) {
     print(functionNames[i]);
     print(" - ");
     println(functionDescriptions[i]);
   }
+	log ("Done");
 }
 
-static void exit() { shouldContinue = false; }
+static void exit() { log ("Terminating the kernel..."); shouldContinue = false; log ("Done");}
 
 // ==========  END COMMAND FUNCTIONS  ========== //
 
@@ -80,6 +86,7 @@ void (*functions[])() = {echo, bell, mesh, clib, setv, getv, help, exit};
 
 // Interpret a line of input
 void executeLine() {
+	log ("Processing the current line of input...");
   // Temporary storage for the command part
   char *cmd = currentInLine;
 
@@ -138,7 +145,9 @@ void executeLine() {
     argumentString[argLoc] = ' ';
     argLoc++;
   }
+	log ("Done");
 
+	log ("Interpreting command...");
   // Interpret the command
   int contain = contains(functionNames, cmd);
   if (contain != -1) {
@@ -151,7 +160,7 @@ void executeLine() {
     print("Unknown command: ");
     println(cmd);
   }
-
+	log ("Done");
   // Update command log
   // inputHist[arraylen(inputHist)] = currentInLine;
   // histLoc = arraylen(inputHist)+1;
@@ -160,7 +169,9 @@ void executeLine() {
   // Reset and reprompt the user for input
   displayPrompt();
   // Clear the input line
+	log ("Resetting input line...");
   for (int ind = 0; ind < VGA_WIDTH; ind++) {
     currentInLine[ind] = 0x00;
   }
+	log ("Done");
 }

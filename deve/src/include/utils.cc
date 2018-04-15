@@ -53,18 +53,6 @@ string intToString(int i) {
   return out;
 }
 
-void fatal (string msg) {
-  log ("==========FATAL==========");
-  log (msg);
-  log ("=========================");
-}
-
-void warn (string msg) {
-  log ("==========WARNING==========");
-  log (msg);
-  log ("===========================");
-}
-
 // Define a bunch of colour constants
 enum vga_color {
   COLOR_BLACK = 0,
@@ -238,9 +226,42 @@ void log(string s) {
 }
 
 void log(int i) {
-  string s = intToString(i);
-  log(s);
+	string s = intToString(i); log(s);
 }
+
+void logHex (int i) {
+	char* buffer = (char*) i;
+	int numBytes = strlen (buffer);
+	char s[numBytes*2+1];
+	const char* pHexTable="0123456789ABCDEF";
+	int iPos=0;
+
+	for(int i=0; i<numBytes; i++){
+		//assume buffer contains some binary data at this point
+		const char cHex=buffer[i];
+		s[iPos++]=pHexTable[(cHex>>4)&0x0f];
+		s[iPos++]=pHexTable[cHex&0x0f];
+	}
+	s[iPos]='\0';
+	log(s);
+}
+
+// Log that a fatal error occurred
+// TODO: Add exit functionality
+void fatal (string msg) {
+  log ("==========FATAL==========");
+  log (msg);
+  log ("=========================");
+	shouldContinue = false;
+}
+
+// Log a warning
+void warn (string msg) {
+  log ("==========WARNING==========");
+  log (msg);
+  log ("===========================");
+}
+
 
 // Split a string into an array of strings at a delimiter
 void splitStr(const char *str, const char d, char **into) {

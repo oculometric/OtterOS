@@ -24,6 +24,7 @@ void print(const char *data);
 void tPutChar(const char data);
 
 void log(int i);
+void logHex(int i);
 void log(string s);
 
 void fatal (string msg);

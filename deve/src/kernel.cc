@@ -39,6 +39,7 @@
 // Set up the keyboard
 void init_pics(int pic1, int pic2) {
   /* send ICW1 */
+	log ("Initialising PICs for keyboard input...");
   outb(PIC1, ICW1);
   outb(PIC2, ICW1);
 
@@ -56,6 +57,7 @@ void init_pics(int pic1, int pic2) {
 
   /* disable all IRQs */
   outb(PIC1 + 1, 0xFF);
+	log ("Done");
 }
 
 bool isWaitingForUp = false;
@@ -103,7 +105,7 @@ char characterOf (char c) {
   }
 }
 
-// void oldCode () {
+// void oldCode (char c) {
 //   if (inb(0x60) != c) {
 //     c = inb(0x60);
 //     if (c > 0) {
@@ -155,14 +157,19 @@ char characterOf (char c) {
 // Terminal based kernel
 void terminalKernel() {
   // Set up the terminal environment
+	log ("Setting up terminal environment...");
   tInitialize();
+	log ("Done");
 
   // Prompt the user for input
   displayPrompt();
 
   // Start listening for keyboard input
+	log ("Starting keypress listener...");
+	warn ("Keypress listener is not working, keypresses are not detected/reacted to");
   char c = 0;
   init_pics(0x20, 0x28);
+	fatal ("No point in continuing, input doesn't work");
   do {
     c = waitForScanCode ();
     char chara = characterOf (c);
@@ -179,8 +186,15 @@ void terminalKernel() {
 // The starting point of the high level kernel
 extern "C" void kernel_main(void) {
   // Designed to init into terminal for now.
+	log ("Preparing memory manager...");
   prepMemory();
+	log ("Done");
+	log ("Setting up global variables...");
 	setupGlobals();
+	log ("Done");
+	log ("Starting terminal kernel...");
   terminalKernel();
+	log ("Finished");
+	log ("=========TERMINATE=========");
   // graphicalKernel();
 }
