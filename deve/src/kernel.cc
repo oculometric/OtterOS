@@ -35,7 +35,7 @@
 
 #define ICW1 0x11
 #define ICW4 0x01
-
+// TODO: Move this into a class
 // Set up the keyboard
 void init_pics(int pic1, int pic2) {
   /* send ICW1 */
@@ -171,6 +171,7 @@ void terminalKernel() {
   init_pics(0x20, 0x28);
 	fatal ("No point in continuing, input doesn't work");
   do {
+		// TODO: Fix keyboard input
     c = waitForScanCode ();
     char chara = characterOf (c);
     // if (latestCharWasCharUp && chara == downChar) {

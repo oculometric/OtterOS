@@ -20,6 +20,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+// TODO: Move this into a class
 // Terminal constants
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 24;

@@ -13,7 +13,7 @@
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
-
+// TODO: Move this into a class
 // Temporary storage, so we don't have to recompute things
 char argumentString[512 * 7];
 string splitLine[50];
