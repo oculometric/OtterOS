@@ -68,8 +68,11 @@ char downChar = '\0';
 bool latestCharWasCharUp = false;
 
 void doChars () {
-  while (shouldContinue) {
+  //while (shouldContinue) {
+	log ("Doing chars...");
+	//log (downChar);
   if (downChar == '\n') {
+		log ("downChar was newline");
     println("");
     log(currentInLine);
     if (strlen(currentInLine) > 0) {
@@ -78,24 +81,28 @@ void doChars () {
       displayPrompt();
     }
   } else if (downChar == '\b') {
+		log ("downChar was delete");
     tDeleteChar();
   } else if (downChar == -1) {
+		log ("downChar was escape");
     shouldContinue = false;
-  } else if (downChar == 0x00) {} else {
+  } else if (downChar == 0x00) {log ("downChar was NULL????");} else {
+		log ("downChar was a normal char");
     currentInLine[terminal_column - 8] = downChar;
     tPutChar(downChar);
   }
-}
+//}
+log ("Done");
 }
 
-char waitForScanCode() {
-  while (!(inb(0x64) & 1)) {doChars();}
-  char in = inb (0x60);
-  if (in & 0x2A) {
-    shift = true;
-  }
-  return in;
-}
+// char waitForScanCode() {
+//   while (!(inb(0x64) & 1)) {doChars();}
+//   char in = inb (0x60);
+//   if (in & 0x2A) {
+//     shift = true;
+//   }
+//   return in;
+// }
 
 char characterOf (char c) {
   if (!shift) {
@@ -167,21 +174,25 @@ void terminalKernel() {
   // Start listening for keyboard input
 	log ("Starting keypress listener...");
 	warn ("Keypress listener is not working, keypresses are not detected/reacted to");
-  char c = 0;
+  //char c = 0;
   init_pics(0x20, 0x28);
-	fatal ("No point in continuing, input doesn't work");
-  do {
-		// TODO: Fix keyboard input
-    c = waitForScanCode ();
-    char chara = characterOf (c);
-    // if (latestCharWasCharUp && chara == downChar) {
-    //     downChar = '';
-    //   }
-    // } else if (!latestCharWasCharUp) {
-    //   downChar = chara;
-    // }
-    downChar = chara;
-  } while (shouldContinue == true); // 1= ESCAPE
+	//fatal ("No point in continuing, input doesn't work");
+	char c = 0;
+	while (shouldContinue) {
+		c = inb (0x60);
+		log ("Took input");
+		if (c > 0 && characterOf(c) != 0) {
+			log ("Validated input");
+			if (c & 0xF0) {
+				downChar = 0;
+			} else {
+				log ("Charing input");
+				char c = characterOf(c);
+				downChar = c;
+				doChars();
+			}
+		}
+	}
 }
 
 // The starting point of the high level kernel
