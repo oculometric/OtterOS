@@ -68,11 +68,8 @@ char downChar = '\0';
 bool latestCharWasCharUp = false;
 
 void doChars () {
-  //while (shouldContinue) {
 	log ("Doing chars...");
-	//log (downChar);
   if (downChar == '\n') {
-		log ("downChar was newline");
     println("");
     log(currentInLine);
     if (strlen(currentInLine) > 0) {
@@ -81,35 +78,94 @@ void doChars () {
       displayPrompt();
     }
   } else if (downChar == '\b') {
-		log ("downChar was delete");
     tDeleteChar();
   } else if (downChar == -1) {
-		log ("downChar was escape");
     shouldContinue = false;
-  } else if (downChar == 0x00) {log ("downChar was NULL????");} else {
-		log ("downChar was a normal char");
+  } else if (downChar == 0x00) {
+	} else {
     currentInLine[terminal_column - 8] = downChar;
     tPutChar(downChar);
   }
-//}
-log ("Done");
+	log ("Done");
 }
-
-// char waitForScanCode() {
-//   while (!(inb(0x64) & 1)) {doChars();}
-//   char in = inb (0x60);
-//   if (in & 0x2A) {
-//     shift = true;
-//   }
-//   return in;
-// }
 
 char characterOf (char c) {
   if (!shift) {
-    return lowercase2[c];
+    return lowercase1[c];
   } else {
     return NULL;
   }
+}
+
+// char upCharacterOf (char c) {
+// 	if (!shift) {
+//     return lowercase1[c];
+//   } else {
+//     return NULL;
+//   }
+// }
+
+// Terminal based kernel
+void terminalKernel() {
+  // Set up the terminal environment
+	log ("Setting up terminal environment...");
+  tInitialize();
+	log ("Done");
+
+  // Prompt the user for input
+  displayPrompt();
+
+  // Start listening for keyboard input
+	log ("Starting keypress listener...");
+	warn ("Keypress listener is not working, keypresses are not detected/reacted to");
+  init_pics(0x20, 0x28);
+	outb(0x60, 0xF0);
+	while (inb(0x60) != 0xFA);
+	outb(0x60, 0);
+	while (inb(0x60) != 0xFA);
+
+	log ("Set keyboard scan code set to 1");
+
+	outb(0x60, 0xF3);
+	while (inb(0x60) != 0xFA);
+	outb(0x60, 0x7F);
+
+	log ("Finshed keyboard setup");
+	log ("Done");
+	//fatal ("No point in continuing, input doesn't work");
+	char code = 0;
+	while (shouldContinue) {
+		code = inb (0x60);
+		if ((code & 128) != 128) {
+			log (code);
+				char cc = characterOf(code);
+				downChar = cc;
+		} else {
+			downChar = 0x00;
+		}
+
+		if (downChar != 0x00) {
+			log (downChar);
+			doChars();
+		}
+		sleep (300);
+	}
+}
+
+// The starting point of the high level kernel
+extern "C" void kernel_main(void) {
+  // Designed to init into terminal for now.
+	log ("Preparing memory manager...");
+  prepMemory();
+	log ("Done");
+	log ("Setting up global variables...");
+	setupGlobals();
+	log ("Done");
+	log ("Starting terminal kernel...");
+  terminalKernel();
+	log ("Finished");
+	log ("=========TERMINATE=========");
+  // graphicalKernel();
 }
 
 // void oldCode (char c) {
@@ -160,53 +216,3 @@ char characterOf (char c) {
 //     }
 //   }
 // }
-
-// Terminal based kernel
-void terminalKernel() {
-  // Set up the terminal environment
-	log ("Setting up terminal environment...");
-  tInitialize();
-	log ("Done");
-
-  // Prompt the user for input
-  displayPrompt();
-
-  // Start listening for keyboard input
-	log ("Starting keypress listener...");
-	warn ("Keypress listener is not working, keypresses are not detected/reacted to");
-  //char c = 0;
-  init_pics(0x20, 0x28);
-	//fatal ("No point in continuing, input doesn't work");
-	char c = 0;
-	while (shouldContinue) {
-		c = inb (0x60);
-		log ("Took input");
-		if (c > 0 && characterOf(c) != 0) {
-			log ("Validated input");
-			if (c & 0xF0) {
-				downChar = 0;
-			} else {
-				log ("Charing input");
-				char c = characterOf(c);
-				downChar = c;
-				doChars();
-			}
-		}
-	}
-}
-
-// The starting point of the high level kernel
-extern "C" void kernel_main(void) {
-  // Designed to init into terminal for now.
-	log ("Preparing memory manager...");
-  prepMemory();
-	log ("Done");
-	log ("Setting up global variables...");
-	setupGlobals();
-	log ("Done");
-	log ("Starting terminal kernel...");
-  terminalKernel();
-	log ("Finished");
-	log ("=========TERMINATE=========");
-  // graphicalKernel();
-}

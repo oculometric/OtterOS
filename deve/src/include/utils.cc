@@ -229,6 +229,11 @@ void log(int i) {
 	string s = intToString(i); log(s);
 }
 
+void log (char c) {
+	write_serial(c);
+	write_serial(0x0A);
+}
+
 void logHex (int i) {
 	char* buffer = (char*) i;
 	int numBytes = strlen (buffer);
