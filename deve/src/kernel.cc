@@ -63,7 +63,8 @@ void init_pics(int pic1, int pic2) {
 
 bool isWaitingForUp = false;
 
-bool shift = false;
+bool rshift = false;
+bool lshift = false;
 
 char downChar = '\0';
 bool latestCharWasCharUp = false;
@@ -82,8 +83,12 @@ void doChars () {
     tDeleteChar();
   } else if (downChar == -1) {
     shouldContinue = false;
+  } else if (downChar == -3) {
+    rshift = true;
+  } else if (downChar == -4) {
+    lshift = true;
   } else if (downChar == 0x00) {
-	} else {
+	} else if (downChar > 0) {
     currentInLine[terminal_column - 8] = downChar;
     tPutChar(downChar);
   }
@@ -91,7 +96,7 @@ void doChars () {
 }
 
 char characterOf (char c) {
-  if (!shift) {
+  if (!lshift && !rshift) {
     return lowercase1[c];
   } else {
     return NULL;
@@ -137,13 +142,18 @@ void terminalKernel() {
 	char code = 0;
 	while (shouldContinue) {
 		code = inb (0x60);
+		char cc = characterOf(code);
 		if ((code & 128) != 128) {
 			log (code);
-				char cc = characterOf(code);
-				downChar = cc;
+			downChar = cc;
 		} else {
-			downChar = 0x00;
-		}
+			if (cc == -3) {
+				rshift = true;
+			} else if (cc == -4) {
+				lshift = true;
+		 	}
+		 downChar = 0x00;
+	 }
 
 		if (downChar != 0x00) {
 			log (downChar);
