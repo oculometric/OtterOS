@@ -19,6 +19,11 @@ class Hexium {
   int nextLinePointer;
   void internalSingleInstruction (string line) {
   }
+  string internalBuffer;
   public:
-  void 
+  void openBuffer (string buffer) {
+  }
+  void executeBuffer () {
+    
+  }
 }
