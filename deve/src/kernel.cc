@@ -99,7 +99,7 @@ char characterOf (char c) {
   if (!lshift && !rshift) {
     return lowercase1[c];
   } else {
-    return NULL;
+    return uppercase1[c];
   }
 }
 
