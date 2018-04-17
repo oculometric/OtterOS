@@ -1,11 +1,10 @@
-/* # Kernel.cc #
+/* # Hexium.cc #
  *
  * ## Description ##
- * The core code for OtterOS. Every other part of the project
- * branches from this starting point.
+ * A logic interpreter.
  *
  * ## Info ##
- * Created 14/03/18
+ * Created 17/04/18
  * Format C++ source
  * Written by JavaxCosten
  *
@@ -14,3 +13,12 @@
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
+
+class Hexium {
+  private:
+  int nextLinePointer;
+  void internalSingleInstruction (string line) {
+  }
+  public:
+  void 
+}
