@@ -27,7 +27,7 @@ void log(int i);
 void logHex(int i);
 void log(string s);
 
-void sleep (uint32_t delay);
+void sleep (int delay);
 
 void fatal (string msg);
 void warn (string msg);
