@@ -20,12 +20,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// TODO: Move this into a class
 class Terminal {
 private:
-	// Terminal constants
-	static const size_t VGA_WIDTH = 80;
-	static const size_t VGA_HEIGHT = 24;
 
 	int terminal_row;
 	int terminal_column;
@@ -34,7 +30,10 @@ private:
 
 	char currentInLine[VGA_WIDTH];
 public:
-
+	// Terminal constants
+	static const size_t VGA_WIDTH = 80;
+	static const size_t VGA_HEIGHT = 24;
+	
 	string getInLine () {
 		return currentInLine;
 	}
