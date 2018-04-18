@@ -22,6 +22,7 @@
 #include "include/utils.cc"
 #include "include/globals.cc"
 #include "include/terminal.cc"
+Terminal t = Terminal ();
 #include "include/mesh.cc"
 #include "include/graphicKernel.cc"
 #include "include/kbdus.h"
@@ -36,7 +37,7 @@
 
 #define ICW1 0x11
 #define ICW4 0x01
-// TODO: Move this into a class
+
 // Set up the keyboard
 void init_pics(int pic1, int pic2) {
   /* send ICW1 */
@@ -73,14 +74,13 @@ void doChars () {
 	log ("Doing chars...");
   if (downChar == '\n') {
     println("");
-    log(currentInLine);
-    if (strlen(currentInLine) > 0) {
+    if (strlen(t.getInLine()) > 0) {
       executeLine();
     } else {
       displayPrompt();
     }
   } else if (downChar == '\b') {
-    tDeleteChar();
+    t.tDeleteChar();
   } else if (downChar == -1) {
     shouldContinue = false;
   } else if (downChar == -3) {
@@ -89,8 +89,7 @@ void doChars () {
     lshift = true;
   } else if (downChar == 0x00) {
 	} else if (downChar > 0) {
-    currentInLine[terminal_column - 8] = downChar;
-    tPutChar(downChar);
+    t.charTyped(downChar);
   }
 	log ("Done");
 }
@@ -103,19 +102,11 @@ char characterOf (char c) {
   }
 }
 
-// char upCharacterOf (char c) {
-// 	if (!shift) {
-//     return lowercase1[c];
-//   } else {
-//     return NULL;
-//   }
-// }
-
 // Terminal based kernel
 void terminalKernel() {
   // Set up the terminal environment
 	log ("Setting up terminal environment...");
-  tInitialize();
+  t.tInitialize();
 	log ("Done");
 
   // Prompt the user for input
@@ -144,7 +135,6 @@ void terminalKernel() {
 		code = inb (0x60);
 		char cc = characterOf(code);
 		if ((code & 128) != 128) {
-			log (code);
 			downChar = cc;
 		} else {
 			if (code == 0xB6) {
@@ -156,7 +146,6 @@ void terminalKernel() {
 	 }
 
 		if (downChar != 0x00) {
-			log (downChar);
 			doChars();
 		}
 	}

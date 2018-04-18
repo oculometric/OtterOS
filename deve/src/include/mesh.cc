@@ -35,15 +35,15 @@ const char* functionDescriptions[length] = {
 
 void displayPrompt() {
 	log ("Prompting the user for input...");
-  terminal_color = make_color(COLOR_RED, COLOR_BLACK);
+  t.terminal_color = make_color(COLOR_RED, COLOR_BLACK);
   print("cosh -> ");
-  terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
+  t.terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
 	log ("Done");
 }
 
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
-static void clib() { log ("Copying specified value to the clipboard..."); strcpy(argumentString, clipboard); log ("Done");}
+static void clib() { log ("Copying specified value to the clipboard..."); strcpy(argumentString, t.clipboard); log ("Done");}
 
 static void setv() { log ("Calling setGlobal for specified name:value pair..."); setGlobal(splitLine[1], splitLine[2]); log ("Done");}
 
@@ -88,7 +88,7 @@ void (*functions[])() = {echo, bell, mesh, clib, setv, getv, help, exit};
 void executeLine() {
 	log ("Processing the current line of input...");
   // Temporary storage for the command part
-  char *cmd = currentInLine;
+  char *cmd = t.currentInLine;
 
   // Allocate an array to contain the input
   char a[512];
@@ -116,7 +116,7 @@ void executeLine() {
   }
 
   // Split the input into its constituent parts
-  splitStr(currentInLine, ' ', splitLine);
+  splitStr(t.currentInLine, ' ', splitLine);
 
   // println (splitLine[0]);
   // println (splitLine[1]);
@@ -170,8 +170,8 @@ void executeLine() {
   displayPrompt();
   // Clear the input line
 	log ("Resetting input line...");
-  for (int ind = 0; ind < VGA_WIDTH; ind++) {
-    currentInLine[ind] = 0x00;
+  for (int ind = 0; ind < t.VGA_WIDTH; ind++) {
+    t.currentInLine[ind] = 0x00;
   }
 	log ("Done");
 }
