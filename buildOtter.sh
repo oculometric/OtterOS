@@ -26,7 +26,7 @@ fi
 # done
 
 echo Compiling C++ source file deve/src/kernel.cc
-i686-elf-g++ -c deve/src/kernel.cc -o deve/bin/o/kernel.o -ffreestanding -O2 -fno-exceptions -fno-rtti -Wno-write-strings -Wno-pointer-arith # -masm=intel
+i686-elf-g++ -c deve/src/kernel.cc -o deve/bin/o/kernel.o -ffreestanding -O2 -fno-exceptions -fno-rtti -w #-Wno-write-strings -Wno-pointer-arith # -masm=intel
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi
