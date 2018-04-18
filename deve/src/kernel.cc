@@ -147,10 +147,10 @@ void terminalKernel() {
 			log (code);
 			downChar = cc;
 		} else {
-			if (cc == -3) {
-				rshift = true;
-			} else if (cc == -4) {
-				lshift = true;
+			if (code == 0xB6) {
+				rshift = false;
+			} else if (code = 0xAA) {
+				lshift = false;
 		 	}
 		 downChar = 0x00;
 	 }
