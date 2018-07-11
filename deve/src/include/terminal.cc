@@ -28,12 +28,19 @@ private:
 	uint8_t terminal_color;
 	uint16_t *terminal_buffer;
 
-	char currentInLine[VGA_WIDTH];
 public:
 	// Terminal constants
 	static const size_t VGA_WIDTH = 80;
 	static const size_t VGA_HEIGHT = 24;
-	
+
+private:
+	char currentInLine[VGA_WIDTH];
+public:
+	void resetInLine () {
+		for (int ind = 0; ind < VGA_WIDTH; ind++) {
+    	currentInLine[ind] = 0x00;
+  	}
+	}
 	string getInLine () {
 		return currentInLine;
 	}

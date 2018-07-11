@@ -35,9 +35,9 @@ const char* functionDescriptions[length] = {
 
 void displayPrompt() {
 	log ("Prompting the user for input...");
-  t.terminal_color = make_color(COLOR_RED, COLOR_BLACK);
+  t.tSetCol (make_color(COLOR_RED, COLOR_BLACK));
   print("cosh -> ");
-  t.terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
+	t.tSetCol (make_color(COLOR_GREEN, COLOR_BLACK));
 	log ("Done");
 }
 
@@ -88,7 +88,7 @@ void (*functions[])() = {echo, bell, mesh, clib, setv, getv, help, exit};
 void executeLine() {
 	log ("Processing the current line of input...");
   // Temporary storage for the command part
-  char *cmd = t.currentInLine;
+  char *cmd = t.getInLine();
 
   // Allocate an array to contain the input
   char a[512];
@@ -116,7 +116,7 @@ void executeLine() {
   }
 
   // Split the input into its constituent parts
-  splitStr(t.currentInLine, ' ', splitLine);
+  splitStr(t.getInLine(), ' ', splitLine);
 
   // println (splitLine[0]);
   // println (splitLine[1]);
@@ -170,8 +170,6 @@ void executeLine() {
   displayPrompt();
   // Clear the input line
 	log ("Resetting input line...");
-  for (int ind = 0; ind < t.VGA_WIDTH; ind++) {
-    t.currentInLine[ind] = 0x00;
-  }
+  t.resetInLine();
 	log ("Done");
 }

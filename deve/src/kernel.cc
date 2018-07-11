@@ -22,7 +22,7 @@
 #include "include/utils.cc"
 #include "include/globals.cc"
 #include "include/terminal.cc"
-Terminal t = Terminal ();
+Terminal t;
 #include "include/mesh.cc"
 #include "include/graphicKernel.cc"
 #include "include/kbdus.h"
@@ -105,6 +105,7 @@ char characterOf (char c) {
 // Terminal based kernel
 void terminalKernel() {
   // Set up the terminal environment
+	t = Terminal ();
 	log ("Setting up terminal environment...");
   t.tInitialize();
 	log ("Done");
