@@ -36,56 +36,56 @@ const char* functionDescriptions[length] = {
 void displayPrompt() {
 	log ("Prompting the user for input...");
   t.tSetCol (make_color(COLOR_RED, COLOR_BLACK));
-  print("cosh -> ");
+  t.print("cosh -> ");
 	t.tSetCol (make_color(COLOR_GREEN, COLOR_BLACK));
 	log ("Done");
 }
 
 // ========== BEGIN COMMAND FUNCTIONS ========== //
 
-static void clib() { log ("Copying specified value to the clipboard..."); strcpy(argumentString, t.clipboard); log ("Done");}
+static void clib(Terminal t) { log ("Copying specified value to the clipboard..."); strcpy(argumentString, t.clipboard); log ("Done");}
 
-static void setv() { log ("Calling setGlobal for specified name:value pair..."); setGlobal(splitLine[1], splitLine[2]); log ("Done");}
+static void setv(Terminal t) { log ("Calling setGlobal for specified name:value pair..."); setGlobal(splitLine[1], splitLine[2]); log ("Done");}
 
-static void getv() { log ("Calling getGlobal for specified name..."); println(getGlobal(splitLine[1])); log ("Done");}
+static void getv(Terminal t) { log ("Calling getGlobal for specified name..."); t.println(getGlobal(splitLine[1])); log ("Done");}
 
-static void bell() { log ("Printing bell character..."); println("Ding!!!"); log ("Done");}
+static void bell(Terminal t) { log ("Printing bell character..."); t.println("Ding!!!"); log ("Done");}
 
-static void echo() { log ("Printing input..."); println(argumentString); log ("Done");}
+static void echo(Terminal t) { log ("Printing input..."); t.println(argumentString); log ("Done");}
 
-static void mesh() {
+static void mesh(Terminal t) {
 	log ("Printing terminal data...");
   char* versionName = getGlobal("meshv");
-  println("MESH - MEta SHell");
-  print("Version: ");
+  t.println("MESH - MEta SHell");
+  t.print("Version: ");
   log(versionName);
-  println(versionName);
-  println("Created: 11/03/2018");
-  println("Written: JavaxCosten");
-  println("Designed: DaBatchMan and JavaxCosten");
-  println("Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar");
+  t.println(versionName);
+  t.println("Created: 11/03/2018");
+  t.println("Written: JavaxCosten");
+  t.println("Designed: DaBatchMan and JavaxCosten");
+  t.println("Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar");
 	log ("Done");
 }
 
-static void help() {
+static void help(Terminal t) {
 	log ("Looping through commands to print funciton descriptions...");
   for (int i = 0; i < length; i++) {
-    print(functionNames[i]);
-    print(" - ");
-    println(functionDescriptions[i]);
+    t.print(functionNames[i]);
+    t.print(" - ");
+    t.println(functionDescriptions[i]);
   }
 	log ("Done");
 }
 
-static void exit() { log ("Terminating the kernel..."); shouldContinue = false; log ("Done");}
+static void exit(Terminal t) { log ("Terminating the kernel..."); shouldContinue = false; log ("Done");}
 
 // ==========  END COMMAND FUNCTIONS  ========== //
 
 // Index between commands and string equivalents
-void (*functions[])() = {echo, bell, mesh, clib, setv, getv, help, exit};
+void (*functions[])(Terminal t) = {echo, bell, mesh, clib, setv, getv, help, exit};
 
 // Interpret a line of input
-void executeLine() {
+void executeLine(Terminal t) {
 	log ("Processing the current line of input...");
   // Temporary storage for the command part
   char *cmd = t.getInLine();
@@ -152,13 +152,13 @@ void executeLine() {
   int contain = contains(functionNames, cmd);
   if (contain != -1) {
     // The command is in the index, we can run it
-    functions[contain]();
+    functions[contain](t);
   } else {
     // The command wasn't in the index, we don't understand it
     // TODO: Add ability to search /bin/ directory for executables matching the
     // name given
-    print("Unknown command: ");
-    println(cmd);
+    t.print("Unknown command: ");
+    t.println(cmd);
   }
 	log ("Done");
   // Update command log

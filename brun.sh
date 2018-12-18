@@ -1,2 +1,2 @@
-bash buildOtter.sh
-bash executeOtter.sh
+./buildOtter.sh
+./executeOtter.sh
