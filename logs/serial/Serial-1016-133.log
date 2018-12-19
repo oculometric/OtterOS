@@ -1,0 +1,183 @@
+Preparing memory manager...
+Done
+Setting up global variables...
+Preparing globals
+Spacing memory...
+Done
+Setting preset variable(s)...
+Looking for global variable with specified name...
+Done
+We couldn't find the variable, so we'll create a new one
+Copying name and value into new space...
+Done
+Done
+Done
+Starting terminal kernel...
+Setting up terminal environment...
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Starting keypress listener...
+Initialising PICs for keyboard input...
+Done
+Set keyboard scan code set to 1
+Finshed keyboard setup
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Now moving onto terminal line: 
+======WARNING==========
+Done
+Resetting input line...
+
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Now moving onto terminal line: 
+======WARNING==========
+Done
+Resetting input line...
+
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Now moving onto terminal line: 
+======WARNING==========
+Done
+Resetting input line...
+
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Now moving onto terminal line: 
+======WARNING==========
+Done
+Resetting input line...
+
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Now moving onto terminal line: 
+======WARNING==========
+Done
+Resetting input line...
+
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Now moving onto terminal line: 
+======WARNING==========
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Now moving onto terminal line: 
+======WARNING==========
+Done
+Resetting input line...
+
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done

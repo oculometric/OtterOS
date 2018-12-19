@@ -84,6 +84,10 @@ void graphicalKernel() {
   // Write graphical kernel base here
   // INTERRUPTS ARE NOT WORKING.
   initScreen();
+  for (int y = 0; y < 2000; y++) {
+    putPixel(VGA, y, y, COLOR_GREEN);
+  }
+  sleep (300);
   // setPixel (10,10, COLOR_GREEN);
   // putPixel (VGA, 50, 50, COLOR_RED);
   // inlineSetPixel (70, 70);

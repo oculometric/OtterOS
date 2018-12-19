@@ -36,6 +36,7 @@ const char* functionDescriptions[length] = {
 void displayPrompt() {
 	log ("Prompting the user for input...");
   t.tSetCol (make_color(COLOR_RED, COLOR_BLACK));
+  t.moveToNextLine();
   t.print("cosh -> ");
 	t.tSetCol (make_color(COLOR_GREEN, COLOR_BLACK));
 	log ("Done");
@@ -164,12 +165,14 @@ void executeLine(Terminal t) {
   // Update command log
   // inputHist[arraylen(inputHist)] = currentInLine;
   // histLoc = arraylen(inputHist)+1;
-  // TODO: Set up command history/log
+  // TODO: Set up command history
 
   // Reset and reprompt the user for input
-  displayPrompt();
+
   // Clear the input line
 	log ("Resetting input line...");
   t.resetInLine();
 	log ("Done");
+
+  displayPrompt();
 }

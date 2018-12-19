@@ -40,14 +40,17 @@ public:
 		for (int ind = 0; ind < VGA_WIDTH; ind++) {
     	currentInLine[ind] = 0x00;
   	}
+
 	}
 	string getInLine () {
 		return currentInLine;
 	}
 
 	void charTyped (char c) {
-		currentInLine[terminal_column - 8] = c;
-		tPutChar(c);
+		if (terminal_column-8 < VGA_WIDTH) {
+			currentInLine[terminal_column - 8] = c;
+			tPutChar(c);
+		}
 	}
 
 	// Initialise the terminal mode
@@ -56,6 +59,15 @@ public:
 		terminal_column = 0;
 		terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
 		terminal_buffer = (uint16_t *)0xB8000;
+		for (size_t y = 0; y < VGA_HEIGHT; y++) {
+			for (size_t x = 0; x < VGA_WIDTH; x++) {
+				const size_t index = y * VGA_WIDTH + x;
+				terminal_buffer[index] = make_vgaentry(' ', terminal_color);
+			}
+		}
+	}
+
+	void clearTerminal () {
 		for (size_t y = 0; y < VGA_HEIGHT; y++) {
 			for (size_t x = 0; x < VGA_WIDTH; x++) {
 				const size_t index = y * VGA_WIDTH + x;
@@ -91,7 +103,7 @@ public:
 			terminal_column = 0;
 			if (++terminal_row == VGA_HEIGHT) {
 				terminal_row = 0;
-				tInitialize();
+				clearTerminal();
 			}
 		}
 
@@ -118,20 +130,42 @@ public:
 
 	// Write a string to the terminal
 	void tWriteString(const char *data) {
+		log ("Write string: ");
+		log (data);
 		size_t datalen = strlen(data);
 		for (size_t i = 0; i < datalen; i++)
 		tPutChar(data[i]);
 	}
 
-	// Print a string, then move to the next line
-	void println(const char *data) {
-		tWriteString(data);
+	// // Print a string, then move to the next line
+	// void println(const char *data) {
+	// 	tWriteString(data);
+	// 	terminal_column = 0;
+	// 	if (terminal_row < VGA_HEIGHT) {
+	// 		terminal_row++;
+	// 	} else {
+	// 		terminal_row = 0;
+	// 		clearTerminal();
+	// 	}
+	// 	updateCursorLocation();
+	// }
+
+	void moveToNextLine () {
+		log ("Now moving onto terminal line: ");
+
 		terminal_column = 0;
-		if (terminal_row < VGA_HEIGHT) {
-			terminal_row++;
+		if (terminal_row == VGA_HEIGHT-1) {
+			terminal_row = 0;
+			clearTerminal();
 		} else {
-			tInitialize();
+			terminal_row++;
 		}
+		logInt (terminal_row);
+	}
+
+	void println(const char *data) {
+		print (data);
+		moveToNextLine();
 		updateCursorLocation();
 	}
 

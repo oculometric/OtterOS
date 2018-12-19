@@ -1,0 +1,1319 @@
+Preparing memory manager...
+Done
+Setting up global variables...
+Preparing globals
+Spacing memory...
+Done
+Setting preset variable(s)...
+Looking for global variable with specified name...
+Done
+We couldn't find the variable, so we'll create a new one
+Copying name and value into new space...
+Done
+Done
+Done
+Starting terminal kernel...
+Setting up terminal environment...
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Starting keypress listener...
+Initialising PICs for keyboard input...
+Done
+Set keyboard scan code set to 1
+Finshed keyboard setup
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Write string: 
+Unknown command: 
+Write string: 
+hi
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Looping through commands to print funciton descriptions...
+Write string: 
+echo
+Write string: 
+ - 
+Write string: 
+Prints whatever comes after the command.
+Write string: 
+bell
+Write string: 
+ - 
+Write string: 
+Sends the bell character. Still WIP.
+Write string: 
+mesh
+Write string: 
+ - 
+Write string: 
+Displays information about the shell.
+Write string: 
+clib
+Write string: 
+ - 
+Write string: 
+Places data in the clipboard.
+Write string: 
+setv
+Write string: 
+ - 
+Write string: 
+Sets the value of an environment variable.
+Write string: 
+getv
+Write string: 
+ - 
+Write string: 
+Prints the value of an environment variable. Will soon be replaced with regex detectors.
+Write string: 
+help
+Write string: 
+ - 
+Write string: 
+Displays command help.
+Write string: 
+exit
+Write string: 
+ - 
+Write string: 
+Terminates the kernel, causing immediate shutdown.
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done
+Write string: 
+
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Write string: 
+
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Write string: 
+
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Write string: 
+
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Write string: 
+
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Write string: 
+
+Processing the current line of input...
+Done
+Interpreting command...
+Printing terminal data...
+Looking for global variable with specified name...
+Done
+We didn't find anything
+Write string: 
+MESH - MEta SHell
+Write string: 
+Version: 
+
+Write string: 
+
+Write string: 
+Created: 11/03/2018
+Write string: 
+Written: JavaxCosten
+Write string: 
+Designed: DaBatchMan and JavaxCosten
+Write string: 
+Copyright (C) 2018 SketchesJavax, DaBatchMan and tcassar
+Done
+Done
+Prompting the user for input...
+Write string: 
+cosh -> 
+Done
+Resetting input line...
+Done

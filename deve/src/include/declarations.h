@@ -23,7 +23,7 @@ void println(const char *data);
 void print(const char *data);
 void tPutChar(const char data);
 
-void log(int i);
+void logInt(int i);
 void logHex(int i);
 void log(string s);
 
