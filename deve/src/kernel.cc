@@ -33,7 +33,8 @@ extern "C" void kernel_main(void) {
 	prepMemory();
 	log ("Done");
 	log ("Starting Otter kernel...");
-	OtterKernel* ok = new OtterKernel ();
+	OtterKernel ok = OtterKernel ();
+	ok.prepare();
 	log ("Finished");
 	log ("=========TERMINATE=========");
 	// graphicalKernel();

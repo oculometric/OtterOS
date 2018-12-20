@@ -1,12 +1,12 @@
 echo OtterOS Build Script Started
 
 typeset -i buildNum=$(cat logs/buildcounter)
-echo $(($buildNum+1)) > logs/buildcounter
 DATE=`date +%d-%m-%Y`
 fileName=$buildNum
 
-echo Assembling boot.s
+echo Assembling assembly files
 i686-elf-as deve/src/boot.s -o deve/bin/o/boot.o
+#i686-elf-as deve/src/int32.s -o deve/bin/o/int32.o
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi
@@ -54,3 +54,5 @@ grub-mkrescue -o iso/otterOS-$fileName.iso isodir
 cp iso/otterOS-$fileName.iso ../../OtterOS-Latest.iso
 
 echo Script Finished
+cd ../..
+echo $(($buildNum+1)) > logs/buildcounter

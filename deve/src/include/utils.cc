@@ -144,42 +144,79 @@ static inline void outb(unsigned short port, unsigned char val) {
   asm volatile("outb %0, %1" : : "a"(val), "Nd"(port));
 }
 
+static inline void realBad () {
+	log ("Going into real mode...");
+	asm (R"(idt_real:
+		.word 0x3ff
+		.int 0
+		cli
+		mov %cr0, %eax
+		and 0x7ffffffe, %eax
+		mov %eax, %cr0
+
+
+		GoRMode:
+		mov $0x8000, %sp
+		mov $0, %ax
+		mov %ax, %ds
+		mov %ax, %es
+		mov %ax, %fs
+		mov %ax, %gs
+		mov %ax, %ss
+		lidt idt_real
+		sti  )");
+		log ("Done");
+	}
+
+static inline void protectedBad () {
+	log ("Going back into protected...");
+	asm (R"(cli
+		#lgdt (gdtr)
+		mov %cr0, %eax
+		or 1, %al
+		mov %eax, %cr0
+		jmp PModeMain
+
+		PModeMain:
+		# load DS, ES, FS, GS, SS, ESP)");
+	log ("Done");
+}
+
 // Switch into real mode (not working)
 static inline void changeToRealMode() {
-  asm("idt_real:\n\t"
-      "	dw $0x3ff\n\t"
-      "	dd $0\n\t"
+  asm(R"(idt_real:
+					.word 0x3ff
+					.int 0
+				savcr0:
+      		.int 0
+				Entry16:
+					cli
+					mov DATASEL16, %eax
+					mov %eax, %ds
+      		mov %eax, %es
+      		mov %eax, %fs
+      		mov %eax, %gs
+      		mov %eax, %ss
 
-      "savcr0:\n\t"
-      "	dd $0\n\t"
+      		mov %cr0, %eax
+      		mov %eax, (savcr0)
+      		and $0x7FFFFFFe, %eax
+      		mov %eax, %cr0
 
-      "Entry16:\n\t"
+      		jmp GoRMode
 
-      "	cli\n\t"
-      "	mov %eax, DATASEL16\n\t"
-      "	mov %ds, %eax\n\t"
-      "	mov %es, %eax\n\t"
-      "	mov %fs, %eax\n\t"
-      "	mov %gs, %eax\n\t"
-      "	mov %ss, %eax\n\t"
-
-      "	mov %eax, %cr0\n\t"
-      "	mov [savcr0], %eax\n\t"
-      "	and %eax, $0x7FFFFFFe\n\t"
-      "	mov %cr0, %eax\n\t"
-
-      //"	jmp 0 :GoRMode\n\t"
-
-      //"GoRMode:\n\t"
-      "	mov %sp, $0x8000\n\t"
-      "	mov %ax, $0\n\t"
-      "	mov %ds, %ax\n\t"
-      "	mov %es, %ax\n\t"
-      "	mov %fs, %ax\n\t"
-      "	mov %gs, %ax\n\t"
-      "	mov %ss, %ax\n\t"
-      "	lidt idt_real\n\t"
-      "	sti");
+      	GoRMode:
+      		mov $0x8000, %sp
+      		mov $0, %ax
+      		mov %ax, %ds
+      		mov %ax, %es
+      		mov %ax, %fs
+      		mov %ax, %gs
+      		mov %ax, %ss
+      		lidt idt_real
+      		sti
+				)");
+				log ("WE DID IT OMG");
 }
 
 // Switch into protected mode (not working)
@@ -294,3 +331,9 @@ void allocarr(char **pointers, int bytes, int slots) {
     i++;
   }
 }
+
+// define our structure
+typedef struct __attribute__ ((packed)) {
+    unsigned short di, si, bp, sp, bx, dx, cx, ax;
+    unsigned short gs, fs, es, ds, eflags;
+} regs16_t;
