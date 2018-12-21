@@ -35,6 +35,15 @@ stack_top:
 
 /* Declare start function */
 .section .text
+get_vesa_info:
+	mov .data, %ax
+	mov %ax, %es
+
+	mov 0x4f00, %ax
+	mov vbe_info_structure, %di
+	int $0x10
+	ret
+
 .global _start
 .type _start, @function
 _start:
@@ -43,3 +52,8 @@ _start:
  	/* Call the main kernel */
 	call kernel_main
 .size _start, . - _start
+
+.section .data:
+vbe_info_structure:
+	.ascii "VBE2"
+	.lcomm table_data 512-4
