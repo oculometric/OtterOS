@@ -13,15 +13,15 @@ public:
     //int32(0x10, &regs);
 
     // full screen with blue color (1)
-    log ("Trying to set");
     //memset((char *)0xA0000, 1, (320*200));
     //asm ("mov $0x00, %al");
     //log ("Mark 1");
+    sleep (100);
     log ("Reading video mode...");
     asm ("mov $0x0F, %ah");
     log ("Mark 2");
-    asm ("# is this working?");
-    asm ("int $0x10");
+    asm ("int $0x10"); // This line is failing, we invariably jump awawy into 0x89734720
+    log ("Mark 3");
     uint32_t al_value;
     asm("" : "=al"(al_value));
     logHex (al_value);
