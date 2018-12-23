@@ -42,3 +42,8 @@ void sleep (int delay);
 
 void fatal (char *msg);
 void warn (char *msg);
+
+class OtterKernel {
+public:
+	void prepare ();
+}

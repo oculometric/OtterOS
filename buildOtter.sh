@@ -4,37 +4,43 @@ typeset -i buildNum=$(cat logs/buildcounter)
 DATE=`date +%d-%m-%Y`
 fileName=$buildNum
 
-echo Assembling assembly files
-i686-elf-as deve/src/boot.s -o deve/bin/o/boot.o
+echo Assembling boot.s
+i686-elf-as deve/src/asm/boot.s -o deve/bin/o/boot.o
 #i686-elf-as deve/src/int32.s -o deve/bin/o/int32.o
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi
 
-# oPaths=“”
-# echo Searching for source files
-# for file in dev/src/include/*.cc
-# do
-# 	echo Compiling C++ source file $file
-# 	name=`echo "$file" | cut -d'.' -f1`
-# 	name=`basename $name`
-# 	i686-elf-g++ -c $file -o dev/bin/o/$name.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
-# 	if [ ! $? -eq 0 ]; then
-# 		exit 1
-# 	fi
-#  #oPaths=o/$file.o $oPaths
-# done
+oPaths=“”
+echo Searching for source files
+for file in deve/src/cpp/*.{cc,h}
+do
+	echo Compiling C++ source file $file
+	name=`echo "$file" | cut -d'.' -f1`
+	name=`basename $name`
+	i686-elf-g++ -c $file -o deve/bin/o/$name.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -w
+	if [ ! $? -eq 0 ]; then
+		exit 1
+	fi
+ oPaths=o/$file.o $oPaths
+done
 
-echo Compiling C++ source file deve/src/kernel.cc
-i686-elf-g++ -g -c deve/src/kernel.cc -o deve/bin/o/kernel.o -ffreestanding -O2 -fno-exceptions -fno-rtti -w #-Wno-write-strings -Wno-pointer-arith # -masm=intel
-if [ ! $? -eq 0 ]; then
-	exit 1
-fi
+# echo Compiling C++ headers
+# i686-elf-g++ -g -c deve/src/cpp/*.h -o deve/bin/o/*.o -ffreestanding -O2 -Wall -fno-exceptions -fno-rtti -w #-Wno-write-strings -Wno-pointer-arith # -masm=intel
+# if [ ! $? -eq 0 ]; then
+# 	exit 1
+# fi
+
+# echo Compiling C++ sources
+# i686-elf-g++ -g -c deve/src/cpp/*.cc -o deve/bin/o/*.o -ffreestanding -O2 -fno-exceptions -fno-rtti -w #-Wno-write-strings -Wno-pointer-arith # -masm=intel
+# if [ ! $? -eq 0 ]; then
+# 	exit 1
+# fi
 
 cd deve/bin/
 
 echo Linking
-i686-elf-gcc -T ../src/linker.ld -o bin/otterOS.bin -ffreestanding -O2 -nostdlib -nodefaultlibs o/boot.o o/kernel.o -lgcc -Wl,--build-id=none
+i686-elf-gcc -T ../src/linker.ld -o bin/otterOS.bin -ffreestanding -O2 -nostdlib -nodefaultlibs o/*.o -lgcc -Wl,--build-id=none
 if [ ! $? -eq 0 ]; then
 	exit 1
 fi

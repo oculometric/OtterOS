@@ -16,7 +16,7 @@
 */
 
 // Include libraries and other files
-#include "include/declarations.h"
+#include "declarations.h"
 
 // The starting point of the high level kernel
 extern "C" void kernel_main(void) {
