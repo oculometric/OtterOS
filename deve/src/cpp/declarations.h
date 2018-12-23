@@ -46,4 +46,4 @@ void warn (char *msg);
 class OtterKernel {
 public:
 	void prepare ();
-}
+};
