@@ -14,45 +14,25 @@
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
+#include "declarations.h"
 
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
+void intToString (char *buf, unsigned long int n, int base) {
+	unsigned long int tmp;
+	int i, j;
+	tmp = n;
+	i = 0;
 
-char intstrings[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	do {
+		tmp = n % base;
+		buf[i++] = (tmp < 10) ? (tmp + '0') : (tmp + 'a' - 10);
+	} while (n /= base);
+	buf[i--] = 0;
 
-// Get the length of a string
-size_t strlen(const char *str) {
-	size_t ret = 0;
-	while (str[ret] != 0)
-		ret++;
-	return ret;
-}
-
-size_t strlen(string str) {
-	size_t ret = 0;
-	while (str[ret] != 0)
-		ret++;
-	return ret;
-}
-
-string appendChar(char c, string s) {
-	return s + c;
-}
-
-string putDigitTo(int x, string out) {
-	string tmp = out;
-	if (x >= 10) {
-		tmp = putDigitTo(x / 10, tmp);
+	for (j = 0; j < i; j++, i--) {
+		tmp = buf[j];
+		buf[j] = buf[i];
+		buf[i] = tmp;
 	}
-	int digit = x % 10;
-	char dig = intstrings[digit];
-	return appendChar(dig, tmp);;
-}
-
-string intToString (int i) {
-	string out = "";
-	return putDigitTo(i, out);
 }
 
 // Define a bunch of colour constants
@@ -96,23 +76,6 @@ int arraylen(char **array) {
   return ret + 1;
 }
 
-// Determine whether one string is equal to another
-bool strEqual(const char *str1, const char *str2) {
-  bool returner = true;
-  int ptr = 0;
-  while (str1[ptr] != 0x00 && str2[ptr] != 0x00) {
-    if (str1[ptr] != str2[ptr]) {
-      returner = false;
-    }
-    ptr++;
-  }
-  if (!(str1[ptr] == 0x00 && str2[ptr] == 0x00)) {
-    returner = false;
-  }
-
-  return returner;
-}
-
 int contains(char **array, char *str) {
   for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
     if (strEqual(array[itemNo], str)) {
@@ -130,18 +93,6 @@ int contains(const char **array, char *str) {
     }
   }
   return -1;
-}
-
-// Get a byte of input
-static inline uint8_t inb(uint16_t port) {
-  uint8_t ret;
-  asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port));
-  return ret;
-}
-
-// Set a byte of output
-static inline void outb(unsigned short port, unsigned char val) {
-  asm volatile("outb %0, %1" : : "a"(val), "Nd"(port));
 }
 
 static inline void realBad () {
@@ -228,83 +179,7 @@ static inline void changeToProtectedMode() {
       "mov %cr0, %eax");
 }
 
-#define PORT 0x3f8 /* COM1 */
 
-void init_serial() {
-  outb(PORT + 1, 0x00); // Disable all interrupts
-  outb(PORT + 3, 0x80); // Enable DLAB (set baud rate divisor)
-  outb(PORT + 0, 0x03); // Set divisor to 3 (lo byte) 38400 baud
-  outb(PORT + 1, 0x00); //                  (hi byte)
-  outb(PORT + 3, 0x03); // 8 bits, no parity, one stop bit
-  outb(PORT + 2, 0xC7); // Enable FIFO, clear them, with 14-byte threshold
-  outb(PORT + 4, 0x0B); // IRQs enabled, RTS/DSR set
-}
-
-int is_transmit_empty() { return inb(PORT + 5) & 0x20; }
-
-void write_serial(char a) {
-  while (is_transmit_empty() == 0)
-    ;
-
-  outb(PORT, a);
-}
-
-void log(string s) {
-  for (int i = 0; s[i] != NULL; i++) {
-    write_serial(s[i]);
-  }
-  write_serial(0x0A);
-}
-
-void logChar (char c) {
-	write_serial(c);
-	write_serial(0x0A);
-}
-
-void log(const char* s) {
-  for (int i = 0; s[i] != NULL; i++) {
-    write_serial(s[i]);
-  }
-  write_serial(0x0A);
-}
-
-void logInt (int i) {
-	//char* s = intToString(i); log ("Errm"); log(s);
-  logChar (intstrings[i]);
-}
-
-void logHex (int i) {
-	char* buffer = (char*) i;
-	int numBytes = strlen (buffer);
-	char s[numBytes*2+1];
-	const char* pHexTable="0123456789ABCDEF";
-	int iPos=0;
-
-	for(int i=0; i<numBytes; i++){
-		//assume buffer contains some binary data at this point
-		const char cHex=buffer[i];
-		s[iPos++]=pHexTable[(cHex>>4)&0x0f];
-		s[iPos++]=pHexTable[cHex&0x0f];
-	}
-	s[iPos]='\0';
-	log(s);
-}
-
-//Log that a fatal error occurred
-//TODO: Add exit functionality
-void fatal (string msg) {
-  log ("==========FATAL==========");
-  log (msg);
-  log ("=========================");
-	shouldContinue = false;
-}
-
-// Log a warning
-void warn (string msg) {
-  log ("==========WARNING==========");
-  log (msg);
-  log ("===========================");
-}
 
 
 // Split a string into an array of strings at a delimiter

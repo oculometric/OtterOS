@@ -17,14 +17,6 @@
 
 // Include libraries and other files
 #include "include/declarations.h"
-#include "include/time.cc"
-#include "include/memory.cc"
-#include "include/utils.cc"
-#include "include/otterKernel.cc"
-#include "include/usqwerty.h"
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
 
 // The starting point of the high level kernel
 extern "C" void kernel_main(void) {

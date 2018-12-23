@@ -44,6 +44,26 @@ get_vesa_info:
 	int $0x10
 	ret
 
+idt_real:
+	.word 0x3ff
+	.int 0
+	cli
+	mov %cr0, %eax
+	and 0x7ffffffe, %eax
+	mov %eax, %cr0
+
+
+GoRMode:
+	mov $0x8000, %sp
+	mov $0, %ax
+	mov %ax, %ds
+	mov %ax, %es
+	mov %ax, %fs
+	mov %ax, %gs
+	mov %ax, %ss
+	lidt idt_real
+	sti
+
 .global _start
 .type _start, @function
 _start:

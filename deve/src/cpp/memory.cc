@@ -14,9 +14,29 @@
  * terms of the LICENSE, found in the top level directory.
  */
 
- #include <stdbool.h>
- #include <stddef.h>
- #include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
+#include "declarations.h"
+
+void memset(char *dest, char src, int len) {
+	char *p = dest;
+  while (len--) {
+    *p++ = src;
+  }
+}
+
+void memset(char *dest, char src) {
+  *b = src;
+}
+
+void memcpy(char *dest, char *src, int length) {
+	char *p = dest;
+	while (length--) {
+		*p++ = *src++;
+	}
+}
 
 int usableStart = 0xCDCDCDCD + (8192 * 4);
 int startEndPairs[8192];
@@ -26,44 +46,6 @@ void prepMemory () {
   startEndPairs[1] = usableStart;
 }
 int usableEnd = 0xFDFDFDFD;
-
-void *memset(void *s, int c, size_t len) {
-  char *p = (char *)s;
-  for (size_t i = 0; i != len; ++i) {
-    p[i] = c;
-  }
-  return s;
-}
-
-void *memset(void *b, int c) {
-  char *p = (char *)b;
-  p[0] = c;
-  return b;
-}
-
-void memcpy(void *a, void *b, int length) {
-  char *origin = (char *)a;
-  char *destination = (char *)b;
-  for (int i = 0; i < length; i++) {
-    destination[i] = origin[i];
-  }
-}
-
-void memcpy(void *a, void *b) {
-  char *origin = (char *)a;
-  char *destination = (char *)b;
-  destination[0] = origin[0];
-}
-
-void strcpy(string a, string b) {
-  int it;
-  for (it = 0; a[it] != NULL; it++) {
-    b[it] = a[it];
-  }
-  for (it = it; b[it] != NULL; it++) {
-    b[it] = NULL;
-  }
-}
 
 void* malloc(int size) {
   void* ptr = 0x00000000;
