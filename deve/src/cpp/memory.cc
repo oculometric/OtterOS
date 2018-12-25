@@ -13,28 +13,23 @@
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
-
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
-
-#include "declarations.h"
+ #include "declarations.h"
 
 void memset(char *dest, char src, int len) {
 	char *p = dest;
   while (len--) {
-    *p++ = src;
+    *(p++) = src;
   }
 }
 
 void memset(char *dest, char src) {
-  *b = src;
+  *dest = src;
 }
 
 void memcpy(char *dest, char *src, int length) {
 	char *p = dest;
 	while (length--) {
-		*p++ = *src++;
+		*(p++) = *(src++);
 	}
 }
 
@@ -47,8 +42,8 @@ void prepMemory () {
 }
 int usableEnd = 0xFDFDFDFD;
 
-void* malloc(int size) {
-  void* ptr = 0x00000000;
+void * malloc(int size) {
+  void *ptr = 0x00000000;
   int ind = 1;
   int dif = 1;
   while (true) {
@@ -63,7 +58,7 @@ void* malloc(int size) {
       break;
     }
     if ((comp2 - comp1) > size) {
-      ptr = (void*)comp1+1;
+      ptr = (char*)comp1+1;
       int plannedPos = ind+1;
       if (startEndPairs[plannedPos] != 0x0) {
         int tmpa = startEndPairs[plannedPos];
@@ -90,17 +85,17 @@ void* malloc(int size) {
   return ptr;
 }
 
-void* calloc(int size) {
-  void* ptr = malloc(size);
-  memset(ptr, 0x00000000, size);
+void * calloc(int size) {
+  void *ptr = malloc(size);
+  memset((char *)ptr, 0x00000000, size);
 	return ptr;
 }
 
-void free (void* p) {}
+void free (void *p) {}
 
-void *operator new(size_t size) { return malloc(size); }
+void * operator new(size_t size) { return malloc(size); }
 
-void *operator new[](size_t size) { return malloc(size); }
+void * operator new[](size_t size) { return malloc(size); }
 
 void operator delete(void *p) { free(p); }
 

@@ -78,7 +78,7 @@ int arraylen(char **array) {
 
 int contains(char **array, char *str) {
   for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
-    if (strEqual(array[itemNo], str)) {
+    if (strcmp(array[itemNo], str)) {
       return itemNo;
     }
   }
@@ -88,7 +88,7 @@ int contains(char **array, char *str) {
 // Determine the index (if any) of an item within an array
 int contains(const char **array, char *str) {
   for (int itemNo = 0; array[itemNo] != 0x00; itemNo++) {
-    if (strEqual(array[itemNo], str)) {
+    if (strcmp(array[itemNo], str)) {
       return itemNo;
     }
   }

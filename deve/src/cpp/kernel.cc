@@ -21,8 +21,9 @@
 // The starting point of the high level kernel
 extern "C" void kernel_main(void) {
 	// Designed to init into terminal for now.
+	init_serial();
 	log ("Preparing memory manager...");
-	prepMemory();
+	//prepMemory();
 	log ("Done");
 	log ("Starting Otter kernel...");
 	OtterKernel ok = OtterKernel ();

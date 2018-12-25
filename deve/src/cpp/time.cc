@@ -13,6 +13,9 @@
  * You may use, distribute and modify this code under the
  * terms of the LICENSE, found in the top level directory.
  */
+
+#include "declarations.h"
+
 void sleep (int delay) {
 	int del = delay * 10000000;
 	volatile int sink;

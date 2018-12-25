@@ -18,14 +18,14 @@
 #define PORT 0x3f8 /* COM1 */
 
 // Get a byte of input
-static inline uint8_t inb(uint16_t port) {
+uint8_t inb(uint16_t port) {
   uint8_t ret;
   asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port));
   return ret;
 }
 
 // Set a byte of output
-static inline void outb(unsigned short port, unsigned char val) {
+void outb(unsigned short port, unsigned char val) {
   asm volatile("outb %0, %1" : : "a"(val), "Nd"(port));
 }
 
@@ -75,7 +75,7 @@ void fatal (char *msg) {
   log ("==========FATAL==========");
   log (msg);
   log ("=========================");
-	shouldContinue = false;
+	//shouldContinue = false;
 }
 
 // Log a warning

@@ -11,9 +11,8 @@ if [ ! $? -eq 0 ]; then
 	exit 1
 fi
 
-oPaths=“”
 echo Searching for source files
-for file in deve/src/cpp/*.{cc,h}
+for file in deve/src/cpp/*.cc
 do
 	echo Compiling C++ source file $file
 	name=`echo "$file" | cut -d'.' -f1`
@@ -22,20 +21,7 @@ do
 	if [ ! $? -eq 0 ]; then
 		exit 1
 	fi
- oPaths=o/$file.o $oPaths
 done
-
-# echo Compiling C++ headers
-# i686-elf-g++ -g -c deve/src/cpp/*.h -o deve/bin/o/*.o -ffreestanding -O2 -Wall -fno-exceptions -fno-rtti -w #-Wno-write-strings -Wno-pointer-arith # -masm=intel
-# if [ ! $? -eq 0 ]; then
-# 	exit 1
-# fi
-
-# echo Compiling C++ sources
-# i686-elf-g++ -g -c deve/src/cpp/*.cc -o deve/bin/o/*.o -ffreestanding -O2 -fno-exceptions -fno-rtti -w #-Wno-write-strings -Wno-pointer-arith # -masm=intel
-# if [ ! $? -eq 0 ]; then
-# 	exit 1
-# fi
 
 cd deve/bin/
 

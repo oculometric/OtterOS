@@ -17,15 +17,15 @@
 
 int strlen (char *s) { // Determine the length of a string
 	int ret = 0;
-	while (str[ret] != 0)
+	while (s[ret] != 0)
 		ret++;
 	return ret;
 }
 
-int strcmp (const char *dst char *src) {
+int strcmp (const char *s1, char *s2) {
 	int i = 0;
-	while (dst[i] == src[i]) {
-		if (src[i++] == '\0') return true;
+	while (s1[i] == s2[i]) {
+		if (s2[i++] == '\0') return true;
 	}
 	return false;
 }
@@ -38,19 +38,19 @@ void strcpy (char *dst, const char *src) {
 
 void strcat (char *dest, const char *src) {
 	char *destStart = (char*) ((int)dest+strlen(dest));
-	memcpy(destStart, src, stlen(src));
+	memcpy(destStart, (char*)src, strlen((char*)src));
 }
 
 void strncpy (char *destString, const char *sourceString, int maxLength) {
 	int i = 0;
 	while ((i < maxLength) && (sourceString[i] != '\0')) {
-		dst[i] = src[i++];
+		destString[i] = sourceString[i++];
 	}
 }
 
 bool strncmp (const char *s1, const char *s2, int c) {
 	int i = 0;
-	while (dst[i] == src[i++]) {
+	while (s1[i] == s2[i++]) {
 		if (i == c) return true;
 	}
 	return false;

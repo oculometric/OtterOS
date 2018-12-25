@@ -1,4 +1,8 @@
 // Define keyboard inputs
+
+#include "usqwerty.h"
+#include "declarations.h"
+
 #define PIC1 0x20
 #define PIC2 0xA0
 
@@ -47,11 +51,13 @@ char characterOf (char c) {
 void prepareKeyboard () {
   // Set up the terminal environment
   log ("Setting up terminal environment...");
-  t.tInitialize();
-  log ("Done");
+  //t.tInitialize();
+  log ("Failed");
+  fatal ("Terminal environment setup failed, terminal not implemented!");
 
   // Prompt the user for input
-  displayPrompt();
+  //displayPrompt();
+  fatal ("Prompt was not displayed, all will fail!");
 
   // Start listening for keyboard input
   log ("Starting keypress listener...");
