@@ -22,13 +22,13 @@
 extern "C" void kernel_main(void) {
 	// Designed to init into terminal for now.
 	init_serial();
-	log ("Preparing memory manager...");
+	logLn ("Preparing memory manager...");
 	//prepMemory();
-	log ("Done");
-	log ("Starting Otter kernel...");
+	logLn ("Done");
+	logLn ("Starting Otter kernel...");
 	OtterKernel ok = OtterKernel ();
 	ok.prepare();
-	log ("Finished");
-	log ("=========TERMINATE=========");
+	logLn ("Finished");
+	logLn ("=========TERMINATE=========");
 	// graphicalKernel();
 }

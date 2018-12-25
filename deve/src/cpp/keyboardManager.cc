@@ -11,7 +11,7 @@
 
 void init_pics(int pic1, int pic2) {
   /* send ICW1 */
-  log ("Initialising PICs for keyboard input...");
+  logLn ("Initialising PICs for keyboard input...");
   outb(PIC1, ICW1);
   outb(PIC2, ICW1);
 
@@ -29,7 +29,7 @@ void init_pics(int pic1, int pic2) {
 
   /* disable all IRQs */
   outb(PIC1 + 1, 0xFF);
-  log ("Done");
+  logLn ("Done");
 }
 
 bool isWaitingForUp = false;
@@ -50,9 +50,9 @@ char characterOf (char c) {
 
 void prepareKeyboard () {
   // Set up the terminal environment
-  log ("Setting up terminal environment...");
+  logLn ("Setting up terminal environment...");
   //t.tInitialize();
-  log ("Failed");
+  logLn ("Failed");
   fatal ("Terminal environment setup failed, terminal not implemented!");
 
   // Prompt the user for input
@@ -60,22 +60,22 @@ void prepareKeyboard () {
   fatal ("Prompt was not displayed, all will fail!");
 
   // Start listening for keyboard input
-  log ("Starting keypress listener...");
+  logLn ("Starting keypress listener...");
   init_pics(0x20, 0x28);
   outb(0x60, 0xF0);
   while (inb(0x60) != 0xFA);
   outb(0x60, 0);
   while (inb(0x60) != 0xFA);
 
-  log ("Set keyboard scan code set to 1");
+  logLn ("Set keyboard scan code set to 1");
 
   outb(0x60, 0xF3);
   while (inb(0x60) != 0xFA);
   outb(0x60, 0x7F);
   while (inb(0x60) != 0xFA);
 
-  log ("Finshed keyboard setup");
-  log ("Done");
+  logLn ("Finshed keyboard setup");
+  logLn ("Done");
 }
 
 // Returns a character if a key is pressed, otherwise 0x00

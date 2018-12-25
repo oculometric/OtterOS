@@ -23,7 +23,7 @@ void OtterKernel::prepare () {
   //logHex (al_value);
   //log ("We damn well did it!");
   //protectedBad();
-  log ("Hanging...");
+  logLn ("Hanging...");
   while (true); // Hang here
 
 }

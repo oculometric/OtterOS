@@ -48,17 +48,18 @@ bool strncmp (const char *s1, const char *s2, int c);
 void init_serial ();
 void outb(unsigned short port, unsigned char val);
 uint8_t inb(uint16_t port);
-void logChar (char c); // Need fixing
-void logInt (int i); //
-void logHex (int i); //
-void log (char *s); //
+void logChar (char c);
+void logInt (int i);
+void logHex (int i);
+void logLn (char *s);
+void log (char *s);
 void fatal (char *msg);
 void warn (char *msg);
 
 // modectl.cc
 void switchToRealMode (); // Need implementing
 void switchToProtectedMode (); //
-void executeFunctionInProtectedMode (void *func, int functionByteLength); //
+void executeFunctionInProtectedMode (void *funcStart, char funcEndChar); //
 
 // time.cc
 void sleep (int delay);

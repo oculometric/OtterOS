@@ -96,7 +96,7 @@ int contains(const char **array, char *str) {
 }
 
 static inline void realBad () {
-	log ("Going into real mode...");
+	logLn ("Going into real mode...");
 	asm (R"(idt_real:
 		.word 0x3ff
 		.int 0
@@ -116,11 +116,11 @@ static inline void realBad () {
 		mov %ax, %ss
 		lidt idt_real
 		sti  )");
-		log ("Done");
+		logLn ("Done");
 	}
 
 static inline void protectedBad () {
-	log ("Going back into protected...");
+	logLn ("Going back into protected...");
 	asm (R"(cli
 		#lgdt (gdtr)
 		mov %cr0, %eax
@@ -130,7 +130,7 @@ static inline void protectedBad () {
 
 		PModeMain:
 		# load DS, ES, FS, GS, SS, ESP)");
-	log ("Done");
+	logLn ("Done");
 }
 
 // Switch into real mode (not working)
@@ -167,7 +167,7 @@ static inline void changeToRealMode() {
       		lidt idt_real
       		sti
 				)");
-				log ("WE DID IT OMG");
+				logLn ("WE DID IT OMG");
 }
 
 // Switch into protected mode (not working)

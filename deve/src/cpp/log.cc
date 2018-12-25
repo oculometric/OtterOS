@@ -15,7 +15,7 @@
  */
 #include "declarations.h"
 
-#define PORT 0x3f8 /* COM1 */
+#define PORT 0x3F8 /* COM1 */
 
 // Get a byte of input
 uint8_t inb(uint16_t port) {
@@ -46,11 +46,24 @@ void write_serial(char a) {
   outb(PORT, a);
 }
 
-void log(char *s) {
+int serial_received() { return inb(PORT + 5) & 1; }
+
+char read_serial() {
+   while (serial_received() == 0);
+   return inb(PORT);
+}
+
+void logLn(char *s) {
   for (int i = 0; s[i] != NULL; i++) {
     write_serial(s[i]);
   }
   write_serial(0x0A);
+}
+
+void log(char *s) {
+  for (int i = 0; s[i] != NULL; i++) {
+    write_serial(s[i]);
+  }
 }
 
 void logChar (char c) {
@@ -59,28 +72,39 @@ void logChar (char c) {
 }
 
 void logInt (int i) {
-	char s[64];
+  int c = i;
+  int r = 0;
+  do {
+    r++;
+  } while (c /= 10);
+	char s[r] = {0x0};
 	intToString(s, i, 10);
-  log (s);
+  logLn (s);
 }
 
 void logHex (int i) {
-	char s[64];
+  int c = i;
+  int r = 0;
+  do {
+    r++;
+  } while (c /= 16);
+	char s[r] = {0x0};
 	intToString(s, i, 16);
-	log(s);
+	log ("0x");
+  logLn (s);
 }
 
 //Log that a fatal error occurred
 void fatal (char *msg) {
-  log ("==========FATAL==========");
-  log (msg);
-  log ("=========================");
+  logLn ("==========FATAL==========");
+  logLn (msg);
+  logLn ("=========================");
 	//shouldContinue = false;
 }
 
 // Log a warning
 void warn (char *msg) {
-  log ("==========WARNING==========");
-  log (msg);
-  log ("===========================");
+  logLn ("==========WARNING==========");
+  logLn (msg);
+  logLn ("===========================");
 }
