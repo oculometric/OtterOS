@@ -23,7 +23,18 @@ void OtterKernel::prepare () {
   //logHex (al_value);
   //log ("We damn well did it!");
   //protectedBad();
-  logLn ("Hanging...");
-  while (true); // Hang here
-
+  Terminal *t = new Terminal ();
+  t->setActiveStyleFlag (t->make_color(vga_color::COLOR_RED, vga_color::COLOR_WHITE));
+  t->resetTerminal();
+  while (true) {
+    t->println ("Hi there!");
+    t->println ("It be working my doods.");
+    t->println ("We're gonna stay right here...");
+    sleep (60);
+    t->println ("Screw this!");
+    sleep (30);
+    t->deleteLines (2);
+    t->println ("Let's do it again!");
+    sleep (30);
+  }
 }

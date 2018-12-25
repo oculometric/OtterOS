@@ -73,17 +73,6 @@ public:
 		terminal_buffer[index] = make_vgaentry(c, color);
 	}
 
-	// Move the cursor to the end of the text
-	void updateCursorLocation() {
-		unsigned short cursorLoc = (terminal_row * VGA_WIDTH) + terminal_column;
-		// cursor LOW port to vga INDEX register
-		outb(0x3D4, 0x0F);
-		outb(0x3D5, (unsigned char)(cursorLoc));
-		// cursor HIGH port to vga INDEX register
-		outb(0x3D4, 0x0E);
-		outb(0x3D5, (unsigned char)((cursorLoc >> 8)));
-	}
-
 	// Add a character to the end of the string
 	void tPutChar(char c) {
 		tPutEntryAt(c, terminal_color, terminal_column, terminal_row);

@@ -35,38 +35,6 @@ void intToString (char *buf, unsigned long int n, int base) {
 	}
 }
 
-// Define a bunch of colour constants
-enum vga_color {
-  COLOR_BLACK = 0,
-  COLOR_BLUE = 1,
-  COLOR_GREEN = 2,
-  COLOR_CYAN = 3,
-  COLOR_RED = 4,
-  COLOR_MAGENTA = 5,
-  COLOR_BROWN = 6,
-  COLOR_LIGHT_GREY = 7,
-  COLOR_DARK_GREY = 8,
-  COLOR_LIGHT_BLUE = 9,
-  COLOR_LIGHT_GREEN = 10,
-  COLOR_LIGHT_CYAN = 11,
-  COLOR_LIGHT_RED = 12,
-  COLOR_LIGHT_MAGENTA = 13,
-  COLOR_LIGHT_BROWN = 14,
-  COLOR_WHITE = 15,
-};
-
-// Generate foreground/background pair
-uint8_t make_color(enum vga_color fg, enum vga_color bg) {
-  return fg | bg << 4;
-}
-
-// Generate a VGA entry from a colour and a character
-uint16_t make_vgaentry(char c, uint8_t color) {
-  uint16_t c16 = c;
-  uint16_t color16 = color;
-  return c16 | color16 << 8;
-}
-
 // Get the length of an array of strings
 int arraylen(char **array) {
   int ret = -1;
@@ -95,89 +63,7 @@ int contains(const char **array, char *str) {
   return -1;
 }
 
-static inline void realBad () {
-	logLn ("Going into real mode...");
-	asm (R"(idt_real:
-		.word 0x3ff
-		.int 0
-		cli
-		mov %cr0, %eax
-		and 0x7ffffffe, %eax
-		mov %eax, %cr0
 
-
-		GoRMode:
-		mov $0x8000, %sp
-		mov $0, %ax
-		mov %ax, %ds
-		mov %ax, %es
-		mov %ax, %fs
-		mov %ax, %gs
-		mov %ax, %ss
-		lidt idt_real
-		sti  )");
-		logLn ("Done");
-	}
-
-static inline void protectedBad () {
-	logLn ("Going back into protected...");
-	asm (R"(cli
-		#lgdt (gdtr)
-		mov %cr0, %eax
-		or 1, %al
-		mov %eax, %cr0
-		jmp PModeMain
-
-		PModeMain:
-		# load DS, ES, FS, GS, SS, ESP)");
-	logLn ("Done");
-}
-
-// Switch into real mode (not working)
-static inline void changeToRealMode() {
-  asm(R"(idt_real:
-					.word 0x3ff
-					.int 0
-				savcr0:
-      		.int 0
-				Entry16:
-					cli
-					mov DATASEL16, %eax
-					mov %eax, %ds
-      		mov %eax, %es
-      		mov %eax, %fs
-      		mov %eax, %gs
-      		mov %eax, %ss
-
-      		mov %cr0, %eax
-      		mov %eax, (savcr0)
-      		and $0x7FFFFFFe, %eax
-      		mov %eax, %cr0
-
-      		jmp GoRMode
-
-      	GoRMode:
-      		mov $0x8000, %sp
-      		mov $0, %ax
-      		mov %ax, %ds
-      		mov %ax, %es
-      		mov %ax, %fs
-      		mov %ax, %gs
-      		mov %ax, %ss
-      		lidt idt_real
-      		sti
-				)");
-				logLn ("WE DID IT OMG");
-}
-
-// Switch into protected mode (not working)
-static inline void changeToProtectedMode() {
-  asm("cli          \n\t"
-      "lgdt gdtr  \n\t"
-      "mov %eax, %cr0 \n\t"
-      "or %al, $1     \n\t"
-      "mov %cr0, %eax");
-}
 
 
 
