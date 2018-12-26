@@ -34,7 +34,9 @@ void OtterKernel::prepare () {
     t->println ("Screw this!");
     sleep (30);
     t->deleteLines (2);
+    t->setActiveStyleFlag(t->make_color(vga_color::COLOR_CYAN, vga_color::COLOR_MAGENTA));
     t->println ("Let's do it again!");
+    t->setActiveStyleFlag (t->make_color(vga_color::COLOR_RED, vga_color::COLOR_WHITE));
     sleep (30);
   }
 }

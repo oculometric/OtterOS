@@ -23,7 +23,7 @@ extern "C" void kernel_main(void) {
 	// Designed to init into terminal for now.
 	init_serial();
 	logLn ("Preparing memory manager...");
-	//prepMemory();
+	prepMemory();
 	logLn ("Done");
 	logLn ("Starting Otter kernel...");
 	OtterKernel ok = OtterKernel ();

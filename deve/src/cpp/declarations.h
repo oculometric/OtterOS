@@ -27,9 +27,10 @@ void intToString (char *buf, unsigned long int n, int base);
 void memset(char *dest, char src);
 void memset(char *dest, char src, int len);
 void memcpy(char *dest, char *src, int length);
-void * calloc (int size);
-void * malloc (int size);
+void * calloc (size_t size);
+void * malloc (size_t size);
 void free (void * p);
+void prepMemory ();
 
 void * operator new(size_t size);
 void * operator new[](size_t size);
