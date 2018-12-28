@@ -1,5 +1,27 @@
 #include "declarations.h"
 
+class TestClass {
+  int a;
+  int b;
+  int c;
+  char s[10];
+};
+
+void OtterKernel::memoryTest () {
+  logAllocationTable();
+  Terminal *t = new Terminal ();
+  logLn ("Created terminal object");
+  logAllocationTable();
+  TestClass *tc = new TestClass ();
+  log ("Made TestClass instance, size of class is: "); logInt (sizeof (TestClass));
+  logAllocationTable();
+  TestClass *tc2 = new TestClass ();
+  //delete tc;
+  free (tc);
+  logLn ("Final *test* done");
+  logAllocationTable;
+}
+
 void OtterKernel::prepare () {
   //realBad();
   //regs16_t regs;
@@ -24,6 +46,7 @@ void OtterKernel::prepare () {
   //log ("We damn well did it!");
   //protectedBad();
   Terminal *t = new Terminal ();
+
   t->setActiveStyleFlag (t->make_color(vga_color::COLOR_RED, vga_color::COLOR_WHITE));
   t->resetTerminal();
   while (true) {

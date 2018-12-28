@@ -1,0 +1,80 @@
+Preparing memory manager...
+Done
+Starting Otter kernel...
+Logging allocation table:
+Item 0
+Memory Address=0x0
+Is Free=false
+Size=1
+
+Item 1
+Memory Address=0x1
+Is Free=true
+Size=2147483647
+
+Created terminal object
+Logging allocation table:
+Item 0
+Memory Address=0x0
+Is Free=false
+Size=1
+
+Item 1
+Memory Address=0x1
+Is Free=false
+Size=16
+
+Item 2
+Memory Address=0x11
+Is Free=true
+Size=2147483631
+
+Made TestClass instance, size of class is: 24
+Logging allocation table:
+Item 0
+Memory Address=0x0
+Is Free=false
+Size=1
+
+Item 1
+Memory Address=0x1
+Is Free=false
+Size=16
+
+Item 2
+Memory Address=0x11
+Is Free=false
+Size=24
+
+Item 3
+Memory Address=0x29
+Is Free=true
+Size=2147483607
+
+Logging allocation table:
+Item 0
+Memory Address=0x0
+Is Free=true
+Size=1
+
+Item 1
+Memory Address=0x1
+Is Free=true
+Size=16
+
+Item 2
+Memory Address=0x11
+Is Free=true
+Size=24
+
+Item 3
+Memory Address=0x29
+Is Free=true
+Size=24
+
+Item 4
+Memory Address=0x41
+Is Free=true
+Size=2147483583
+
+Final *test* done

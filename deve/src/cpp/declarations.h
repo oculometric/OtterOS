@@ -37,6 +37,8 @@ void * operator new[](size_t size);
 void operator delete(void *p);
 void operator delete[](void *p);
 
+void logAllocationTable ();
+
 // string.cc
 int strlen (char *s);
 int strcmp (const char *s1, char *s2);
@@ -50,9 +52,10 @@ void init_serial ();
 void outb(unsigned short port, unsigned char val);
 uint8_t inb(uint16_t port);
 void logChar (char c);
-void logInt (int i);
+void logInt (long int i);
 void logHex (int i);
 void logLn (char *s);
+void logBool (bool b);
 void log (char *s);
 void fatal (char *msg);
 void warn (char *msg);
@@ -69,6 +72,7 @@ void sleep (int delay);
 class OtterKernel {
 public:
 	void prepare ();
+  void memoryTest();
 };
 
 

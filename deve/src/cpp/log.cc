@@ -71,8 +71,8 @@ void logChar (char c) {
 	write_serial(0x0A);
 }
 
-void logInt (int i) {
-  int c = i;
+void logInt (long int i) {
+  long int c = i;
   int r = 0;
   do {
     r++;
@@ -91,6 +91,11 @@ void logHex (int i) {
 	char s[r] = {0x0};
 	intToString(s, i, 16);
 	log ("0x");
+  logLn (s);
+}
+
+void logBool (bool b) {
+  char *s = b ? (char *)"true" : (char *)"false";
   logLn (s);
 }
 

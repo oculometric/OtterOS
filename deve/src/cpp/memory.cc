@@ -17,7 +17,8 @@
 
 void memset(char *dest, char src, int len) {
 	char *p = dest;
-  while (len--) {
+  int c = len;
+  while (c--) {
     *(p++) = src;
   }
 }
@@ -33,58 +34,97 @@ void memcpy(char *dest, char *src, int length) {
 	}
 }
 
-unsigned char *usableStart = (unsigned char *) 0x00100000;
-unsigned char *usableEnd = (unsigned char *) 0x00EFFFFF;
-unsigned char *allocationStart;
+typedef struct heap_block {
+    size_t size;
+    bool isFree;
+    void *x;
+} header;
 
-size_t totalSize = usableEnd-usableStart;
+unsigned char *usableStart = (unsigned char *) 0x0000000100000000;
+heap_block *headers = (heap_block *) 0x00007E00;
+int numHeaderBlocks = 0;
+
+size_t allocatedSpace = 0;
+size_t freeSpace = 0;
+
+long long int heapSpace = 4294967296/2;
 
 void prepMemory () {
-
-  allocationStart = usableStart+1;
-  logLn ("memset is failing");
-  memset((char *)usableStart, 0x00000000, usableEnd-usableStart);
+  //memset ((char *)headers, '\0', 0x0007FFFF - (int)headers);
+  heap_block b = heap_block ();
+  b.size = heapSpace;
+  b.isFree = true;
+  b.x = usableStart;
+  headers[0] = b;
+  numHeaderBlocks++;
+  freeSpace = heapSpace;
+  //memset((char *)usableStart, 0x00000000, usableEnd-usableStart);
   // memset((char *)usableStart, 0xCCCCCCCC);
   // memset((char *)usableEnd,   0xCCCCCCCD);
 }
 
-void * find (void *start, void *end, int findValue) {
-  while (start < end) {
-    if (*((char *)start) == findValue) {
-      return start;
-    }
-    start++;
-  }
-  return (void *)0xCDCDCDCD;
-}
-
-void * findNextFreeAllocationSpace (void *start) {
-  while ((*((char *)start) != 0x0) && start < usableEnd) {
-    start = find (start, usableEnd, 0xCCCCCCCD);
-    if (start == (void *)0xCDCDCDCD) {
-      logLn ("Could not find another end spacer!");
-      return start;
-    }
-    start++;
-  }
-  return start;
-}
-
 void * malloc (size_t size) {
-  void *startPtr = allocationStart;
-  void *emptyEnd = find (startPtr, usableEnd, 0xCCCCCCCC);
-  if (emptyEnd == (void *)0xCDCDCDCD) {
-    return startPtr;
-  }
-  while ( (((char *)emptyEnd)-((char *)startPtr) < size) && ((startPtr + size) < usableEnd) ) {
-    startPtr = findNextFreeAllocationSpace (find (startPtr+1, usableEnd, 0xCCCCCCCD));
-    emptyEnd = find (startPtr, usableEnd, 0xCCCCCCCC);
-    if (emptyEnd == (void *)0xCDCDCDCD) {
-      emptyEnd = usableEnd;
+  if (size == 0 || size > heapSpace) return 0x0;
+  int i = 0;
+  while (i < numHeaderBlocks) {
+    if (headers[i].isFree) {
+      if (headers[i].size >= size) {
+        // Found a free block large enough
+        void *returnValue = headers[i].x;
+        headers[i].size = headers[i].size - size;
+        headers[i].x += size;
+
+        int x = numHeaderBlocks;
+        while (x > i) {
+          headers[x] = headers[x-1];
+          x--;
+        }
+
+        heap_block b = heap_block ();
+        b.size = size;
+        b.isFree = false;
+        b.x = returnValue;
+        headers[i] = b;
+        numHeaderBlocks++;
+
+        freeSpace -= size;
+        allocatedSpace += size;
+        return returnValue;
+      }
     }
+    i++;
   }
 
-  return startPtr;
+  return 0x0;
+}
+
+void updateAllocationTable () {
+  logAllocationTable();
+  // Merge adjacent free blocks if possible
+
+}
+
+void logAllocationTable () {
+  logLn ("Logging allocation table:");
+  for (int i = 0; i < numHeaderBlocks; i++) {
+    log ("Item "); logInt(i);
+    log ("Memory Address="); logHex ((long int)headers[i].x);
+    log ("Is Free="); logBool (headers[i].isFree);
+    log ("Size="); logInt (headers[i].size);
+    logLn ("");
+  }
+}
+
+void free (void *p) {
+  int i = 0;
+  while (i < numHeaderBlocks) {
+    if (headers[i].x == p) {
+      headers[i].isFree = true;
+      break;
+    }
+    i++;
+  }
+  updateAllocationTable();
 }
 
 void * calloc(size_t size) {
@@ -92,55 +132,6 @@ void * calloc(size_t size) {
   memset((char *)ptr, 0x00000000, size);
 	return ptr;
 }
-
-void free (void *p) {
-  void *currentAllocationEnd = find (p, usableEnd, 0xCCCCCCCD);
-  int size = ((char *)currentAllocationEnd)-((char *)p);
-  memset(((char *)p)-1, 0x00000000, size);
-}
-
-// void * malloc(int size) {
-//   void *ptr = 0x00000000;
-//   int ind = 1;
-//   int dif = 1;
-//   while (true) {
-//     int comp1 = startEndPairs[ind];
-//     int comp2 = startEndPairs[ind+dif];
-//     while (comp2 == 0 && (dif + ind < 8192)) {
-//       dif++;
-//       comp2 = startEndPairs[ind+dif];
-//     }
-//     if (dif + ind >= 8192) {
-//       ptr = 0x0;
-//       break;
-//     }
-//     if ((comp2 - comp1) > size) {
-//       ptr = (char*)comp1+1;
-//       int plannedPos = ind+1;
-//       if (startEndPairs[plannedPos] != 0x0) {
-//         int tmpa = startEndPairs[plannedPos];
-//         int tmpb = startEndPairs[plannedPos+1];
-//
-//         for (int i = plannedPos+2; i <= 8190; i++) {
-//           int tmpc = tmpa;
-//           tmpa = tmpb;
-//           tmpb = startEndPairs[i];
-//           startEndPairs[i] = tmpc;
-//         }
-//       } else {
-//         startEndPairs[plannedPos] = (int) ptr;
-//         startEndPairs[plannedPos+1] = (int) ptr + size;
-//       }
-//
-//       break;
-//     } else {
-//       ind+=(dif+1);
-//       dif = 1;
-//     }
-//   }
-//
-//   return ptr;
-// }
 
 void * operator new(size_t size) { return malloc(size); }
 
