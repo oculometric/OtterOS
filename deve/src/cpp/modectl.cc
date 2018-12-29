@@ -1,5 +1,8 @@
 #include "declarations.h"
 
+// TODO: GDT Setup
+// TODO: Working mode switching
+
 void switchToRealMode () {
 	logLn ("Going into real mode...");
 	asm (R"(idt_real:

@@ -50,7 +50,6 @@ size_t freeSpace = 0;
 unsigned long long heapSpace = 4294967296/2;
 
 void prepMemory () {
-  logHex ((long long int)usableStart);
   heap_block b = heap_block ();
   b.size = heapSpace;
   b.isFree = true;
@@ -135,6 +134,6 @@ void * operator new(size_t size) { return malloc(size); }
 
 void * operator new[](size_t size) { return malloc(size); }
 
-void operator delete(void *p) { free(p); } // TODO: fix delete operator
+void operator delete(void *p) { free(p); } // FIXME: Fix delete operator
 
 void operator delete[](void *p) { free(p); }
