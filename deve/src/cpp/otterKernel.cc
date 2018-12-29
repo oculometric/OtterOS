@@ -8,6 +8,7 @@ class TestClass {
 };
 
 void OtterKernel::memoryTest () {
+  logLn ("The following is a test to demonstrate the functionality of the memory manager");
   logAllocationTable();
   Terminal *t = new Terminal ();
   logLn ("Created terminal object");
@@ -18,8 +19,8 @@ void OtterKernel::memoryTest () {
   TestClass *tc2 = new TestClass ();
   //delete tc;
   free (tc);
-  logLn ("Final *test* done");
-  logAllocationTable;
+  logAllocationTable();
+  logLn ("Okay, tests done.");
 }
 
 void OtterKernel::prepare () {
@@ -45,10 +46,13 @@ void OtterKernel::prepare () {
   //logHex (al_value);
   //log ("We damn well did it!");
   //protectedBad();
-  Terminal *t = new Terminal ();
+  t = new Terminal ();
 
   t->setActiveStyleFlag (t->make_color(vga_color::COLOR_RED, vga_color::COLOR_WHITE));
   t->resetTerminal();
+}
+
+void OtterKernel::terminalStart () {
   while (true) {
     t->println ("Hi there!");
     t->println ("It be working my doods.");

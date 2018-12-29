@@ -17,7 +17,7 @@ do
 	echo Compiling C++ source file $file
 	name=`echo "$file" | cut -d'.' -f1`
 	name=`basename $name`
-	i686-elf-g++ -c $file -o deve/bin/o/$name.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -w
+	i686-elf-g++ -c $file -o deve/bin/o/$name.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -w #-ggdb
 	if [ ! $? -eq 0 ]; then
 		exit 1
 	fi
@@ -43,6 +43,8 @@ echo Generating ISO file
 cp bin/otterOS.bin isodir/boot/otterOS.bin
 #cp grub.cfg isodir/boot/grub/grub.cfg
 grub-mkrescue -o iso/otterOS-$fileName.iso isodir
+#i686-elf-objcopy --only-keep-debug bin/otterOS.bin kernel.o
+#i686-elf-objcopy --strip-debug bin/otterOS.bin
 cp iso/otterOS-$fileName.iso ../../OtterOS-Latest.iso
 
 echo Script Finished

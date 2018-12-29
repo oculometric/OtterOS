@@ -68,14 +68,6 @@ void executeFunctionInProtectedMode (void *funcStart, char funcEndChar); //
 // time.cc
 void sleep (int delay);
 
-// otterKernel.cc
-class OtterKernel {
-public:
-	void prepare ();
-  void memoryTest();
-};
-
-
 enum vga_color {
   COLOR_BLACK = 0,
   COLOR_BLUE = 1,
@@ -117,4 +109,14 @@ private:
 
   uint16_t make_vgaentry(char c, uint8_t color);
   void updateCursorLocation ();
+};
+
+
+// otterKernel.cc
+class OtterKernel {
+public:
+	void prepare ();
+  void memoryTest ();
+  void terminalStart ();
+  Terminal *t;
 };

@@ -40,17 +40,17 @@ typedef struct heap_block {
     void *x;
 } header;
 
-unsigned char *usableStart = (unsigned char *) 0x0000000100000000;
-heap_block *headers = (heap_block *) 0x00007E00;
+void *usableStart = (void *) 0x1000000;
+heap_block *headers = (heap_block *) 0x000007E00;
 int numHeaderBlocks = 0;
 
 size_t allocatedSpace = 0;
 size_t freeSpace = 0;
 
-long long int heapSpace = 4294967296/2;
+unsigned long long heapSpace = 4294967296/2;
 
 void prepMemory () {
-  //memset ((char *)headers, '\0', 0x0007FFFF - (int)headers);
+  logHex ((long long int)usableStart);
   heap_block b = heap_block ();
   b.size = heapSpace;
   b.isFree = true;
@@ -58,13 +58,10 @@ void prepMemory () {
   headers[0] = b;
   numHeaderBlocks++;
   freeSpace = heapSpace;
-  //memset((char *)usableStart, 0x00000000, usableEnd-usableStart);
-  // memset((char *)usableStart, 0xCCCCCCCC);
-  // memset((char *)usableEnd,   0xCCCCCCCD);
 }
 
 void * malloc (size_t size) {
-  if (size == 0 || size > heapSpace) return 0x0;
+  if (size == 0 || size > freeSpace) return 0x0;
   int i = 0;
   while (i < numHeaderBlocks) {
     if (headers[i].isFree) {
@@ -99,8 +96,7 @@ void * malloc (size_t size) {
 }
 
 void updateAllocationTable () {
-  logAllocationTable();
-  // Merge adjacent free blocks if possible
+  // TODO: Merge adjacent free blocks if possible
 
 }
 
@@ -120,6 +116,8 @@ void free (void *p) {
   while (i < numHeaderBlocks) {
     if (headers[i].x == p) {
       headers[i].isFree = true;
+      freeSpace += headers[i].size;
+      allocatedSpace -= headers[i].size;
       break;
     }
     i++;
@@ -137,6 +135,6 @@ void * operator new(size_t size) { return malloc(size); }
 
 void * operator new[](size_t size) { return malloc(size); }
 
-void operator delete(void *p) { free(p); }
+void operator delete(void *p) { free(p); } // TODO: fix delete operator
 
 void operator delete[](void *p) { free(p); }

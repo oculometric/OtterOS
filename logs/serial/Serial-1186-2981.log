@@ -1,80 +1,82 @@
 Preparing memory manager...
+0x0
 Done
 Starting Otter kernel...
+The following is a test to demonstrate the functionality of the memory manager
 Logging allocation table:
 Item 0
 Memory Address=0x0
 Is Free=false
-Size=1
+Size=4
 
 Item 1
-Memory Address=0x1
+Memory Address=0x4
 Is Free=true
-Size=2147483647
+Size=2147483644
 
 Created terminal object
 Logging allocation table:
 Item 0
 Memory Address=0x0
 Is Free=false
-Size=1
+Size=4
 
 Item 1
-Memory Address=0x1
+Memory Address=0x4
 Is Free=false
 Size=16
 
 Item 2
-Memory Address=0x11
+Memory Address=0x14
 Is Free=true
-Size=2147483631
+Size=2147483628
 
 Made TestClass instance, size of class is: 24
 Logging allocation table:
 Item 0
 Memory Address=0x0
 Is Free=false
-Size=1
+Size=4
 
 Item 1
-Memory Address=0x1
+Memory Address=0x4
 Is Free=false
 Size=16
 
 Item 2
-Memory Address=0x11
+Memory Address=0x14
 Is Free=false
 Size=24
 
 Item 3
-Memory Address=0x29
+Memory Address=0x2c
 Is Free=true
-Size=2147483607
+Size=2147483604
 
 Logging allocation table:
 Item 0
 Memory Address=0x0
-Is Free=true
-Size=1
+Is Free=false
+Size=4
 
 Item 1
-Memory Address=0x1
-Is Free=true
+Memory Address=0x4
+Is Free=false
 Size=16
 
 Item 2
-Memory Address=0x11
+Memory Address=0x14
 Is Free=true
 Size=24
 
 Item 3
-Memory Address=0x29
-Is Free=true
+Memory Address=0x2c
+Is Free=false
 Size=24
 
 Item 4
-Memory Address=0x41
+Memory Address=0x44
 Is Free=true
-Size=2147483583
+Size=2147483580
 
-Final *test* done
+Okay, tests done.

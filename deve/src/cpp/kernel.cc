@@ -27,7 +27,9 @@ extern "C" void kernel_main(void) {
 	logLn ("Done");
 	logLn ("Starting Otter kernel...");
 	OtterKernel* ok = new OtterKernel ();
+	ok->memoryTest();
 	ok->prepare();
+	ok->terminalStart();
 	logLn ("Finished");
 	logLn ("=========TERMINATE=========");
 	// graphicalKernel();
