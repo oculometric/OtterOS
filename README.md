@@ -1,3 +1,5 @@
+**ABANDONED**
+
 # OtterOS
 OtterOS is a hybrid operating system written in C++. It was designed to make the most of all the best points of currently software, in a cross-platform format. We have experience in lots of different operating systems, and pieces of software, and had the idea of making a perfect 'unified' single operating system. We also like the idea of cross-platform applications: making production and distribution easier for both developer and user. We want to unify the interface style and filesystem setup, so the OS runs just the same on tablet or desktop. We also aim for fast bootups, efficient program design and speed, and of course: nice looking, user-and-dev-friendly design.
 
